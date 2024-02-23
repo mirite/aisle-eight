@@ -20,12 +20,17 @@ new class extends Component {
 
 <div>
     <form wire:submit="store">
-        <textarea
+        <div class="form-group">
+        <label for="description">{{ __('Description') }}</label>
+        <input
+            type="text"
+            id="description"
             wire:model="description"
             placeholder="{{ __('Like the banana aisle') }}"
             class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-        ></textarea>
-        <x-input-error :descriptions="$errors->get('description')" class="mt-2" />
+        >
+        </div>
+        <x-input-error :messages="$errors->get('description')" class="mt-2" />
         <x-primary-button class="mt-4">{{ __('Save') }}</x-primary-button>
     </form>
 </div>

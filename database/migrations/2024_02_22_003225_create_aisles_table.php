@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('aisles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('store_id')->constrained()->cascadeOnDelete();
+            $table->string('description');
+            $table->integer('position')->default(0);
         });
     }
 
