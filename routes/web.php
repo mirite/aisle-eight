@@ -35,12 +35,12 @@ Route::get('list', [ GroceryListController::class, 'index'])
      ->middleware(['auth', 'verified'])
      ->name('list');
 
-Route::get('aisle', [ AisleController::class, 'index'])
+Route::get('aisles', [ AisleController::class, 'index'])
      ->middleware(['auth', 'verified'])
-     ->name('aisle');
+     ->name('aisles');
 
-Route::get('store', [ StoreController::class, 'index'])
+Route::get('stores', [ StoreController::class, 'index'])
      ->middleware(['auth', 'verified'])
-     ->name('store');
+     ->name('stores');
 
 require __DIR__.'/auth.php';

@@ -14,7 +14,14 @@ new class extends Component
 
         $this->redirect('/', navigate: true);
     }
-}; ?>
+public $navItems = [
+    'items' => 'Items',
+    'stores' => 'Stores',
+    'aisles' => 'Aisles',
+    'profile' => 'Profile',
+];
+};
+?>
 
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
@@ -33,10 +40,16 @@ new class extends Component
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('items')" :active="request()->routeIs('items')" wire:navigate>
-                        {{ __('Items') }}
-                    </x-nav-link>
-                </div>
+            @foreach ($navItems as $slug => $name)
+                <x-nav-link
+                wire:key="{{$slug}}"
+                :href="route($slug)"
+                :active="request()->routeIs($slug)"
+                wire:navigate>
+                    {{ $name }}
+                </x-nav-link>
+            @endforeach
+                            </div>
             </div>
 
             <!-- Settings Dropdown -->
