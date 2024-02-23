@@ -3,24 +3,24 @@
 use App\Livewire\Actions\Logout;
 use Livewire\Volt\Component;
 
-new class extends Component
-{
+new class extends Component {
     /**
      * Log the current user out of the application.
      */
-    public function logout(Logout $logout): void
-    {
+    public function logout( Logout $logout ): void {
         $logout();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect( '/', navigate: true );
     }
-public $navItems = [
-    'items' => 'Items',
-    'stores' => 'Stores',
-    'aisles' => 'Aisles',
-    'profile' => 'Profile',
-];
-};
+
+    public array $navItems = [
+        'items'       => 'Items',
+        'stores'      => 'Stores',
+        'aisles'      => 'Aisles',
+        'profile'     => 'Profile',
+        'aisle-items' => 'Aisle Items',
+    ];
+}
 ?>
 
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">

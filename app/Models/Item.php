@@ -18,7 +18,7 @@ class Item extends Model
     }
 
     public function aisles(): BelongsToMany {
-        return $this->belongsToMany(Aisle::class);
+        return $this->belongsToMany(Aisle::class)->withPivot('price');
     }
 
 }

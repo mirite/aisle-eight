@@ -7,12 +7,15 @@ new class extends Component {
     #[Validate('required|string|max:255')]
     public string $message = '';
 
+    public \Illuminate\Database\Eloquent\Collection $aisles;
+
     public function store():void {
         $validated = $this->validate();
         auth()->user()->items()->create($validated);
-        $this->message = '';
+        $this->name = '';
         $this->dispatch('item-created');
     }
+
 }; ?>
 <div>
 <form wire:submit="store">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AisleController;
+use App\Http\Controllers\AisleItemController;
 use App\Http\Controllers\GroceryListController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\StoreController;
@@ -42,5 +43,9 @@ Route::get('aisles', [ AisleController::class, 'index'])
 Route::get('stores', [ StoreController::class, 'index'])
      ->middleware(['auth', 'verified'])
      ->name('stores');
+
+Route::get('aisle-items', [ AisleItemController::class, 'index'])
+     ->middleware(['auth', 'verified'])
+     ->name('aisle-items');
 
 require __DIR__.'/auth.php';
