@@ -1,6 +1,7 @@
 <?php
 
 use function Livewire\Volt\{state};
+use Livewire\Attributes\On;
 use Livewire\Volt\Component;
 use Illuminate\Database\Eloquent\Collection;
 new class extends Component {

@@ -28,6 +28,7 @@ new class extends Component {
     public function mount(): void {
         $this->stores = \App\Models\Store::with('user')->get();
     }
+
 }; ?>
 
 <div>
