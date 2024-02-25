@@ -50,4 +50,16 @@ class User extends Authenticatable
     public function stores(): HasMany {
         return $this->hasMany(Store::class);
     }
+
+    public function aisles(): HasMany {
+        return $this->hasMany(Aisle::class);
+    }
+
+    public function groceryLists(): HasMany {
+        return $this->hasMany(GroceryList::class);
+    }
+
+    public function aisleItems(): HasMany {
+        return $this->hasMany(AisleItem::class);
+    }
 }

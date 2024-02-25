@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Item extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['message'];
+    protected $fillable = ['name', 'user_id'];
 
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }
 
-    public function aisles(): BelongsToMany {
-        return $this->belongsToMany(Aisle::class)->withPivot('price');
+    public function aisleItems(): HasMany {
+        return $this->hasMany(AisleItem::class);
     }
-
 }

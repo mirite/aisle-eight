@@ -25,7 +25,7 @@ new class extends Component {
                     <div>
                         <small class="text-sm text-gray-600">Added: {{ $item->created_at->format('j M Y, g:i a') }}</small>
                     </div>
-                <p class="mt-4 text-lg text-gray-900">{{ $item->message }}</p>
+                <p class="mt-4 text-lg text-gray-900">{{ $item->name }}</p>
             </div>
         </div>
         @endforeach

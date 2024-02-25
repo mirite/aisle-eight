@@ -16,4 +16,8 @@ class AisleItem extends Model
     public function item(): BelongsTo {
         return $this->belongsTo(Item::class);
     }
+
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
 }

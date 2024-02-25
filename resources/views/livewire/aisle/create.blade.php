@@ -14,16 +14,14 @@ new class extends Component {
     public int $position = 0;
 
     #[Validate('required|exists:stores,id')]
-    public string $store_id = '';
+    public int $store_id;
 
     public function store(): void {
         $validated = $this->validate();
-        $aisle = new \App\Models\Aisle($validated);
-        $aisle->store_id = $this->store_id;
-        $aisle->save();
+        auth()->user()->aisles()->create($validated);
         $this->description = '';
         $this->position = 0;
-        $this->store_id = '';
+        $this->store_id = 0;
         $this->dispatch('aisle-created');
     }
 
@@ -43,6 +41,7 @@ new class extends Component {
             placeholder="{{ __('Like the banana aisle') }}"
             class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
         >
+            <x-input-error :messages="$errors->get('description')" class="mt-2" />
         </div>
         <div>
             <label for="position">{{ __('Position') }}</label>
@@ -53,6 +52,8 @@ new class extends Component {
                 placeholder="{{ __('0') }}"
                 class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
             >
+            <x-input-error :messages="$errors->get('position')" class="mt-2" />
+
         </div>
         <div>
             <label for="store_id">{{ __('Store') }}</label>
@@ -65,8 +66,8 @@ new class extends Component {
                     <option value="{{ $store->id }}">{{ $store->name }}</option>
                 @endforeach
             </select>
+        <x-input-error :messages="$errors->get('store')" class="mt-2" />
         </div>
-        <x-input-error :messages="$errors->get('description')" class="mt-2" />
         <x-primary-button class="mt-4">{{ __('Save') }}</x-primary-button>
     </form>
 </div>

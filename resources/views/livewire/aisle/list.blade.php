@@ -9,7 +9,7 @@ new class extends Component {
 
     #[\Livewire\Attributes\On('aisle-created')]
     public function getAisles():void {
-        $this->aisles = \App\Models\Aisle::all();
+        $this->aisles = auth()->user()->aisles()->get();
     }
     //
 }; ?>
@@ -21,9 +21,9 @@ new class extends Component {
                 <p class="mt-4 text-lg text-gray-900">{{ $aisle->description }}</p>
             </div>
             <div>
-                Items: {{ $aisle->items->count() }}
+                Items: {{ $aisle->aisleItems()->count() }}
                 <ol>
-                    @foreach ($aisle->items as $item)
+                    @foreach ($aisle->aisleItems() as $item)
                         <li>{{ $item->message }}</li>
                     @endforeach
                 </ol>

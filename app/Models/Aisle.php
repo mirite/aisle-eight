@@ -15,9 +15,13 @@ class Aisle extends Model
         return $this->belongsTo(Store::class);
     }
 
-    public function items(): BelongsToMany {
-        return $this->belongsToMany(Item::class)->withPivot('price');
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
     }
 
-    protected $fillable = ['description'];
+    public function aisleItems(): HasMany {
+        return $this->hasMany(AisleItem::class);
+    }
+
+    protected $fillable = ['description','position','store_id'];
 }

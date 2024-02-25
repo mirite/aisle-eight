@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('store_id')->constrained()->cascadeOnDelete();
             $table->string('description');
             $table->integer('position')->default(0);
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
         });
     }
 
