@@ -11,19 +11,19 @@ new class extends Component {
     #[Validate('integer|min:0|max:100')]
     public int $position = 0;
 
-    #[Validate('required|exists:aisle,id')]
+    #[Validate('required|exists:aisles,id')]
     public string $aisle_id = '';
 
-    #[Validate('required|exists:item,id')]
+    #[Validate('required|exists:items,id')]
     public string $item_id = '';
 
     public function submit(): void {
         $validated = $this->validate();
-        $aisle = new \App\Models\AisleItem($validated);
+        auth()->user()->aisleItems()->create($validated);
         $this->price = '';
         $this->description = '';
-        $this->$aisle_id = '';
-        $this->$item_id = '';
+        $this->aisle_id = '';
+        $this->item_id = '';
         $this->position = 0;
         $this->dispatch('aisle-item-created');
     }
@@ -61,7 +61,7 @@ new class extends Component {
             <select wire:model="aisle_id" class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="aisle_id" aria-describedby="nameHelp">
                 <option value="">{{_('Select')}}</option>
                 @foreach ($aisles as $aisle)
-                    <option value="{{ $aisle->id }}">{{ $aisle->description }}</option>
+                    <option value="{{ $aisle->id }}">{{$aisle->store->name}} -> {{ $aisle->description }}</option>
                 @endforeach
             </select>
         </div>

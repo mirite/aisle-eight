@@ -12,9 +12,9 @@ new class extends Component {
         $this->items = $this->getItems();
     }
 
-    #[On('item.created')]
+    #[On('item-created')]
     public function getItems(): Collection {
-        return Item::all();
+        return auth()->user()->items()->get();
     }
 }; ?>
 
@@ -26,6 +26,14 @@ new class extends Component {
                         <small class="text-sm text-gray-600">Added: {{ $item->created_at->format('j M Y, g:i a') }}</small>
                     </div>
                 <p class="mt-4 text-lg text-gray-900">{{ $item->name }}</p>
+                <div>
+                    <span>Aisles:</span>
+                    <ul>
+                        @foreach ($item->aisleItems()->get() as $aisle)
+                            <li wire:key="{{$aisle->id}}">{{ $aisle->store() }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
         </div>
         @endforeach

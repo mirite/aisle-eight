@@ -14,6 +14,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId( 'aisle_id' )->constrained()->cascadeOnDelete();
             $table->foreignId( 'item_id' )->constrained()->cascadeOnDelete();
+            $table->foreignId( 'user_id' )->constrained()->cascadeOnDelete();
             $table->decimal( 'price', 8, 2 )->nullable();
             $table->string( 'description' )->default( '' );
             $table->integer( 'position' )->default( 0 );
