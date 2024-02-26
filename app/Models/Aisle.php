@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Aisle extends Model
+class Aisle extends BaseModel
 {
-    use HasFactory;
     public function store(): BelongsTo {
         return $this->belongsTo(Store::class);
     }

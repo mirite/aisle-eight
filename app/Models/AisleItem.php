@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class AisleItem extends Model
+class AisleItem extends BaseModel
 {
-    use HasFactory;
     protected $fillable = ['aisle_id', 'item_id', 'price','description','position'];
     public function aisle(): BelongsTo {
         return $this->belongsTo(Aisle::class);

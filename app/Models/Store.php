@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Store extends Model
+class Store extends BaseModel
 {
-    use HasFactory;
     public function aisles():HasMany {
         return $this->hasMany(Aisle::class);
     }

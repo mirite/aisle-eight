@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class GroceryList extends Model
+class GroceryList extends BaseModel
 {
-    use HasFactory;
 
     public function aisleItems(): HasMany {
         return $this->hasMany(AisleItem::class);

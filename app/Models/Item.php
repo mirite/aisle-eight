@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Item extends Model
+class Item extends BaseModel
 {
-    use HasFactory;
 
     protected $fillable = ['name', 'user_id'];
 
