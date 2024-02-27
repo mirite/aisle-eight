@@ -11,7 +11,6 @@ new class extends Component {
 
     public function mount(): void {
         $this->getAisles();
-        $this->refresh = fn() => $this->getAisles();
     }
 
     #[On( 'aisle-created' )]
