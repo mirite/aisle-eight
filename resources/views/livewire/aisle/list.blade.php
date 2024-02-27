@@ -43,20 +43,33 @@ new class extends Component {
 
 <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
     @foreach ($aisles as $aisle)
-        <livewire:listitem
+        @component('livewire/listitem')
             :wire:key="$aisle->id"
-            :item="$aisle"
-            modelClass="Aisle"
-            label="Aisle"
-            :editing="$editing"
-            :name="$aisle->description"
         >
-            Items: {{ $aisle->aisleItems()->count() }}
-            <ol>
-                @foreach ($aisle->aisleItems() as $item)
-                    <li>{{ $item->message }}</li>
-                @endforeach
-            </ol>
-        </livewire:listitem>
+            <x-slot name="title">
+                @if ($aisle->is($editing))
+                    <livewire:aisle.edit :aisle="$aisle" :key="$aisle->id"/>
+                @else
+                    <p class="text-lg text-gray-900">{{ $aisle->description }}</p>
+                @endif
+            </x-slot>
+           <x-slot name="content">
+                Items: {{ $aisle->aisleItems()->count() }}
+                <ol>
+                    @foreach ($aisle->aisleItems() as $aisle)
+                        <li>{{ $item->message }}</li>
+                    @endforeach
+                </ol>
+            </x-slot>
+            <x-slot name="tools">
+                <x-dropdown-link wire:click="edit({{ $aisle->id }})">
+                    {{ __('Edit') }}
+                </x-dropdown-link>
+                <x-dropdown-link wire:click="delete({{ $aisle->id }})"
+                                 wire:confirm="Are you sure to delete this aisle?">
+                    {{ __('Delete') }}
+                </x-dropdown-link>
+            </x-slot>
+        @endcomponent
     @endforeach
 </div>
