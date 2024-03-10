@@ -44,7 +44,7 @@ new class extends Component {
     @foreach ($aisles as $aisle)
         @component('livewire/listitem')
             :wire:key="$aisle->id"
-        >
+            >
             <x-slot name="title">
                 @if ($aisle->is($editing))
                     <livewire:aisle.edit :aisle="$aisle" :key="$aisle->id"/>
@@ -52,13 +52,17 @@ new class extends Component {
                     <p class="text-lg text-gray-900">{{ $aisle->description }}</p>
                 @endif
             </x-slot>
-           <x-slot name="content">
-                Items: {{ $aisle->aisleItems()->count() }}
-                <ol>
-                    @foreach ($aisle->aisleItems() as $aisle)
-                        <li>{{ $item->message }}</li>
-                    @endforeach
-                </ol>
+            <x-slot name="content">
+                <div>
+                    <div>Store: {{ $aisle->store->name }}</div>
+                    <div>Items: {{ $aisle->aisleItems()->count() }}
+                        <ol>
+                            @foreach ($aisle->aisleItems()->get() as $aisleItem)
+                                @include('aisleItem.single', ['aisleItem' => $aisleItem])
+                            @endforeach
+                        </ol>
+                    </div>
+                </div>
             </x-slot>
             <x-slot name="tools">
                 <x-dropdown-link wire:click="edit({{ $aisle->id }})">

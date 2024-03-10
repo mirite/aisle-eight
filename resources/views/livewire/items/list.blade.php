@@ -8,33 +8,35 @@ use Livewire\Attributes\On;
 new class extends Component {
     public Collection $items;
 
-    public function mount():void {
+    public function mount(): void {
         $this->items = $this->getItems();
     }
 
-    #[On('item-created')]
+    #[On( 'item-created' )]
     public function getItems(): Collection {
         return auth()->user()->items()->get();
     }
 }; ?>
 
-    <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
-        @foreach ($items as $item)
+<div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
+    @foreach ($items as $item)
         <div class="p-6 flex space-x-2" wire:key="{{ $item->id }}">
             <div class="flex-1">
-                    <div>
-                        <small class="text-sm text-gray-600">Added: {{ $item->created_at->format('j M Y, g:i a') }}</small>
-                    </div>
-                <p class="mt-4 text-lg text-gray-900">{{ $item->name }}</p>
+                <div>
+                    <small class="text-sm text-gray-600">Added: {{ $item->created_at->format('j M Y, g:i a') }}</small>
+                </div>
+                <h3 class="mt-4 text-lg text-gray-900">{{ $item->name }}</h3>
                 <div>
                     <span>Aisles:</span>
-                    <ul>
-                        @foreach ($item->aisleItems()->get() as $aisle)
-                            <li wire:key="{{$aisle->id}}">{{ $aisle->store() }}</li>
+                    <ul class="p-4 flex flex-col gap-6">
+                        @foreach ($item->aisleItems()->get() as $aisleItem)
+                            <li wire:key="{{$aisleItem->id}}">
+                                @include('aisleItem.single', ['aisleItem' => $aisleItem])
+                            </li>
                         @endforeach
                     </ul>
                 </div>
             </div>
         </div>
-        @endforeach
-    </div>
+    @endforeach
+</div>
