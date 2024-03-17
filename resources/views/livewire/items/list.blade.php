@@ -7,6 +7,7 @@ use Livewire\Attributes\On;
 
 new class extends Component {
     public Collection $items;
+    public ?Item $editing = null;
 
     public function mount(): void
     {
@@ -14,31 +15,73 @@ new class extends Component {
     }
 
     #[On('item-created')]
+    #[On('item-deleted')]
     public function getItems(): Collection
     {
         return auth()->user()->items()->get();
+    }
+
+    #[On('item-edit')]
+    public function edit(Item $item): void
+    {
+        $this->editing = $item;
+        $this->getItems();
+    }
+
+    #[On('item-edit-canceled')]
+    #[On('item-updated')]
+    public function disableEditing(): void
+    {
+        $this->editing = null;
+
+        $this->getItems();
+    }
+
+    public function delete(Item $item): void
+    {
+        $this->authorize('delete', $item);
+        $item->delete();
+        $this->getItems();
     }
 }; ?>
 
 <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
     @foreach ($items as $item)
-        <div class="p-6 flex space-x-2" wire:key="{{ $item->id }}">
-            <div class="flex-1">
-                <div>
-                    <small class="text-sm text-gray-600">Added: {{ $item->created_at->format('j M Y, g:i a') }}</small>
+        @component('livewire/listitem')
+            :wire:key="$item->id"
+            >
+            <x-slot name="title">
+                @if ($item->is($editing))
+                    <livewire:items.edit :item="$item" :key="$item->id" />
+                @else
+                    <p class="text-lg text-gray-900">{{ $item->name }}</p>
+                @endif
+            </x-slot>
+            <x-slot name="content">
+                <div class="flex-1">
+                    <div>
+                        <small class="text-sm text-gray-600">Added: {{ $item->created_at->format('j M Y, g:i a') }}</small>
+                    </div>
+                    <div>
+                        <span>Aisles:</span>
+                        <ul class="p-4 flex flex-col gap-6">
+                            @foreach ($item->aisleItems()->get() as $aisleItem)
+                                <li wire:key="{{ $aisleItem->id }}">
+                                    @include('aisleItem.single', ['aisleItem' => $aisleItem])
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-                <h3 class="mt-4 text-lg text-gray-900">{{ $item->name }}</h3>
-                <div>
-                    <span>Aisles:</span>
-                    <ul class="p-4 flex flex-col gap-6">
-                        @foreach ($item->aisleItems()->get() as $aisleItem)
-                            <li wire:key="{{ $aisleItem->id }}">
-                                @include('aisleItem.single', ['aisleItem' => $aisleItem])
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
+            </x-slot>
+            <x-slot name="tools">
+                <x-dropdown-link wire:click="edit({{ $item->id }})">
+                    {{ __('Edit') }}
+                </x-dropdown-link>
+                <x-dropdown-link wire:click="delete({{ $item->id }})" wire:confirm="Are you sure to delete this item?">
+                    {{ __('Delete') }}
+                </x-dropdown-link>
+            </x-slot>
+        @endcomponent
     @endforeach
 </div>

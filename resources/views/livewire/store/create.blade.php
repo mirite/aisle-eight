@@ -4,8 +4,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 
 new class extends Component {
-    #[Validate('required|string|max:255')]
-    public string $name = '';
+    use \App\Models\StoreFields;
 
     public function submit(): void
     {
@@ -17,12 +16,8 @@ new class extends Component {
 }; ?>
 
 <form wire:submit.prevent="submit">
-    @include('livewire.forminput', [
-        'label' => 'Name',
-        'id' => 'name',
-        'model' => 'name',
-        'placeholder' => __('Sort of like a story'),
-        'error' => $errors->get('name'),
+    @include('livewire.store.storeFields', [
+        'errors' => $errors,
     ])
     <x-primary-button class="mt-4">{{ __('Add Store') }}</x-primary-button>
 </form>
