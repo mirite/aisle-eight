@@ -1,74 +1,73 @@
 <?php
 
+use App\Models\Store;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 
 new class extends Component {
 
-    public \Illuminate\Database\Eloquent\Collection $stores;
+    public Collection $stores;
 
-    #[Validate('required|string|max:256')]
+    #[Validate( 'required|string|max:256' )]
     public string $description = '';
 
-    #[Validate('integer|min:0|max:100')]
+    #[Validate( 'integer|min:0|max:100' )]
     public int $position = 0;
 
-    #[Validate('required|exists:stores,id')]
+    #[Validate( 'required|exists:stores,id' )]
     public int $store_id;
 
     public function store(): void {
         $validated = $this->validate();
-        auth()->user()->aisles()->create($validated);
+        auth()->user()->aisles()->create( $validated );
         $this->description = '';
-        $this->position = 0;
-        $this->store_id = 0;
-        $this->dispatch('aisle-created');
+        $this->position    = 0;
+        $this->store_id    = 0;
+        $this->dispatch( 'aisle-created' );
     }
 
     public function mount(): void {
-        $this->stores = \App\Models\Store::with('user')->get();
+        $this->stores = Store::with( 'user' )->get();
     }
 
 }; ?>
 
-<div>
-    <form wire:submit="store">
-        <div class="form-group">
-        <label for="description">{{ __('Description') }}</label>
-        <input
-            type="text"
-            id="description"
-            wire:model="description"
-            placeholder="{{ __('Like the banana aisle') }}"
-            class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-        >
-            <x-input-error :messages="$errors->get('description')" class="mt-2" />
-        </div>
-        <div>
-            <label for="position">{{ __('Position') }}</label>
-            <input
-                type="number"
-                id="position"
-                wire:model="position"
-                placeholder="{{ __('0') }}"
-                class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-            >
-            <x-input-error :messages="$errors->get('position')" class="mt-2" />
 
-        </div>
-        <div>
-            <label for="store_id">{{ __('Store') }}</label>
-            <select
-                id="store_id"
-                wire:model="store_id"
-                class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                <option value="">{{ __('Select a store') }}</option>
-                @foreach ($stores as $store)
-                    <option value="{{ $store->id }}">{{ $store->name }}</option>
-                @endforeach
-            </select>
-        <x-input-error :messages="$errors->get('store')" class="mt-2" />
-        </div>
-        <x-primary-button class="mt-4">{{ __('Save') }}</x-primary-button>
+    <form wire:submit="store">
+        @include(
+            'livewire.forminput',
+            [
+                'label' => __('Description'),
+                'id'=>'description',
+                'model' => 'description',
+                'placeholder' => __('Like the banana aisle'),
+                'error'=>$errors->get('description')
+            ]
+        )
+        @include(
+            'livewire.forminput',
+            [
+                'label' => __('Position'),
+                'id'=>'position',
+                'model' => 'position',
+                'type' => 'number',
+                'placeholder' => __('Where it lives in the store'),
+                'error'=>$errors->get('position')
+            ]
+        )
+        @include(
+            'livewire.formselect',
+            [
+                'label' => __('Store'),
+                'id'=>'store_id',
+                'model' => 'store_id',
+                'children' => $stores,
+                'placeholder' => __('Select a store'),
+                'childLabelField' => 'name',
+                'error'=>$errors->get('store_id')
+            ]
+        )
+        <x-primary-button class="mt-4">{{ __('Add Aisle') }}</x-primary-button>
     </form>
-</div>
+

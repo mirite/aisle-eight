@@ -15,13 +15,17 @@ new class extends Component {
     }
 }; ?>
 
-<div>
+
     <form wire:submit.prevent="submit">
-        <div class="form-group">
-            <label for="name">{{_('Name')}}</label>
-            <input type="text" wire:model="name" class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="name" aria-describedby="nameHelp" placeholder="Sort of like a story">
-        </div>
-        <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        <x-primary-button class="mt-4">{{ __('Save') }}</x-primary-button>
+        @include(
+            'livewire.forminput',
+            [
+                'label' => 'Name',
+                'id'=>'name',
+                'model' => 'name',
+                'placeholder' => __('Sort of like a story'),
+                'error'=>$errors->get('name')
+            ]
+        )
+        <x-primary-button class="mt-4">{{ __('Add Store') }}</x-primary-button>
     </form>
-</div>

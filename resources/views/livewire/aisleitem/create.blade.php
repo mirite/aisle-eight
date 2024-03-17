@@ -39,44 +39,62 @@ new class extends Component {
 
 }; ?>
 
-<div>
-    <form wire:submit.prevent="submit">
-        <div class="form-group">
-            <label for="price">{{_('Price')}}</label>
-            <input type="text" wire:model="price" class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="price" aria-describedby="nameHelp" placeholder="Optional">
-        </div>
-        <x-input-error :messages="$errors->get('price')" class="mt-2" />
-        <div class="form-group">
-            <label for="description">{{_('Description')}}</label>
-            <input type="text" wire:model="description" class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="description" aria-describedby="nameHelp" placeholder="Optional">
-        </div>
-        <x-input-error :messages="$errors->get('description')" class="mt-2" />
-        <div>
-            <label for="position">{{_('Position')}}</label>
-            <input type="number" wire:model="position" class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="position" aria-describedby="nameHelp" placeholder="0">
-        </div>
-        <x-input-error :messages="$errors->get('position')" class="mt-2" />
-        <div>
-            <label for="aisle_id">{{_('Aisle')}}</label>
-            <select wire:model="aisle_id" class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="aisle_id" aria-describedby="nameHelp">
-                <option value="">{{_('Select')}}</option>
-                @foreach ($aisles as $aisle)
-                    <option value="{{ $aisle->id }}">{{$aisle->store->name}} -> {{ $aisle->description }}</option>
-                @endforeach
-            </select>
-        </div>
-        <x-input-error :messages="$errors->get('aisle_id')" class="mt-2" />
-        <div>
-            <label for="item_id">{{_('Item')}}</label>
-            <select wire:model="item_id" class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="item_id" aria-describedby="nameHelp">
-                <option value="">{{_('Select')}}</option>
-                @foreach ($items as $item)
-                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <x-input-error :messages="$errors->get('item_id')" class="mt-2" />
 
+    <form wire:submit.prevent="submit">
+        @include(
+            'livewire.forminput',
+            [
+                'label' => __('Price'),
+                'id'=>'price',
+                'model' => 'price',
+                'placeholder' => __('Optional'),
+                'error'=>$errors->get('price')
+            ]
+        )
+        @include(
+            'livewire.forminput',
+            [
+                'label' => __('Description'),
+                'id'=>'description',
+                'model' => 'description',
+                'placeholder' => __('Like "Per Pound" or "Per Each""'),
+                'error'=>$errors->get('description')
+            ]
+        )
+        @include(
+            'livewire.forminput',
+            [
+                'label' => __('Position'),
+                'id'=>'position',
+                'model' => 'position',
+                'type' => 'number',
+                'placeholder' => __('Where it lives in the aisle'),
+                'error'=>$errors->get('position')
+            ]
+        )
+        @include(
+            'livewire.formselect',
+            [
+                'label' => __('Aisle'),
+                'id'=>'aisle_id',
+                'model' => 'aisle_id',
+                'children' => $aisles,
+                'placeholder' => __('Select an aisle'),
+                'childLabelField' => fn($aisle) => $aisle->store->name . ' -> ' . $aisle->description,
+                'error'=>$errors->get('aisle_id')
+            ]
+        )
+        @include(
+            'livewire.formselect',
+            [
+                'label' => __('Item'),
+                'id'=>'item_id',
+                'model' => 'item_id',
+                'children' => $items,
+                'placeholder' => __('Select an item'),
+                'childLabelField' => 'name',
+                'error'=>$errors->get('item_id')
+            ]
+        )
         <x-primary-button class="mt-4">{{ __('Save') }}</x-primary-button>
     </form>
-</div>
