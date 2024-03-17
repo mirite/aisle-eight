@@ -35,7 +35,13 @@ new class extends Component {
 
         $this->getStores();
     }
-    //
+
+    public function delete(Store $store): void
+    {
+        $this->authorize('delete', $store);
+        $item->delete();
+        $this->getStores();
+    }
 }; ?>
 
 <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">

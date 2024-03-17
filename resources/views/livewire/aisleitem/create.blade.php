@@ -2,9 +2,17 @@
 
 use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
+use App\Models\AisleItem;
+use App\Models\Aisle;
+use App\Models\Item;
+use App\Models\AisleItemFields;
+use Illuminate\Database\Eloquent\Collection;
 
 new class extends Component {
-    use \App\Models\AisleItemFields;
+    use AisleItemFields;
+
+    public Collection $aisles;
+    public Collection $items;
 
     public function submit(): void
     {
@@ -20,12 +28,9 @@ new class extends Component {
 
     public function mount(): void
     {
-        $this->aisles = \App\Models\Aisle::all();
-        $this->items = \App\Models\Item::all();
+        $this->aisles = Aisle::all();
+        $this->items = Item::all();
     }
-
-    public \Illuminate\Database\Eloquent\Collection $aisles;
-    public \Illuminate\Database\Eloquent\Collection $items;
 }; ?>
 
 <form wire:submit.prevent="submit">

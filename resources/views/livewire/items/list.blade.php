@@ -15,7 +15,6 @@ new class extends Component {
     }
 
     #[On('item-created')]
-    #[On('item-deleted')]
     public function getItems(): Collection
     {
         return auth()->user()->items()->get();

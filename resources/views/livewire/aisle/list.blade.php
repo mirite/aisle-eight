@@ -15,7 +15,6 @@ new class extends Component {
     }
 
     #[On('aisle-created')]
-    #[On('aisle-deleted')]
     public function getAisles(): void
     {
         $this->aisles = auth()->user()->aisles()->get();

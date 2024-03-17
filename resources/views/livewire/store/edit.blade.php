@@ -2,10 +2,13 @@
 
 use Livewire\Volt\Component;
 use Livewire\Attributes\Validate;
+use App\Models\Store;
+use App\Models\StoreFields;
 
 new class extends Component {
-    public \App\Models\Store $store;
-    use \App\Models\StoreFields;
+    use StoreFields;
+
+    public Store $store;
     public function mount(): void
     {
         $this->name = $this->store->name;

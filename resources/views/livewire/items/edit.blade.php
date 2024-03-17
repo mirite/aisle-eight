@@ -2,10 +2,12 @@
 
 use Livewire\Volt\Component;
 use Livewire\Attributes\Validate;
+use App\Models\ItemFields;
+use App\Models\Item;
 
 new class extends Component {
-    public \App\Models\Item $item;
-    use \App\Models\ItemFields;
+    public Item $item;
+    use ItemFields;
     public function mount(): void
     {
         $this->name = $this->item->name;

@@ -2,9 +2,10 @@
 
 use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
+use App\Models\StoreFields;
 
 new class extends Component {
-    use \App\Models\StoreFields;
+    use StoreFields;
 
     public function submit(): void
     {

@@ -17,7 +17,6 @@ new class extends Component {
     }
 
     #[On('aisle-item-created')]
-    #[On('aisle-item-deleted')]
     public function getAisleItems(): Collection
     {
         return auth()->user()->aisleItems()->get();
@@ -57,6 +56,8 @@ new class extends Component {
                     <x-slot name="title">
                         @if ($aisleItem->is($editing))
                             <livewire:aisleitem.edit :aisleItem="$aisleItem" :key="$aisleItem->id" />
+                        @else
+                            <p class="text-lg text-gray-900">{{ $aisleItem->item->name }}</p>
                         @endif
                     </x-slot>
                     <x-slot name="content">
@@ -67,7 +68,7 @@ new class extends Component {
                             {{ __('Edit') }}
                         </x-dropdown-link>
                         <x-dropdown-link wire:click="delete({{ $aisleItem->id }})"
-                            wire:confirm="Are you sure to delete this aisle?">
+                            wire:confirm="Are you sure to delete this aisle item?">
                             {{ __('Delete') }}
                         </x-dropdown-link>
                     </x-slot>

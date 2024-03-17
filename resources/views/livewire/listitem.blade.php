@@ -1,4 +1,4 @@
-<div class="p-6 flex flex-col gap-2">
+<div class="p-6 flex flex-col gap-2 w-full">
     <div class="flex gap-2">
         <div class="grow">
             {{ $title ?? '' }}
