@@ -10,14 +10,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Item extends BaseModel
 {
-
     protected $fillable = ['name', 'user_id'];
 
-    public function user(): BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function aisleItems(): HasMany {
+    public function aisleItems(): HasMany
+    {
         return $this->hasMany(AisleItem::class);
     }
 }

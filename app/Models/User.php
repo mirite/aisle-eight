@@ -11,7 +11,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -44,22 +46,27 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function items(): HasMany {
+    public function items(): HasMany
+    {
         return $this->hasMany(Item::class);
     }
-    public function stores(): HasMany {
+    public function stores(): HasMany
+    {
         return $this->hasMany(Store::class);
     }
 
-    public function aisles(): HasMany {
+    public function aisles(): HasMany
+    {
         return $this->hasMany(Aisle::class);
     }
 
-    public function groceryLists(): HasMany {
+    public function groceryLists(): HasMany
+    {
         return $this->hasMany(GroceryList::class);
     }
 
-    public function aisleItems(): HasMany {
+    public function aisleItems(): HasMany
+    {
         return $this->hasMany(AisleItem::class);
     }
 }

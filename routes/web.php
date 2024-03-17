@@ -48,4 +48,4 @@ Route::get('aisle-items', [ AisleItemController::class, 'index'])
      ->middleware(['auth', 'verified'])
      ->name('aisle-items');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

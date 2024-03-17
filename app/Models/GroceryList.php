@@ -9,12 +9,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class GroceryList extends BaseModel
 {
-
-    public function aisleItems(): HasMany {
+    public function aisleItems(): HasMany
+    {
         return $this->hasMany(AisleItem::class);
     }
 
-    public function user(): BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 

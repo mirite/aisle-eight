@@ -9,14 +9,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Store extends BaseModel
 {
-    public function aisles():HasMany {
+    public function aisles(): HasMany
+    {
         return $this->hasMany(Aisle::class);
     }
 
-    public function user(): BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 
     protected $fillable = ['name','user_id'];
-
 }

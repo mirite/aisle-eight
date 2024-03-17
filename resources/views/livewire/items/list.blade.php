@@ -8,12 +8,14 @@ use Livewire\Attributes\On;
 new class extends Component {
     public Collection $items;
 
-    public function mount(): void {
+    public function mount(): void
+    {
         $this->items = $this->getItems();
     }
 
-    #[On( 'item-created' )]
-    public function getItems(): Collection {
+    #[On('item-created')]
+    public function getItems(): Collection
+    {
         return auth()->user()->items()->get();
     }
 }; ?>
@@ -30,7 +32,7 @@ new class extends Component {
                     <span>Aisles:</span>
                     <ul class="p-4 flex flex-col gap-6">
                         @foreach ($item->aisleItems()->get() as $aisleItem)
-                            <li wire:key="{{$aisleItem->id}}">
+                            <li wire:key="{{ $aisleItem->id }}">
                                 @include('aisleItem.single', ['aisleItem' => $aisleItem])
                             </li>
                         @endforeach

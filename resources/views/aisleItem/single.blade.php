@@ -7,5 +7,6 @@
         <div class="flex gap-2 "><span class="font-bold">Price:</span>{{ $aisleItem->price }}</div>
         <div class="flex gap-2 "><span class="font-bold">Units:</span>{{ $aisleItem->description }}</div>
     </div>
-    <div class="flex gap-2 "><span class="font-bold">Last Updated:</span{{$aisleItem->update}}></div>
+    <div class="flex gap-2 "><span class="font-bold">Last Updated:</span{{ $aisleItem->update }}>
+    </div>
 </div>

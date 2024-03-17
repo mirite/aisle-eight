@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!-- @see https://pear.php.net/manual/en/package.php.php-codesniffer.annotated-ruleset.php -->
+<ruleset name= "Laravel PHPCS Rules">
+
+    <description>PHPCS ruleset for Grocery Mate.</description>
+    <file>app</file>
+    <file>routes</file>
+    <file>public</file>
+    <file>config</file>
+    <rule ref="PSR12"/>
+</ruleset>

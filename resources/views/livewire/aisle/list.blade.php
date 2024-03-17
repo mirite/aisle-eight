@@ -9,32 +9,37 @@ new class extends Component {
     public Collection $aisles;
     public ?Aisle $editing = null;
 
-    public function mount(): void {
+    public function mount(): void
+    {
         $this->getAisles();
     }
 
-    #[On( 'aisle-created' )]
-    #[On( 'aisle-deleted' )]
-    public function getAisles(): void {
+    #[On('aisle-created')]
+    #[On('aisle-deleted')]
+    public function getAisles(): void
+    {
         $this->aisles = auth()->user()->aisles()->get();
     }
 
-    #[On( 'aisle-edit' )]
-    public function edit( Aisle $aisle ): void {
+    #[On('aisle-edit')]
+    public function edit(Aisle $aisle): void
+    {
         $this->editing = $aisle;
         $this->getAisles();
     }
 
-    #[On( 'aisle-edit-canceled' )]
-    #[On( 'aisle-updated' )]
-    public function disableEditing(): void {
+    #[On('aisle-edit-canceled')]
+    #[On('aisle-updated')]
+    public function disableEditing(): void
+    {
         $this->editing = null;
 
         $this->getAisles();
     }
 
-    public function delete( Aisle $aisle ): void {
-        $this->authorize( 'delete', $aisle );
+    public function delete(Aisle $aisle): void
+    {
+        $this->authorize('delete', $aisle);
         $aisle->delete();
         $this->getAisles();
     }
@@ -47,7 +52,7 @@ new class extends Component {
             >
             <x-slot name="title">
                 @if ($aisle->is($editing))
-                    <livewire:aisle.edit :aisle="$aisle" :key="$aisle->id"/>
+                    <livewire:aisle.edit :aisle="$aisle" :key="$aisle->id" />
                 @else
                     <p class="text-lg text-gray-900">{{ $aisle->description }}</p>
                 @endif
@@ -68,8 +73,7 @@ new class extends Component {
                 <x-dropdown-link wire:click="edit({{ $aisle->id }})">
                     {{ __('Edit') }}
                 </x-dropdown-link>
-                <x-dropdown-link wire:click="delete({{ $aisle->id }})"
-                                 wire:confirm="Are you sure to delete this aisle?">
+                <x-dropdown-link wire:click="delete({{ $aisle->id }})" wire:confirm="Are you sure to delete this aisle?">
                     {{ __('Delete') }}
                 </x-dropdown-link>
             </x-slot>

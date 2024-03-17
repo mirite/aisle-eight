@@ -9,24 +9,28 @@ new class extends Component {
     public Collection $stores;
     public ?Store $editing = null;
 
-    public function mount(): void {
+    public function mount(): void
+    {
         $this->getStores();
     }
 
-    #[On( 'store-created' )]
-    public function getStores(): void {
-        $this->stores = Store::with( 'user' )->get();
+    #[On('store-created')]
+    public function getStores(): void
+    {
+        $this->stores = Store::with('user')->get();
     }
 
-    #[On( 'store-edit' )]
-    public function edit( Store $store ): void {
+    #[On('store-edit')]
+    public function edit(Store $store): void
+    {
         $this->editing = $store;
         $this->getStores();
     }
 
-    #[On( 'store-edit-canceled' )]
-    #[On( 'store-updated' )]
-    public function disableEditing(): void {
+    #[On('store-edit-canceled')]
+    #[On('store-updated')]
+    public function disableEditing(): void
+    {
         $this->editing = null;
 
         $this->getStores();
@@ -41,7 +45,7 @@ new class extends Component {
             >
             <x-slot name="title">
                 @if ($store->is($editing))
-                    <livewire:store.edit :store="$store" :key="$store->id"/>
+                    <livewire:store.edit :store="$store" :key="$store->id" />
                 @else
                     <p class="text-lg text-gray-900">{{ $store->name }}</p>
                 @endif
@@ -58,8 +62,7 @@ new class extends Component {
                 <x-dropdown-link wire:click="edit({{ $store->id }})">
                     {{ __('Edit') }}
                 </x-dropdown-link>
-                <x-dropdown-link wire:click="delete({{ $store->id }})"
-                                 wire:confirm="Are you sure to delete this store?">
+                <x-dropdown-link wire:click="delete({{ $store->id }})" wire:confirm="Are you sure to delete this store?">
                     {{ __('Delete') }}
                 </x-dropdown-link>
             </x-slot>

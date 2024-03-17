@@ -3,8 +3,7 @@
 use Livewire\Volt\Component;
 use Livewire\Attributes\Validate;
 
-new class extends Component
-{
+new class extends Component {
     public \App\Models\Store $store;
 
     #[Validate('required|string|max:255')]
@@ -12,7 +11,7 @@ new class extends Component
 
     public function mount(): void
     {
-        $this->name= $this->store->name;
+        $this->name = $this->store->name;
     }
 
     public function update(): void
@@ -33,11 +32,8 @@ new class extends Component
 };
 ?>
 <form wire:submit="update">
-    <input
-        type="text"
-        wire:model="name"
-        class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-    >
+    <input type="text" wire:model="name"
+        class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
 
     <x-input-error :messages="$errors->get('name')" class="mt-2" />
     <x-primary-button class="mt-4">{{ __('Save') }}</x-primary-button>

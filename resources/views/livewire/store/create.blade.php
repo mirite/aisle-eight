@@ -7,7 +7,8 @@ new class extends Component {
     #[Validate('required|string|max:255')]
     public string $name = '';
 
-    public function submit(): void {
+    public function submit(): void
+    {
         $validated = $this->validate();
         auth()->user()->stores()->create($validated);
         $this->name = '';
@@ -15,17 +16,13 @@ new class extends Component {
     }
 }; ?>
 
-
-    <form wire:submit.prevent="submit">
-        @include(
-            'livewire.forminput',
-            [
-                'label' => 'Name',
-                'id'=>'name',
-                'model' => 'name',
-                'placeholder' => __('Sort of like a story'),
-                'error'=>$errors->get('name')
-            ]
-        )
-        <x-primary-button class="mt-4">{{ __('Add Store') }}</x-primary-button>
-    </form>
+<form wire:submit.prevent="submit">
+    @include('livewire.forminput', [
+        'label' => 'Name',
+        'id' => 'name',
+        'model' => 'name',
+        'placeholder' => __('Sort of like a story'),
+        'error' => $errors->get('name'),
+    ])
+    <x-primary-button class="mt-4">{{ __('Add Store') }}</x-primary-button>
+</form>

@@ -29,7 +29,6 @@ class AislePolicy
      */
     public function create(User $user): bool
     {
-
     }
 
     /**
