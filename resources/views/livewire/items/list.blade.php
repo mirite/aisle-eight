@@ -54,14 +54,15 @@ new class extends Component {
                     <livewire:items.edit :item="$item" :key="$item->id" />
                 @else
                     <x-list-title>
-                    {{ $item->name }}
+                        {{ $item->name }}
                     </x-list-title>
                 @endif
             </x-slot>
             <x-slot name="content">
                 <div class="flex-1">
                     <div>
-                        <small class="text-sm text-gray-600 dark:text-gray-200">Added: {{ $item->created_at->format('j M Y, g:i a') }}</small>
+                        <small class="text-sm text-gray-600 dark:text-gray-200">Added:
+                            {{ $item->created_at->format('j M Y, g:i a') }}</small>
                     </div>
                     <div>
                         <span>Aisles:</span>

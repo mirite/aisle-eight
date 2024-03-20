@@ -54,7 +54,7 @@ new class extends Component {
                     <livewire:aisle.edit :aisle="$aisle" :key="$aisle->id" />
                 @else
                     <x-list-title>
-                    {{ $aisle->description }}
+                        {{ $aisle->description }}
                     </x-list-title>
                 @endif
             </x-slot>

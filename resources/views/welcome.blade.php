@@ -16,8 +16,7 @@
 </head>
 
 <body class="antialiased bg-white-100 text-bg-900 dark:text-white dark:bg-slate-900">
-    <div
-        class="flex justify-center items-center min-h-dvh">
+    <div class="flex justify-center items-center min-h-dvh">
         <h1>Welcome to Grocery Mate</h1>
         @if (Route::has('login'))
             <livewire:welcome.navigation />

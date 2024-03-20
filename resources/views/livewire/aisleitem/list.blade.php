@@ -46,35 +46,34 @@ new class extends Component {
     }
 }; ?>
 
-   <x-list-wrapper>
-        @foreach ($aisleItems as $aisleItem)
-            <div class="p-6 flex space-x-2" wire:key="{{ $aisleItem->id }}">
-                @component('livewire/listitem')
-                    :wire:key="$aisleItem->id"
-                    >
-                    <x-slot name="title">
-                        @if ($aisleItem->is($editing))
-                            <livewire:aisleitem.edit :aisleItem="$aisleItem" :key="$aisleItem->id" />
-                        @else
-                            <x-list-title>
+<x-list-wrapper>
+    @foreach ($aisleItems as $aisleItem)
+        <div class="p-6 flex space-x-2" wire:key="{{ $aisleItem->id }}">
+            @component('livewire/listitem')
+                :wire:key="$aisleItem->id"
+                >
+                <x-slot name="title">
+                    @if ($aisleItem->is($editing))
+                        <livewire:aisleitem.edit :aisleItem="$aisleItem" :key="$aisleItem->id" />
+                    @else
+                        <x-list-title>
                             {{ $aisleItem->item->name }}
-                            </x-list-title>
-                        @endif
-                    </x-slot>
-                    <x-slot name="content">
-                        @include('aisleItem.single', ['aisleItem' => $aisleItem])
-                    </x-slot>
-                    <x-slot name="tools">
-                        <x-dropdown-link wire:click="edit({{ $aisleItem->id }})">
-                            {{ __('Edit') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link wire:click="delete({{ $aisleItem->id }})"
-                            wire:confirm="Are you sure to delete this aisle item?">
-                            {{ __('Delete') }}
-                        </x-dropdown-link>
-                    </x-slot>
-                @endcomponent
-            </div>
-        @endforeach
-   </x-list-wrapper>
-
+                        </x-list-title>
+                    @endif
+                </x-slot>
+                <x-slot name="content">
+                    @include('aisleItem.single', ['aisleItem' => $aisleItem])
+                </x-slot>
+                <x-slot name="tools">
+                    <x-dropdown-link wire:click="edit({{ $aisleItem->id }})">
+                        {{ __('Edit') }}
+                    </x-dropdown-link>
+                    <x-dropdown-link wire:click="delete({{ $aisleItem->id }})"
+                        wire:confirm="Are you sure to delete this aisle item?">
+                        {{ __('Delete') }}
+                    </x-dropdown-link>
+                </x-slot>
+            @endcomponent
+        </div>
+    @endforeach
+</x-list-wrapper>
