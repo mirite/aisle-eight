@@ -44,7 +44,7 @@ new class extends Component {
     }
 }; ?>
 
-<div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
+<x-list-wrapper>
     @foreach ($stores as $store)
         @component('livewire/listitem')
             :wire:key="$store->id"
@@ -53,7 +53,7 @@ new class extends Component {
                 @if ($store->is($editing))
                     <livewire:store.edit :store="$store" :key="$store->id" />
                 @else
-                    <p class="text-lg text-gray-900">{{ $store->name }}</p>
+                    <x-list-title>{{ $store->name }}</x-list-title>
                 @endif
             </x-slot>
             <x-slot name="content">
@@ -74,4 +74,4 @@ new class extends Component {
             </x-slot>
         @endcomponent
     @endforeach
-</div>
+</x-list-wrapper>
