@@ -19,5 +19,5 @@ class GroceryList extends BaseModel
         return $this->belongsTo(User::class);
     }
 
-    protected $fillable = ['date','user_id'];
+    protected $fillable = ['date','user_id','title'];
 }
