@@ -6,6 +6,7 @@ use App\Http\Controllers\GroceryListController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,18 @@ Route::get('items', [ ItemController::class, 'index'])
 Route::get('list', [ GroceryListController::class, 'index'])
      ->middleware(['auth', 'verified'])
      ->name('list');
+
+Route::get('list/view/{id}', function (Request $request, string $id) {
+    return view('listviewer', ['id' => $id]);
+})
+     ->middleware(['auth', 'verified'])
+     ->name('grocery-list/uselist');
+
+Route::get('list/edit/{id}', function (Request $request, string $id) {
+    return view('listbuilder', ['id' => $id]);
+})
+     ->middleware(['auth', 'verified'])
+     ->name('grocery-list/listbuilder');
 
 Route::get('aisles', [ AisleController::class, 'index'])
      ->middleware(['auth', 'verified'])

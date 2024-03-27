@@ -1,6 +1,5 @@
 <x-app-layout>
-    <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-        <livewire:grocerylist.create />
-        <livewire:grocerylist.list />
-    </div>
+
+    <livewire:grocerylist.create />
+    <livewire:grocerylist.list />
 </x-app-layout>

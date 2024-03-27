@@ -63,6 +63,10 @@ new class extends Component {
                     <div>
                         <small class="text-sm text-gray-600 dark:text-gray-200">Added:
                             {{ $list->created_at->format('j M Y, g:i a') }}</small>
+                        <a href="{{ route('grocery-list/uselist', $list) }}"
+                            class="text-sm text-blue-500 hover:underline dark:text-blue-300">Shop With This List</a>
+                        <a href="{{ route('grocery-list/listbuilder', $list) }}"
+                            class="text-sm text-blue-500 hover:underline dark:text-blue-300">Build This List</a>
                     </div>
                 </div>
             </x-slot>
