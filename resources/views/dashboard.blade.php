@@ -10,9 +10,9 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
-                <div>
-                    <a href="/list">Start a list!</a>
-                </div>
+                    <div>
+                        <a href="/list">Start a list!</a>
+                    </div>
                 </div>
             </div>
         </div>

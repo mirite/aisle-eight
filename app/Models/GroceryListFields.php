@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Livewire\Attributes\Validate;
 
-trait GroceryListFields {
+trait GroceryListFields
+{
     #[Validate('string|max:255')]
-public string $title = "";
+    public string $title = "";
 }

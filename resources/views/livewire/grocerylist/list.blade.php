@@ -9,31 +9,36 @@ new class extends Component {
     public Collection $lists;
     public ?GroceryList $editing = null;
 
-    public function mount(): void {
+    public function mount(): void
+    {
         $this->lists = $this->getLists();
     }
 
-    #[On( 'grocery-list-created' )]
-    public function getLists(): Collection {
+    #[On('grocery-list-created')]
+    public function getLists(): Collection
+    {
         return auth()->user()->groceryLists()->get();
     }
 
-    #[On( 'grocery-list-edit' )]
-    public function edit( GroceryList $list ): void {
+    #[On('grocery-list-edit')]
+    public function edit(GroceryList $list): void
+    {
         $this->editing = $list;
         $this->getLists();
     }
 
-    #[On( 'grocery-list-edit-canceled' )]
-    #[On( 'grocery-list-updated' )]
-    public function disableEditing(): void {
+    #[On('grocery-list-edit-canceled')]
+    #[On('grocery-list-updated')]
+    public function disableEditing(): void
+    {
         $this->editing = null;
 
         $this->getLists();
     }
 
-    public function delete( GroceryList $list ): void {
-        $this->authorize( 'delete', $list );
+    public function delete(GroceryList $list): void
+    {
+        $this->authorize('delete', $list);
         $list->delete();
         $this->getLists();
     }
@@ -46,7 +51,7 @@ new class extends Component {
             >
             <x-slot name="title">
                 @if ($list->is($editing))
-                    <livewire:grocerylist.edit :groceryList="$list" :key="$list->id"/>
+                    <livewire:grocerylist.edit :groceryList="$list" :key="$list->id" />
                 @else
                     <x-list-title>
                         {{ $list->title }}

@@ -7,15 +7,17 @@ use App\Models\GroceryListFields;
 new class extends Component {
     use GroceryListFields;
 
-    public function mount(): void {
-        $this->title = date( 'F j, Y' );
+    public function mount(): void
+    {
+        $this->title = date('F j, Y');
     }
 
-    public function submit(): void {
+    public function submit(): void
+    {
         $validated = $this->validate();
-        auth()->user()->groceryLists()->create( $validated );
+        auth()->user()->groceryLists()->create($validated);
         $this->title = '';
-        $this->dispatch( 'grocery-list-added' );
+        $this->dispatch('grocery-list-added');
     }
 }; ?>
 

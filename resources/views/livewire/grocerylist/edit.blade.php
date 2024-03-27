@@ -11,22 +11,25 @@ new class extends Component {
 
     public GroceryList $groceryList;
 
-    public function mount(): void {
+    public function mount(): void
+    {
         $this->title = $this->groceryList->title;
     }
 
-    public function update(): void {
-        $this->authorize( 'update', $this->groceryList );
+    public function update(): void
+    {
+        $this->authorize('update', $this->groceryList);
 
         $validated = $this->validate();
 
-        $this->groceryList->update( $validated );
+        $this->groceryList->update($validated);
 
-        $this->dispatch( 'grocery-list-updated' );
+        $this->dispatch('grocery-list-updated');
     }
 
-    public function cancel(): void {
-        $this->dispatch( 'grocery-list-edit-canceled' );
+    public function cancel(): void
+    {
+        $this->dispatch('grocery-list-edit-canceled');
     }
 };
 ?>
