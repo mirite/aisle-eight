@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class GroceryList extends BaseModel
 {
-    public function aisleItems(): HasMany
+    public function listItems(): HasMany
     {
-        return $this->hasMany(AisleItem::class);
+        return $this->hasMany(ListItem::class);
     }
 
     public function user(): BelongsTo

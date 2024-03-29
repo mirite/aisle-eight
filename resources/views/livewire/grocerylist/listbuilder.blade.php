@@ -28,6 +28,8 @@ new class extends Component {
 
     public string $search = '';
 
+    public int $count = 0;
+
     public function mount(string $id): void
     {
         $lists = $this->getLists();
@@ -57,10 +59,17 @@ new class extends Component {
         if (!$this->currentItemID) {
             return;
         }
-        // Add the item to the list
+
         $current = $this->allItems->find($this->currentItemID);
-        $this->search = $current->id;
+        $this->current->listItems()->create([
+            'grocery_list_id' => $this->current->id,
+            'aisle_item_id' => $current->id,
+            'count'=> $this->count,
+        ]);
+        $this->search = "";
         $this->filteredItems = $this->allItems;
+        $this->count = 0;
+
     }
 };
 ?>
