@@ -24,11 +24,23 @@ new class extends Component {
      */
     public Collection $filteredItems;
 
+    /**
+     *
+     * @var int|null
+     */
     public ?int $currentItemID = null;
 
+    /**
+     * The current search term.
+     * @var string
+     */
     public string $search = '';
 
-    public int $count = 0;
+    /**
+     * The quantity of the item to add.
+     * @var int
+     */
+    public int $quantity = 1;
 
     public function mount(string $id): void
     {
@@ -64,12 +76,12 @@ new class extends Component {
         $this->current->listItems()->create([
             'grocery_list_id' => $this->current->id,
             'aisle_item_id' => $current->id,
-            'count'=> $this->count,
+            'quantity' => $this->quantity,
         ]);
-        $this->search = "";
+        $this->search = '';
         $this->filteredItems = $this->allItems;
-        $this->count = 0;
-
+        $this->quantity = 1;
+        $this->currentItemID = null;
     }
 };
 ?>
@@ -85,13 +97,19 @@ new class extends Component {
             <div class="grid grid-cols-subgrid col-span-2">
                 <label for="pick-item">Pick an Item</label>
                 <select id="pick-item" wire:model="currentItemID">
-                    <option disabled>Select an Item</option>
+                    <option value="">Select an Item</option>
                     @foreach ($this->filteredItems as $item)
                         <option value="{{ $item->id }}">@include('aisleItem.singleSlim', [$item])</option>
                     @endforeach
                 </select>
             </div>
-            <x-primary-button class="mt-4">{{ __('Add') }}</x-primary-button>
+            <div class="grid grid-cols-subgrid col-span-2">
+                <label for="quantity">Count</label><input type="number" id="quantity" wire:model="quantity"
+                    wire:change="filterItems">
+            </div>
+            <div class="col-span-2">
+                <x-primary-button class="mt-4">{{ __('Add') }}</x-primary-button>
+            </div>
         </form>
     </div>
 </div>
