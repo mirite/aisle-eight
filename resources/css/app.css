@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*,
+::before,
+::after {
+    border-width: 0;
+    border-style: solid;
+    border-color: theme("borderColor.DEFAULT", currentColor);
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+html {
+    color-scheme: light dark;
+    font-size: 16px;
+}
+
+label,
+button {
+    cursor: pointer;
+}
