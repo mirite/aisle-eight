@@ -13,14 +13,6 @@ new class extends Component {
 
         $this->redirect('/', navigate: true);
     }
-
-    public array $navItems = [
-        'stores' => 'Shopping',
-        'stores' => 'Stores',
-        'aisles' => 'Aisles',
-        'items' => 'Items',
-        'aisle-items' => 'Aisle Items',
-    ];
 };
 ?>
 
@@ -35,18 +27,7 @@ new class extends Component {
                         Logo Goes Here
                     </a>
                 </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    @foreach ($navItems as $slug => $name)
-                        <x-nav-link wire:key="{{ $slug }}" :href="route($slug)" :active="request()->routeIs($slug)" wire:navigate>
-                            {{ $name }}
-                        </x-nav-link>
-                    @endforeach
-                </div>
+                <x-inner-nav class="hidden sm:flex" />
             </div>
 
             <!-- Settings Dropdown -->
@@ -103,12 +84,7 @@ new class extends Component {
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('items')" :active="request()->routeIs('items')" wire:navigate>
-                {{ __('Items') }}
-            </x-responsive-nav-link>
+            <x-inner-nav class="flex-col" />
         </div>
 
         <!-- Responsive Settings Options -->
@@ -120,15 +96,15 @@ new class extends Component {
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile')" wire:navigate>
+                <x-nav-link :href="route('profile')" wire:navigate>
                     {{ __('Profile') }}
-                </x-responsive-nav-link>
+                </x-nav-link>
 
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
-                    <x-responsive-nav-link>
+                    <x-nav-link>
                         {{ __('Log Out') }}
-                    </x-responsive-nav-link>
+                    </x-nav-link>
                 </button>
             </div>
         </div>

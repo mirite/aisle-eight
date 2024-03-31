@@ -6,10 +6,10 @@ use function Livewire\Volt\{state};
 
 ?>
 
-<div class="form-group">
-    <label for="{{ $id }}">{{ $label }}</label>
+<x-form-group>
+    <x-input-label for="{{ $id }}">{{ $label }}</x-input-label>
     <select id="{{ $id }}" wire:model="{{ $model }}"
-        class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+        class="block w-full px-4 py-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
         <option value="">{{ $placeholder }}</option>
         @foreach ($children as $child)
             <option value="{{ $child->id }}">
@@ -17,4 +17,4 @@ use function Livewire\Volt\{state};
         @endforeach
     </select>
     <x-input-error :messages="$error" class="mt-2" />
-</div>
+</x-form-group>

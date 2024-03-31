@@ -34,8 +34,10 @@ new class extends Component {
 }; ?>
 
 <form wire:submit.prevent="submit">
-    @include('livewire.aisleitem.aisleItemFields', [
-        'errors' => $errors,
-    ])
+    <x-form-contents>
+        @include('livewire.aisleitem.aisleItemFields', [
+            'errors' => $errors,
+        ])
+    </x-form-contents>
     <x-primary-button class="mt-4">{{ __('Save') }}</x-primary-button>
 </form>
