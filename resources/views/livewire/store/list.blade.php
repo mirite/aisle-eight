@@ -57,12 +57,17 @@ new class extends Component {
                 @endif
             </x-slot>
             <x-slot name="content">
-                Aisles: {{ $store->aisles->count() }}
-                <ol>
-                    @foreach ($store->aisles as $aisle)
-                        <li>{{ $aisle->description }}</li>
-                    @endforeach
-                </ol>
+                @if ($store->aisles->count() > 0)
+                    <x-stack-mobile><span class="font-semibold">Aisles:</span>
+                        <ol class="m-0">
+                            @foreach ($store->aisles as $aisle)
+                                <li>{{ $aisle->description }}</li>
+                            @endforeach
+                        </ol>
+                    </x-stack-mobile>
+                @else
+                    No Aisles Created
+                @endif
             </x-slot>
             <x-slot name="tools">
                 <x-dropdown-link wire:click="edit({{ $store->id }})">

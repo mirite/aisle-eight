@@ -22,8 +22,10 @@ new class extends Component {
 }; ?>
 
 <form wire:submit.prevent="submit">
-    @include('livewire.grocerylist.groceryListFields', [
-        'errors' => $errors,
-    ])
+    <x-form-contents>
+        @include('livewire.grocerylist.groceryListFields', [
+            'errors' => $errors,
+        ])
+    </x-form-contents>
     <x-primary-button class="mt-4">{{ __('Create List') }}</x-primary-button>
 </form>

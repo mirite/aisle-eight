@@ -60,14 +60,16 @@ new class extends Component {
             </x-slot>
             <x-slot name="content">
                 <div>
-                    <div>Store: {{ $aisle->store->name }}</div>
-                    <div>Items: {{ $aisle->aisleItems()->count() }}
-                        <ol>
-                            @foreach ($aisle->aisleItems()->get() as $aisleItem)
-                                @include('aisleItem.single', ['aisleItem' => $aisleItem])
-                            @endforeach
-                        </ol>
-                    </div>
+                    <x-stack-mobile><span>Store:</span><span>{{ $aisle->store->name }}</span></x-stack-mobile>
+                    <x-stack-mobile><span>Items: {{ $aisle->aisleItems()->count() }}</span></x-stack-mobile>
+                    <ul class="pl-2 flex w-full flex-col gap-6">
+                        @foreach ($aisle->aisleItems()->get() as $aisleItem)
+                            <li>@include('aisleItem.single', [
+                                'aisleItem' => $aisleItem,
+                                'hide' => ['store', 'aisle'],
+                            ])</li>
+                        @endforeach
+                    </ul>
                 </div>
             </x-slot>
             <x-slot name="tools">

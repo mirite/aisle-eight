@@ -91,21 +91,21 @@ new class extends Component {
     <div>
         <form wire:submit.prevent="submit" class="grid grid-cols-[max-content_1fr] gap-2">
             <div class="grid grid-cols-subgrid col-span-2">
-                <label for="search">Search</label><input type="text" id="search" wire:model="search"
-                    wire:change="filterItems">
+                <x-input-label for="search">Search</x-input-label><x-input-text type="text" id="search"
+                    wire:model="search" wire:change="filterItems" />
             </div>
             <div class="grid grid-cols-subgrid col-span-2">
-                <label for="pick-item">Pick an Item</label>
-                <select id="pick-item" wire:model="currentItemID">
+                <x-input-label for="pick-item">Pick an Item</x-input-label>
+                <x-input-select id="pick-item" wire:model="currentItemID">
                     <option value="">Select an Item</option>
                     @foreach ($this->filteredItems as $item)
                         <option value="{{ $item->id }}">@include('aisleItem.singleSlim', [$item])</option>
                     @endforeach
-                </select>
+                </x-input-select>
             </div>
             <div class="grid grid-cols-subgrid col-span-2">
-                <label for="quantity">Count</label><input type="number" id="quantity" wire:model="quantity"
-                    wire:change="filterItems">
+                <x-input-label for="quantity">Count</x-input-label><x-input-text type="number" id="quantity"
+                    wire:model="quantity" wire:change="filterItems" />
             </div>
             <div class="col-span-2">
                 <x-primary-button class="mt-4">{{ __('Add') }}</x-primary-button>

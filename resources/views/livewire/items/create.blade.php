@@ -17,8 +17,10 @@ new class extends Component {
 }; ?>
 
 <form wire:submit="store">
-    @include('livewire.items.itemFields', [
-        'errors' => $errors,
-    ])
+    <x-form-contents>
+        @include('livewire.items.itemFields', [
+            'errors' => $errors,
+        ])
+    </x-form-contents>
     <x-primary-button class="mt-4">{{ __('Add Item') }}</x-primary-button>
 </form>
