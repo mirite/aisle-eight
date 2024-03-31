@@ -15,10 +15,10 @@ new class extends Component {
     }
 
     public array $navItems = [
-        'items' => 'Items',
+        'stores' => 'Shopping',
         'stores' => 'Stores',
         'aisles' => 'Aisles',
-        'profile' => 'Profile',
+        'items' => 'Items',
         'aisle-items' => 'Aisle Items',
     ];
 };
