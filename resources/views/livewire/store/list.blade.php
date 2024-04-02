@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Store;
+use App\Models\Aisle;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Volt\Component;
@@ -39,7 +40,15 @@ new class extends Component {
     public function delete(Store $store): void
     {
         $this->authorize('delete', $store);
-        $item->delete();
+        $store->delete();
+        $this->getStores();
+    }
+
+    public function move(int $storeId, int $aisleId, string $direction): void
+    {
+        $targetStore = Store::find($storeId);
+        $targetAisle = Aisle::find($aisleId);
+        $targetAisle->move($targetStore->aisles, $direction);
         $this->getStores();
     }
 }; ?>
@@ -60,8 +69,13 @@ new class extends Component {
                 @if ($store->aisles->count() > 0)
                     <x-stack-mobile><span class="font-semibold">Aisles:</span>
                         <ol class="m-0">
-                            @foreach ($store->aisles as $aisle)
-                                <li>{{ $aisle->description }}</li>
+                            @foreach ($store->aisles->sort(fn(Aisle $a, Aisle $b) => $a->position <=> $b->position) as $aisle)
+                                <li>
+                                    <span>{{ $aisle->description }}</span>
+                                    @include('livewire.components.movement-controls', [
+                                        'args' => [$store->id, $aisle->id],
+                                    ])
+                                </li>
                             @endforeach
                         </ol>
                     </x-stack-mobile>

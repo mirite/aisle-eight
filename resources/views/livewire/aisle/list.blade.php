@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Aisle;
+use App\Models\AisleItem;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Volt\Component;
 use Livewire\Attributes\On;
@@ -42,6 +43,14 @@ new class extends Component {
         $aisle->delete();
         $this->getAisles();
     }
+
+    public function move(int $aisleId, int $aisleItemId, string $direction): void
+    {
+        $targetAisle = Aisle::find($aisleId);
+        $targetAisleItem = AisleItem::find($aisleItemId);
+        $targetAisleItem->move($targetAisle->aisleItems, $direction);
+        $this->getAisles();
+    }
 }; ?>
 
 <x-list-wrapper>
@@ -63,11 +72,15 @@ new class extends Component {
                     <x-stack-mobile><span>Store:</span><span>{{ $aisle->store->name }}</span></x-stack-mobile>
                     <x-stack-mobile><span>Items: {{ $aisle->aisleItems()->count() }}</span></x-stack-mobile>
                     <ul class="pl-2 flex w-full flex-col gap-6">
-                        @foreach ($aisle->aisleItems()->get() as $aisleItem)
+                        @foreach ($aisle->aisleItems->sort(fn(AisleItem $a, AisleItem $b) => $a->position <=> $b->position) as $aisleItem)
                             <li>@include('aisleItem.single', [
                                 'aisleItem' => $aisleItem,
                                 'hide' => ['store', 'aisle'],
-                            ])</li>
+                            ])
+                                @include('livewire.components.movement-controls', [
+                                    'args' => [$aisle->id, $aisleItem->id],
+                                ])
+                            </li>
                         @endforeach
                     </ul>
                 </div>
