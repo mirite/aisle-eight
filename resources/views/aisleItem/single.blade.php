@@ -17,5 +17,5 @@
         <x-stack-mobile><span class="font-semibold">Price:</span>{{ $aisleItem->price }}</x-stack-mobile>
         <x-stack-mobile><span class="font-semibold">Units:</span>{{ $aisleItem->description }}</x-stack-mobile>
     </x-stack-mobile>
-    <x-stack-mobile><span class="font-semibold">Last Updated:</span{{ $aisleItem->update }}></x-stack-mobile>
+    <x-stack-mobile><span class="font-semibold">Last Updated:</span{{ $aisleItem->updated_at }}></x-stack-mobile>
 </div>
