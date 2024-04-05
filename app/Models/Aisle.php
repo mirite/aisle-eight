@@ -6,6 +6,11 @@ use App\Traits\Movable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property string $description
+ * @property int $position
+ * @property int $store_id
+ */
 class Aisle extends BaseModel {
 
     use Movable;
