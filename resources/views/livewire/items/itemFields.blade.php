@@ -1,4 +1,4 @@
-@include('livewire.forminput', [
+@include('livewire.form-input', [
     'label' => 'Name',
     'id' => 'name',
     'model' => 'name',

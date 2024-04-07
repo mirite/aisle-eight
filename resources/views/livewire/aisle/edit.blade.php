@@ -21,6 +21,4 @@ new class extends Component {
     }
 };
 ?>
-@include('livewire.aisle.aisleform', [
-    'editing' => $aisle,
-]);
+<livewire:aisle.aisleform wire:aisle-form-submitted="update" :editing="$aisle" />
