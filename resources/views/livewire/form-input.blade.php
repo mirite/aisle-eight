@@ -2,22 +2,22 @@
 
 use Livewire\Attributes\Modelable;
 
-new class extends \Livewire\Volt\Component {
+new #[\Livewire\Attributes\Title('Form Input')] class extends \Livewire\Volt\Component {
     public string $id;
     public string $label;
 
-    #[Modelable]
     public string $value = '';
 
     public string $placeholder;
     public array $error;
 
-    public function mount(string $id, string $label, string $placeholder, array $error = []): void
+    public function mount(string $id, string $label, string $placeholder, string $value, array $error = []): void
     {
         $this->id = $id;
         $this->label = $label;
         $this->placeholder = $placeholder;
         $this->error = $error;
+        $this->value = $value;
     }
 };
 

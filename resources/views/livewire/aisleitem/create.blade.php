@@ -32,7 +32,6 @@ new class extends Component {
         $this->items = Item::all();
     }
 }; ?>
-
 <form wire:submit.prevent="submit">
     <x-form-contents>
         @include('livewire.aisleitem.aisleItemFields', [

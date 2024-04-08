@@ -3,17 +3,17 @@
 new class extends \Livewire\Volt\Component {
     public string $id;
     public string $label;
-    public string $model;
+    public string $value;
     public string $placeholder;
     public \Illuminate\Database\Eloquent\Collection $children;
     public string $childLabelField;
     public array $error;
 
-    public function mount(string $id, string $label, string $model, string $placeholder, \Illuminate\Database\Eloquent\Collection $children, string $childLabelField, array $error = []): void
+    public function mount(string $id, string $label, string $value, string $placeholder, \Illuminate\Database\Eloquent\Collection $children, string $childLabelField, array $error = []): void
     {
         $this->id = $id;
         $this->label = $label;
-        $this->model = $model;
+        $this->value = $value;
         $this->placeholder = $placeholder;
         $this->children = $children;
         $this->childLabelField = $childLabelField;
@@ -25,7 +25,7 @@ new class extends \Livewire\Volt\Component {
 
 <x-form-group>
     <x-input-label for="{{ $id }}">{{ $label }}</x-input-label>
-    <x-input-select id="{{ $id }}" wire:model="{{ $model }}">
+    <x-input-select id="{{ $id }}" wire:model="value">
         <option value="">{{ $placeholder }}</option>
         @foreach ($children as $child)
             <option value="{{ $child->id }}">
