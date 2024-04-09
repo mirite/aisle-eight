@@ -7,7 +7,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 use Livewire\Attributes\{Layout, Title};
 
-new #[Title('Aisle Form')] class extends Component {
+new class extends Component {
     public Collection $stores;
 
     #[Validate('required|string|min:1|max:256')]
@@ -67,5 +67,4 @@ new #[Title('Aisle Form')] class extends Component {
     <div class="flex justify-end">
         <x-primary-button>{{ $editing ? __('Update') : __('Save') }}</x-primary-button>
     </div>
-    {{ $editing }}
 </form>
