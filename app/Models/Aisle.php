@@ -11,20 +11,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $position
  * @property int $store_id
  */
-class Aisle extends BaseModel {
-
+class Aisle extends BaseModel
+{
     use Movable;
 
-    public function store(): BelongsTo {
-        return $this->belongsTo( Store::class );
+    public function store(): BelongsTo
+    {
+        return $this->belongsTo(Store::class);
     }
 
-    public function user(): BelongsTo {
-        return $this->belongsTo( User::class );
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
-    public function aisleItems(): HasMany {
-        return $this->hasMany( AisleItem::class );
+    public function aisleItems(): HasMany
+    {
+        return $this->hasMany(AisleItem::class);
     }
 
     protected $fillable = [ 'description', 'position', 'store_id' ];
