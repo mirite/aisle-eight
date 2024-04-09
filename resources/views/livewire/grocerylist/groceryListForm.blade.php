@@ -37,13 +37,8 @@ new class extends Component {
 };
 ?>
 <form wire:submit="submit">
-    @include('components.form-input', [
-        'label' => 'Title',
-        'id' => 'title',
-        'model' => 'title',
-        'placeholder' => __('What should this list be called?'),
-        'error' => $errors->get('title'),
-    ])
+    <x-form-input :label="__('Title')" id="title" :model="'title'"
+        placeholder="{{ __('What should this list be called?') }}" :error="$errors->get('title')" />
     <div class="flex justify-end">
         <x-primary-button>{{ $editing ? __('Update') : __('Save') }}</x-primary-button>
     </div>
