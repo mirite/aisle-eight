@@ -51,7 +51,12 @@ new class extends Component {
             >
             <x-slot name="title">
                 @if ($list->is($editing))
-                    <livewire:grocerylist.edit :groceryList="$list" :key="$list->id" />
+                    <div>
+                        <livewire:grocerylist.groceryListForm :listID="$list->id" :key="$list->id" />
+                        <x-secondary-button type="button" wire:click="disableEditing">
+                            {{ __('Cancel') }}
+                        </x-secondary-button>
+                    </div>
                 @else
                     <x-list-title>
                         {{ $list->title }}
