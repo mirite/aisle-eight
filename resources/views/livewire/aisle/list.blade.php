@@ -16,6 +16,7 @@ new class extends Component {
     }
 
     #[On('aisle-created')]
+    #[On('aisle-updated')]
     public function getAisles(): void
     {
         $this->aisles = auth()->user()->aisles()->get();
@@ -60,7 +61,12 @@ new class extends Component {
             >
             <x-slot name="title">
                 @if ($aisle->is($editing))
-                    <livewire:aisle.edit :aisle="$aisle" :key="$aisle->id" />
+                    <div>
+                        <livewire:aisle.aisleform :editingID="$aisle->id" :key="$aisle->id" />
+                        <x-secondary-button type="button" wire:click="disableEditing">
+                            {{ __('Cancel') }}
+                        </x-secondary-button>
+                    </div>
                 @else
                     <x-list-title>
                         {{ $aisle->description }}

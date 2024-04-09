@@ -10,7 +10,7 @@ use Livewire\Attributes\{Layout, Title};
 new #[Title('Aisle Form')] class extends Component {
     public Collection $stores;
 
-    #[Validate('required|string|max:256')]
+    #[Validate('required|string|min:1|max:256')]
     public string $description;
 
     #[Validate('integer|min:0|max:100')]
@@ -24,17 +24,26 @@ new #[Title('Aisle Form')] class extends Component {
     public function submit(): void
     {
         $validated = $this->validate();
-        $this->dispatch('aisle-form-submitted', $validated);
+
+        if ($this->editing) {
+            $this->authorize('update', $this->editing);
+            $this->editing->update($validated);
+            $this->dispatch('aisle-updated');
+        } else {
+            auth()->user()->aisles()->create($validated);
+            $this->dispatch('aisle-created');
+        }
         $this->description = '';
         $this->position = 0;
         $this->store_id = 0;
     }
 
-    public function mount(): void
+    public function mount(?string $editingID = null): void
     {
         $this->stores = Store::with('user')->get();
-        if (isset($editing)) {
-            $this->editing = $editing;
+
+        if (isset($editingID)) {
+            $this->editing = Aisle::findOrFail($editingID);
             $this->description = $this->editing->description;
             $this->position = $this->editing->position;
             $this->store_id = $this->editing->store_id;
@@ -49,14 +58,14 @@ new #[Title('Aisle Form')] class extends Component {
 ?>
 
 <form wire:submit="submit">
-    <livewire:form-input :label="__('Description')" id="description" :value="$description"
+    <x-form-input :label="__('Description')" id="description" :model="'description'"
         placeholder="{{ __('Like the banana aisle (Where the bananas are)') }}" :error="$errors->get('description')" />
-    <livewire:form-input :label="__('Position')" id="position" :value="$position" type="number"
+    <x-form-input :label="__('Position')" id="position" :model="'position'" type="number"
         placeholder="{{ __('Where it lives in the store') }}" :error="$errors->get('position')" />
-    <livewire:form-select :label="__('Store')" id="store_id" :value="$store_id" :children="$stores ?? []"
+    <x-form-select :label="__('Store')" id="store_id" :model="'store_id'" :children="$stores ?? []"
         placeholder="{{ __('Select a store') }}" childLabelField="name" :error="$errors->get('store_id')" />
     <div class="flex justify-end">
-        {{ $editing }}
         <x-primary-button>{{ $editing ? __('Update') : __('Save') }}</x-primary-button>
     </div>
+    {{ $editing }}
 </form>
