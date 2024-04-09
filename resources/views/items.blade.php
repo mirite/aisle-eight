@@ -1,4 +1,4 @@
 <x-app-layout>
-    <livewire:items.create />
+    <livewire:items.itemForm />
     <livewire:items.list />
 </x-app-layout>

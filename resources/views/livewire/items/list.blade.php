@@ -11,13 +11,14 @@ new class extends Component {
 
     public function mount(): void
     {
-        $this->items = $this->getItems();
+        $this->getItems();
     }
 
     #[On('item-created')]
-    public function getItems(): Collection
+    #[On('item-updated')]
+    public function getItems(): void
     {
-        return auth()->user()->items()->get();
+        $this->items = auth()->user()->items()->get();
     }
 
     #[On('item-edit')]
@@ -51,7 +52,12 @@ new class extends Component {
             >
             <x-slot name="title">
                 @if ($item->is($editing))
-                    <livewire:items.edit :item="$item" :key="$item->id" />
+                    <div>
+                        <livewire:items.itemForm :itemID="$item->id" :key="$item->id" />
+                        <x-secondary-button type="button" wire:click="disableEditing">
+                            {{ __('Cancel') }}
+                        </x-secondary-button>
+                    </div>
                 @else
                     <x-list-title>
                         {{ $item->name }}

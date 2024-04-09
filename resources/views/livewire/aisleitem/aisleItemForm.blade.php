@@ -6,11 +6,8 @@ use App\Models\AisleItem;
 use App\Models\Aisle;
 use App\Models\Item;
 use Illuminate\Database\Eloquent\Collection;
-use App\Models\AisleItemFields;
 
 new class extends Component {
-    use AisleItemFields;
-
     public Collection $aisles;
     public Collection $items;
     public ?AisleItem $editing = null;
