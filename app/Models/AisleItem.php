@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Traits\Movable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class AisleItem extends BaseModel
+class AisleItem extends Model
 {
     use Movable;
 
