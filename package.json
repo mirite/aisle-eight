@@ -1,6 +1,15 @@
 {
     "private": true,
     "type": "module",
+    "name": "@mirite/aisle-eight",
+    "author": {
+        "name": "Jesse Conner",
+        "email": "me@jesseconner.ca"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mirite/aisle-eight.git"
+    },
     "scripts": {
         "dev": "vite",
         "build": "vite build",
@@ -16,7 +25,8 @@
         "postcss": "^8.4.38",
         "prettier": "^3.2.5",
         "tailwindcss": "^3.4.3",
-        "vite": "^5.2.8"
+        "vite": "^5.2.9"
     },
-    "packageManager": "yarn@4.1.1"
+    "packageManager": "yarn@4.1.1",
+    "version": ""
 }
