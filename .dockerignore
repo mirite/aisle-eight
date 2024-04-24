@@ -1,4 +1,11 @@
 .git
 node_modules
 vendor
-.yarn/cache
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+error_log
