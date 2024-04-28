@@ -9,3 +9,7 @@ vendor
 !.yarn/versions
 .pnp.*
 error_log
+.env
+.env.example
+.idea/*
+.prettierrc
