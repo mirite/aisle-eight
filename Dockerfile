@@ -32,4 +32,5 @@ RUN composer install --no-dev --prefer-source
 RUN composer dump-autoload
 
 FROM filesystem as laravel
+RUN php artisan migrate:install
 CMD php artisan serve --host=0.0.0.0 --port=80
