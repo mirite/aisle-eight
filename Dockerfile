@@ -2,12 +2,12 @@
 FROM php:8.3-cli as base
 
 RUN apt-get update && \
-    apt-get install -y libsodium-dev zlib1g-dev libpng-dev libicu-dev libxml2-dev libxslt-dev libzip-dev apt-transport-https curl software-properties-common
+    apt-get install -y libsodium-dev zlib1g-dev libpng-dev libicu-dev libxml2-dev libxslt-dev libzip-dev apt-transport-https curl software-properties-common libpq-dev
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install nodejs
 
 # Install required PHP extensions
-RUN docker-php-ext-install pdo_mysql bcmath sodium gd intl soap xsl zip sockets
+RUN docker-php-ext-install bcmath sodium gd intl soap xsl zip sockets pdo_pgsql
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 #RUN addgroup --system --gid 1001 appenv
 #RUN adduser --system --uid 1001 --home /app aisleeight
