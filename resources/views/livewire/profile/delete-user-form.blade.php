@@ -50,7 +50,7 @@ new class extends Component {
             <div class="mt-6">
                 <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
 
-                <x-text-input wire:model="password" id="password" name="password" type="password"
+                <x-input-text wire:model="password" id="password" name="password" type="password"
                     class="mt-1 block w-3/4" placeholder="{{ __('Password') }}" />
 
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />

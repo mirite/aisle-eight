@@ -51,21 +51,21 @@ new class extends Component {
     <form wire:submit="updatePassword" class="mt-6 space-y-6">
         <div>
             <x-input-label for="update_password_current_password" :value="__('Current Password')" />
-            <x-text-input wire:model="current_password" id="update_password_current_password" name="current_password"
+            <x-input-text wire:model="current_password" id="update_password_current_password" name="current_password"
                 type="password" class="mt-1 block w-full" autocomplete="current-password" />
             <x-input-error :messages="$errors->get('current_password')" class="mt-2" />
         </div>
 
         <div>
             <x-input-label for="update_password_password" :value="__('New Password')" />
-            <x-text-input wire:model="password" id="update_password_password" name="password" type="password"
+            <x-input-text wire:model="password" id="update_password_password" name="password" type="password"
                 class="mt-1 block w-full" autocomplete="new-password" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <div>
             <x-input-label for="update_password_password_confirmation" :value="__('Confirm Password')" />
-            <x-text-input wire:model="password_confirmation" id="update_password_password_confirmation"
+            <x-input-text wire:model="password_confirmation" id="update_password_password_confirmation"
                 name="password_confirmation" type="password" class="mt-1 block w-full" autocomplete="new-password" />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
