@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('aisles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('store_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('store_id')->constrained('stores')->cascadeOnDelete();
             $table->string('description');
             $table->integer('position')->default(0);
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
         });
     }
 

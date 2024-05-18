@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('list_items', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('grocery_list_id')->constrained();
-            $table->foreignId('aisle_item_id')->constrained();
+            $table->foreignId('grocery_list_id')->constrained('grocery_lists');
+            $table->foreignId('aisle_item_id')->constrained('aisle_items');
             $table->integer('quantity')->nullable();
             $table->boolean('in_cart')->default(false);
         });

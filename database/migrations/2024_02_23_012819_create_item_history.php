@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('aisle_item_history', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('aisle_item_id')->constrained('aisle_item')->cascadeOnDelete();
+            $table->foreignId('aisle_item_id')->constrained('aisle_items')->cascadeOnDelete();
             $table->decimal('price', 8, 2);
             $table->string('description');
             $table->timestamp('changed_at');
