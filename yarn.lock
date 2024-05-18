@@ -247,11 +247,11 @@ __metadata:
     "@tailwindcss/forms": "npm:^0.5.7"
     autoprefixer: "npm:^10.4.19"
     axios: "npm:^1.6.8"
-    laravel-vite-plugin: "npm:^1.0.2"
+    laravel-vite-plugin: "npm:^1.0.4"
     postcss: "npm:^8.4.38"
     prettier: "npm:^3.2.5"
     tailwindcss: "npm:^3.4.3"
-    vite: "npm:^5.2.10"
+    vite: "npm:^5.2.11"
   languageName: unknown
   linkType: soft
 
@@ -1509,9 +1509,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"laravel-vite-plugin@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "laravel-vite-plugin@npm:1.0.2"
+"laravel-vite-plugin@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "laravel-vite-plugin@npm:1.0.4"
   dependencies:
     picocolors: "npm:^1.0.0"
     vite-plugin-full-reload: "npm:^1.1.0"
@@ -1519,7 +1519,7 @@ __metadata:
     vite: ^5.0.0
   bin:
     clean-orphaned-assets: bin/clean.js
-  checksum: 10c0/0aab7f380653994e6dbee5655474edd091a4b72150dd7fb48071da6a6490dc48ac6987b86df23f1731e908ee3e5e80e73106365364107247c826187ba84c03a2
+  checksum: 10c0/c8bac5388ab9ccd8235ea4d99c179f908642dc6fa82d29af30c784630103e657e60b5c1429adb78b2017623cbfe75ce046fc6c2ed0fc1853b2ace0682732164d
   languageName: node
   linkType: hard
 
@@ -2622,9 +2622,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^5.2.10":
-  version: 5.2.10
-  resolution: "vite@npm:5.2.10"
+"vite@npm:^5.2.11":
+  version: 5.2.11
+  resolution: "vite@npm:5.2.11"
   dependencies:
     esbuild: "npm:^0.20.1"
     fsevents: "npm:~2.3.3"
@@ -2658,7 +2658,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/d50630ac8de807a6185cd9b5763b3969b2950a454cf6a4482f3780f183865e8d6f7e3aa57dd70ede1c493aaa861efb25b43562287efbcf8b471b7f3b88857a33
+  checksum: 10c0/664b8d68e4f5152ae16bd2041af1bbaf11c43630ac461835bc31ff7d019913b33e465386e09f66dc1037d7aeefbb06939e0173787c063319bc2bd30c3b9ad8e4
   languageName: node
   linkType: hard
 
