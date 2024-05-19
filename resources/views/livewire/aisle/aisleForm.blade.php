@@ -34,8 +34,8 @@ new class extends Component {
             $this->dispatch('aisle-created');
         }
         $this->description = '';
-        $this->position = 0;
-        $this->store_id = 0;
+        $this->position = $this->position + 1;
+        $this->dispatch('formSubmitted');
     }
 
     public function mount(?string $editingID = null): void
@@ -57,7 +57,7 @@ new class extends Component {
 
 ?>
 
-<form wire:submit="submit">
+<form wire:submit="submit" data-form="entry">
     <x-form-input :label="__('Description')" id="description" :model="'description'"
         placeholder="{{ __('Like the banana aisle (Where the bananas are)') }}" :error="$errors->get('description')" />
     <x-form-input :label="__('Position')" id="position" :model="'position'" type="number"
@@ -67,4 +67,5 @@ new class extends Component {
     <div class="flex justify-end">
         <x-primary-button>{{ $editing ? __('Update') : __('Save') }}</x-primary-button>
     </div>
+    @livewire('focusfirstinput')
 </form>

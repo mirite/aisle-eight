@@ -32,10 +32,11 @@ new class extends Component {
             $this->dispatch('item-created');
         }
         $this->name = '';
+        $this->dispatch('formSubmitted');
     }
 };
 ?>
-<form wire:submit="update">
+<form wire:submit="update" data-form="entry">
     @include('components.form-input', [
         'label' => 'Name',
         'id' => 'name',
@@ -47,4 +48,5 @@ new class extends Component {
     <div class="flex justify-end">
         <x-primary-button>{{ $editing ? __('Update') : __('Save') }}</x-primary-button>
     </div>
+    @livewire('focusfirstinput')
 </form>
