@@ -12,13 +12,15 @@ new class extends Component {
 //
 ?>
 <div class="hidden">
-    <script type="module">
-        Livewire.on('formSubmitted', () => {
-            const form = document.querySelector('form[data-form="{{ $form }}"]');
-            const firstInput = form.querySelector('input, select, textarea');
-            if (firstInput) {
-                firstInput.focus();
-            }
-        });
-    </script>
+    @script
+        <script type="module">
+            Livewire.on('formSubmitted', () => {
+                const form = document.querySelector('form[data-form="{{ $form }}"]');
+                const firstInput = form.querySelector('input, select, textarea');
+                if (firstInput) {
+                    firstInput.focus();
+                }
+            });
+        </script>
+    @endscript
 </div>
