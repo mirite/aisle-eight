@@ -11,7 +11,7 @@
         "url": "git+https://github.com/mirite/aisle-eight.git"
     },
     "scripts": {
-        "dev": "php artisan serve; vite",
+        "dev": "php artisan serve & vite",
         "build": "vite build",
         "format": "prettier --write . && composer format",
         "lint": "comnposer lint"
@@ -28,5 +28,5 @@
         "vite": "^5.2.11"
     },
     "packageManager": "yarn@4.2.2",
-    "version": ""
+    "version": "alpha-2"
 }

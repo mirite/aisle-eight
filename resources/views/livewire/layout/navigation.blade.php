@@ -20,12 +20,17 @@ new class extends Component {
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="flex items-center gap-2">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}" wire:navigate>
                         Logo Goes Here
                     </a>
+                </div>
+                <div>
+                    <a class="bg-green-700 text-white px-4 py-2 rounded-2xl no-underline"
+                        href="{{ route('grocery-list/usenewestlist') }}" wire:navigate>
+                        Shop Now</a>
                 </div>
                 <x-inner-nav class="hidden sm:flex" />
             </div>
