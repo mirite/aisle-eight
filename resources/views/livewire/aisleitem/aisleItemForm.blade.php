@@ -12,8 +12,8 @@ new class extends Component {
     public Collection $items;
     public ?AisleItem $editing = null;
 
-    #[Validate('string|max:255')]
-    public string $price;
+    #[Validate('float|max:255')]
+    public float $price;
 
     #[Validate('string|max:255')]
     public string $description;
@@ -21,11 +21,17 @@ new class extends Component {
     #[Validate('integer|min:0|max:100')]
     public int $position;
 
+    #[Validate('integer|min:0|max:10000')]
+    public int $size;
+
     #[Validate('required|exists:aisles,id')]
     public string $aisle_id;
 
     #[Validate('required|exists:items,id')]
     public string $item_id;
+
+    #[Validate('string|max:255')]
+    public string $unit = 'g';
 
     public function mount(?string $editingID = null): void
     {
@@ -39,12 +45,16 @@ new class extends Component {
             $this->aisle_id = $this->editing->aisle_id;
             $this->item_id = $this->editing->item_id;
             $this->position = $this->editing->position;
+            $this->size = $this->editing->size;
+            $this->unit = $this->editing->unit;
         } else {
-            $this->price = '';
+            $this->price = 0.0;
             $this->description = '';
             $this->aisle_id = '';
             $this->item_id = '';
             $this->position = 0;
+            $this->size = 0;
+            $this->unit = 'g';
         }
     }
 
@@ -72,10 +82,14 @@ new class extends Component {
         placeholder="{{ __('Select an aisle') }}" :childLabelField="fn($aisles) => $aisles->store->name . '->' . $aisles->description" :error="$errors->get('aisle_id')" />
     <x-form-select label="{{ __('Item') }}" id="item_id" :model="'item_id'" :children="$items ?? []"
         placeholder="{{ __('Select an item') }}" childLabelField="name" :error="$errors->get('item_id')" />
-    <x-form-input label="{{ __('Price') }}" id="price" :model="'price'" placeholder="{{ __('Optional') }}"
+    <x-form-input label="{{ __('Price') }}" id="price" :model="'price'" type="number" step="0.01"
         :error="$errors->get('price')" />
-    <x-form-input label="{{ __('Units') }}" id="description" :model="'description'"
-        placeholder="{{ __('Like Per Pound or Per Each') }}" :error="$errors->get('description')" />
+    <x-form-input label="{{ __('Description') }}" id="description" :model="'description'"
+        placeholder="{{ __('Like "Salted", ""Wonder" or "PC"') }}" :error="$errors->get('description')" />
+    <x-form-input label="{{ __('Size') }}" id="size" :model="'size'" type="number" step="0.1"
+        placeholder="{{ __('ex. 100') }}" :error="$errors->get('size')" />
+    <x-form-select label="{{ __('Units') }}" id="unit" :model="'unit'" :children="$items ?? []"
+        childLabelField="name" :error="$errors->get('unit')" />
     <x-form-input label="{{ __('Position') }}" id="position" :model="'position'" type="number"
         placeholder="{{ __('Where it lives in the aisle') }}" :error="$errors->get('position')" />
     <div class="flex justify-end">
