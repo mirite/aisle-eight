@@ -60,11 +60,14 @@ new class extends Component {
                     <div wire:key="{{ $aisle->id }}">
                         <h3>{{ $aisle->description }}</h3>
                         @foreach ($listItems->filter(fn($listItem) => $listItem->aisleItem->aisle->id == $aisle->id)->sort(fn($a, $b) => $a->position <=> $b->position) as $listItem)
-                            <div wire:key="{{ $listItem->id }}">
+                            <div wire:key="{{ $listItem->id }}" class="p-2 text-xl">
                                 <input type="checkbox" id="item-{{ $listItem->id }}" name="item-{{ $listItem->id }}"
                                     value="{{ $listItem->id }}" wire:change="markInCart" wire:model="inCart"
                                     checked="{{ $listItem->in_cart }}">
-                                <label for="item-{{ $listItem->id }}">@include('aisleItem.singleSlim', ['item' => $listItem->aisleItem]) @if ($listItem->quantity > 1)
+                                <label for="item-{{ $listItem->id }}">@include('components.aisleItem.singleSlim', [
+                                    'item' => $listItem->aisleItem,
+                                    'showStore' => false,
+                                ]) @if ($listItem->quantity > 1)
                                         x{{ $listItem->quantity }}
                                     @endif
                                 </label>

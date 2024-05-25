@@ -8,6 +8,6 @@ class AisleController extends Controller
 {
     public function index()
     {
-        return view('aisle');
+        return view('pages.aisle');
     }
 }

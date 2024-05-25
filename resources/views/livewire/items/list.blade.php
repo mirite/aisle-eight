@@ -75,8 +75,8 @@ new class extends Component {
                         <ul class="p-4 flex flex-col gap-6">
                             @foreach ($item->aisleItems()->get() as $aisleItem)
                                 <li wire:key="{{ $aisleItem->id }}">
-                                    @include('aisleItem.single', [
-                                        'aisleItem' => $aisleItem,
+                                    @include('components.aisleItem.single', [
+                                        'pages.aisleItem' => $aisleItem,
                                         'hide' => ['name'],
                                     ])
                                 </li>

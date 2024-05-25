@@ -9,6 +9,6 @@ class ItemController extends Controller
 {
     public function index(): View
     {
-        return view('items', []);
+        return view('pages.items', []);
     }
 }

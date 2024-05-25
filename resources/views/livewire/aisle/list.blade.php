@@ -79,9 +79,9 @@ new class extends Component {
                     <x-stack-mobile><span>Items: {{ $aisle->aisleItems()->count() }}</span></x-stack-mobile>
                     <ul class="pl-2 flex w-full flex-col gap-6">
                         @foreach ($aisle->aisleItems->sort(fn(AisleItem $a, AisleItem $b) => $a->position <=> $b->position) as $aisleItem)
-                            <li>@include('aisleItem.single', [
-                                'aisleItem' => $aisleItem,
-                                'hide' => ['store', 'aisle'],
+                            <li>@include('components.aisleItem.single', [
+                                'pages.aisleItem' => $aisleItem,
+                                'hide' => ['pages.store', 'pages.aisle'],
                             ])
                                 @include('livewire.components.movement-controls', [
                                     'args' => [$aisle->id, $aisleItem->id],

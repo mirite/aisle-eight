@@ -67,7 +67,10 @@ new class extends Component {
                     @endif
                 </x-slot>
                 <x-slot name="content">
-                    @include('aisleItem.single', ['aisleItem' => $aisleItem, 'hide' => ['name']])
+                    @include('components.aisleItem.single', [
+                        'pages.aisleItem' => $aisleItem,
+                        'hide' => ['name'],
+                    ])
                 </x-slot>
                 <x-slot name="tools">
                     <x-dropdown-link wire:click="edit({{ $aisleItem->id }})">

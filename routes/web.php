@@ -19,13 +19,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::view('/', 'welcome');
+Route::view('/', 'pages.welcome');
 
-Route::view('dashboard', 'dashboard')
+Route::view('dashboard', 'pages.dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::view('profile', 'profile')
+Route::view('profile', 'pages.profile')
     ->middleware(['auth'])
     ->name('profile');
 
@@ -38,13 +38,13 @@ Route::get('list', [ GroceryListController::class, 'index'])
      ->name('list');
 
 Route::get('list/view/{id}', function (Request $request, string $id) {
-    return view('listviewer', ['id' => $id]);
+    return view('pages.listviewer', ['id' => $id]);
 })
      ->middleware(['auth', 'verified'])
      ->name('grocery-list/uselist');
 
 Route::get('list/edit/{id}', function (Request $request, string $id) {
-    return view('listbuilder', ['id' => $id]);
+    return view('pages.listbuilder', ['id' => $id]);
 })
      ->middleware(['auth', 'verified'])
      ->name('grocery-list/listbuilder');

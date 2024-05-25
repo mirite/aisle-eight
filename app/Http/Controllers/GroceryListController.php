@@ -8,6 +8,6 @@ class GroceryListController extends Controller
 {
     public function index()
     {
-        return view('list');
+        return view('pages.list');
     }
 }
