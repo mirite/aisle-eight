@@ -1,32 +1,36 @@
 {
-    "private": true,
-    "type": "module",
-    "name": "@mirite/aisle-eight",
-    "author": {
-        "name": "Jesse Conner",
-        "email": "me@jesseconner.ca"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/mirite/aisle-eight.git"
-    },
-    "scripts": {
-        "dev": "php artisan serve & vite",
-        "build": "vite build",
-        "format": "prettier --write . && composer format",
-        "lint": "comnposer lint"
-    },
-    "devDependencies": {
-        "@shufo/prettier-plugin-blade": "^1.14.1",
-        "@tailwindcss/forms": "^0.5.7",
-        "autoprefixer": "^10.4.19",
-        "axios": "^1.6.8",
-        "laravel-vite-plugin": "^1.0.4",
-        "postcss": "^8.4.38",
-        "prettier": "^3.2.5",
-        "tailwindcss": "^3.4.3",
-        "vite": "^5.2.11"
-    },
-    "packageManager": "yarn@4.2.2",
-    "version": "alpha-2"
+  "private": true,
+  "type": "module",
+  "name": "@mirite/aisle-eight",
+  "author": {
+    "name": "Jesse Conner",
+    "email": "me@jesseconner.ca"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mirite/aisle-eight.git"
+  },
+  "scripts": {
+    "dev": "php artisan serve & vite",
+    "build": "vite build",
+    "format": "prettier --write . && composer format",
+    "lint": "comnposer lint",
+      "test:e2e": "playwright test --ui",
+      "test:e2e:generate": "playwright codegen"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.1",
+    "@shufo/prettier-plugin-blade": "^1.14.1",
+    "@tailwindcss/forms": "^0.5.7",
+    "@types/node": "^20.12.12",
+    "autoprefixer": "^10.4.19",
+    "axios": "^1.6.8",
+    "laravel-vite-plugin": "^1.0.4",
+    "postcss": "^8.4.38",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.3",
+    "vite": "^5.2.11"
+  },
+  "packageManager": "yarn@4.2.2",
+  "version": "alpha-2"
 }
