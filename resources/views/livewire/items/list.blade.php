@@ -46,7 +46,7 @@ new class extends Component {
 }; ?>
 
 <x-list-wrapper>
-    @foreach ($items as $item)
+    @foreach ($items->sort(fn($a, $b) => $a->name <=> $b->name) as $item)
         @component('livewire/listitem')
             :wire:key="$item->id"
             >

@@ -55,7 +55,7 @@ new class extends Component {
 }; ?>
 
 <x-list-wrapper>
-    @foreach ($aisles as $aisle)
+    @foreach ($aisles->sort(fn($a, $b) => $a->store->name <=> $b->store->name)->sortBy('position') as $aisle)
         @component('livewire/listitem')
             :wire:key="$aisle->id"
             >
