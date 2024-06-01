@@ -35,8 +35,8 @@ new class extends Component {
 
     public function mount(?string $editingID = null): void
     {
-        $this->aisles = Aisle::all();
-        $this->items = Item::all();
+        $this->aisles = Aisle::all()->sortBy('description');
+        $this->items = Item::all()->sortBy('name');
 
         if (isset($editingID)) {
             $this->editing = AisleItem::findOrFail($editingID);
@@ -79,7 +79,7 @@ new class extends Component {
 ?>
 <form wire:submit="submit" data-form="entry">
     <x-form-select label="{{ __('Aisle') }}" id="aisle_id" :model="'aisle_id'" :children="$aisles ?? []"
-        placeholder="{{ __('Select an aisle') }}" :childLabelField="fn($aisles) => $aisles->store->name . '->' . $aisles->description" :error="$errors->get('aisle_id')" />
+        placeholder="{{ __('Select an aisle') }}" :childLabelField="fn($aisles) => $aisles->description . ' (' . $aisles->store->name . ')'" :error="$errors->get('aisle_id')" />
     <x-form-select label="{{ __('Item') }}" id="item_id" :model="'item_id'" :children="$items ?? []"
         placeholder="{{ __('Select an item') }}" childLabelField="name" :error="$errors->get('item_id')" />
     <x-form-input label="{{ __('Price') }}" id="price" :model="'price'" type="number" step="0.01"
@@ -88,8 +88,8 @@ new class extends Component {
         placeholder="{{ __('Like "Salted", ""Wonder" or "PC"') }}" :error="$errors->get('description')" />
     <x-form-input label="{{ __('Size') }}" id="size" :model="'size'" type="number" step="0.1"
         placeholder="{{ __('ex. 100') }}" :error="$errors->get('size')" />
-    <x-form-select label="{{ __('Units') }}" id="unit" :model="'unit'" :children="$items ?? []"
-        childLabelField="name" :error="$errors->get('unit')" />
+    <x-form-select label="{{ __('Units') }}" id="unit" :model="'unit'" :children="['g', 'kg', 'mL', 'L', 'oz', 'lb', 'qt', 'pt', 'fl oz']"
+        :error="$errors->get('unit')" />
     <x-form-input label="{{ __('Position') }}" id="position" :model="'position'" type="number"
         placeholder="{{ __('Where it lives in the aisle') }}" :error="$errors->get('position')" />
     <div class="flex justify-end">

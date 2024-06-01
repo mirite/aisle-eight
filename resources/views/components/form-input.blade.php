@@ -1,4 +1,4 @@
-<x-form-group :attributes="$attributes">
+<x-form-group>
     <x-input-label for="{{ $id }}">{{ $label }}</x-input-label>
     <x-input-text id="{{ $id }}" wire:model="{{ $model }}" type="{{ $type ?? 'text' }}"
         step="{{ $step ?? '' }}" />

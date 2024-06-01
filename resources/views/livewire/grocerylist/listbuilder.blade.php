@@ -111,5 +111,10 @@ new class extends Component {
                 <x-primary-button class="mt-4">{{ __('Add') }}</x-primary-button>
             </div>
         </form>
+        <ul>
+            @foreach ($this->current->listItems as $item)
+                <li>{{ $item->aisleItem->item->name }} ({{ $item->aisleItem->description }})</li>
+            @endforeach
+        </ul>
     </div>
 </div>
