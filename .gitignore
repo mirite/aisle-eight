@@ -21,3 +21,13 @@ yarn-error.log
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+playwright/.auth
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+error_log
