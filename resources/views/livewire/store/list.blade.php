@@ -67,7 +67,7 @@ new class extends Component {
                         </x-secondary-button>
                     </div>
                 @else
-                    <x-list-title>{{ $store->name }}</x-list-title>
+                    <x-list-title data-testid="store-{{ $store->name }}">{{ $store->name }}</x-list-title>
                 @endif
             </x-slot>
             <x-slot name="content">
