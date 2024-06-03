@@ -34,7 +34,7 @@ async function createAisle(
 ): Promise<[string, number]> {
     await page.getByText("Aisles", {}).first().click();
     await expect(page.getByLabel("Description")).toBeVisible();
-    const randomName = `Item ${Math.floor(Math.random() * 1000)}`;
+    const randomName = `Aisle ${Math.floor(Math.random() * 1000)}`;
     await page.getByLabel("Description").fill(randomName);
     const position = Math.floor(Math.random() * 99);
     await page.getByLabel("Position").fill(position.toString());

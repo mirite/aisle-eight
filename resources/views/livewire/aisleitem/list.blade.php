@@ -13,13 +13,13 @@ new class extends Component {
 
     public function mount(): void
     {
-        $this->aisleItems = $this->getAisleItems();
+        $this->getAisleItems();
     }
 
     #[On('aisle-item-created')]
-    public function getAisleItems(): Collection
+    public function getAisleItems(): void
     {
-        return auth()->user()->aisleItems()->get();
+        $this->aisleItems = auth()->user()->aisleItems()->get();
     }
 
     #[On('aisle-item-edit')]

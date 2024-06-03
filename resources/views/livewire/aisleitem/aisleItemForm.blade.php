@@ -70,7 +70,7 @@ new class extends Component {
             auth()->user()->aisleItems()->create($validated);
             $this->dispatch('aisle-item-created');
         }
-        $this->price = '';
+        $this->price = 0.0;
         $this->description = '';
         $this->item_id = '';
         $this->position = $this->position + 1;
