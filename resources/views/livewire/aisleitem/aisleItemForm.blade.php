@@ -11,8 +11,9 @@ new class extends Component {
     public Collection $aisles;
     public Collection $items;
     public ?AisleItem $editing = null;
+    public array $units = ['g', 'kg', 'mL', 'L', 'oz', 'lb', 'qt', 'pt', 'fl oz'];
 
-    #[Validate('float|max:255')]
+    #[Validate('numeric|max:255')]
     public float $price;
 
     #[Validate('string|max:255')]
@@ -30,7 +31,7 @@ new class extends Component {
     #[Validate('required|exists:items,id')]
     public string $item_id;
 
-    #[Validate('string|max:255')]
+    #[Validate('in_array:units.*')]
     public string $unit = 'g';
 
     public function mount(?string $editingID = null): void
@@ -85,10 +86,10 @@ new class extends Component {
     <x-form-input label="{{ __('Price') }}" id="price" :model="'price'" type="number" step="0.01"
         :error="$errors->get('price')" />
     <x-form-input label="{{ __('Description') }}" id="description" :model="'description'"
-        placeholder="{{ __('Like "Salted", ""Wonder" or "PC"') }}" :error="$errors->get('description')" />
+        placeholder="{{ __('Like Salted, Wonder or PC') }}" :error="$errors->get('description')" />
     <x-form-input label="{{ __('Size') }}" id="size" :model="'size'" type="number" step="0.1"
         placeholder="{{ __('ex. 100') }}" :error="$errors->get('size')" />
-    <x-form-select label="{{ __('Units') }}" id="unit" :model="'unit'" :children="['g', 'kg', 'mL', 'L', 'oz', 'lb', 'qt', 'pt', 'fl oz']"
+    <x-form-select label="{{ __('Units') }}" id="unit" :model="'unit'" :children="$units"
         :error="$errors->get('unit')" />
     <x-form-input label="{{ __('Position') }}" id="position" :model="'position'" type="number"
         placeholder="{{ __('Where it lives in the aisle') }}" :error="$errors->get('position')" />

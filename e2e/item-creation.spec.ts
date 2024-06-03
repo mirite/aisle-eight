@@ -14,6 +14,7 @@ test("Can add items", async ({ page }) => {
     const store = await createStore(page);
     const [aisleName, aislePosition] = await createAisle(page, store);
     const itemName = await createItem(page);
+    await createAisleItem(page, store, aisleName, itemName);
 });
 
 async function createStore(page: Page) {
@@ -27,7 +28,10 @@ async function createStore(page: Page) {
     return randomName;
 }
 
-async function createAisle(page: Page, storeName: string) {
+async function createAisle(
+    page: Page,
+    storeName: string,
+): Promise<[string, number]> {
     await page.getByText("Aisles", {}).first().click();
     await expect(page.getByLabel("Description")).toBeVisible();
     const randomName = `Item ${Math.floor(Math.random() * 1000)}`;
@@ -50,4 +54,34 @@ async function createItem(page: Page) {
     await page.getByText("Save").click();
     await expect(page.getByTestId(`item-${randomName}`)).toBeVisible();
     return randomName;
+}
+
+async function createAisleItem(
+    page: Page,
+    storeName: string,
+    aisleName: string,
+    itemName: string,
+) {
+    await page.getByText("Aisle Items", { exact: true }).first().click();
+    await page
+        .getByLabel(`Aisle`)
+        .selectOption({ label: `${aisleName} (${storeName})` });
+    await page.getByLabel(`Item`).selectOption({ label: `${itemName}` });
+    const price = Math.floor(Math.random() * 200);
+    await page.getByLabel("Price").fill(price.toString());
+    const size = Math.floor(Math.random() * 1000);
+    await page.getByLabel("Size").fill(size.toString());
+    const units = ["g", "kg", "mL", "L", "oz", "lb", "qt", "pt", "fl oz"][
+        Math.floor(Math.random() * 9)
+    ];
+    await page.getByLabel("Units").selectOption({ label: units });
+    const position = Math.floor(Math.random() * 99);
+    await page.getByLabel("Position").fill(position.toString());
+    const description = `Description ${Math.floor(Math.random() * 1000)}`;
+    await page.getByLabel("Description").fill(description);
+    await expect(page.getByText("Save")).toBeVisible();
+    await page.getByText("Save").click();
+    await expect(
+        page.getByTestId(`aisle-item-${storeName}${aisleName}${itemName}`),
+    ).toBeVisible();
 }
