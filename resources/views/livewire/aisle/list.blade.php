@@ -56,7 +56,7 @@ new class extends Component {
 
 <x-list-wrapper>
     @foreach ($aisles->sort(fn($a, $b) => $a->store->name <=> $b->store->name)->sortBy('position') as $aisle)
-        @component('livewire/listitem')
+        @component('livewire/listitem', ['testPrefix' => "aisle-$aisle->description"])
             :wire:key="$aisle->id"
             >
             <x-slot name="title">
@@ -68,14 +68,15 @@ new class extends Component {
                         </x-secondary-button>
                     </div>
                 @else
-                    <x-list-title data-testid="aisle-{{ $aisle->description }}">
+                    <x-list-title>
                         {{ $aisle->description }}
                     </x-list-title>
                 @endif
             </x-slot>
             <x-slot name="content">
                 <div>
-                    <x-stack-mobile><span>Store:</span><span>{{ $aisle->store->name }}</span></x-stack-mobile>
+                    <x-stack-mobile><span>Store:</span><span
+                            data-testid="aisle-{{ $aisle->description }}-store">{{ $aisle->store->name }}</span></x-stack-mobile>
                     <x-stack-mobile><span>Items: {{ $aisle->aisleItems()->count() }}</span></x-stack-mobile>
                     <ul class="pl-2 flex w-full flex-col gap-6">
                         @foreach ($aisle->aisleItems->sort(fn(AisleItem $a, AisleItem $b) => $a->position <=> $b->position) as $aisleItem)
@@ -92,10 +93,11 @@ new class extends Component {
                 </div>
             </x-slot>
             <x-slot name="tools">
-                <x-dropdown-link wire:click="edit({{ $aisle->id }})">
+                <x-dropdown-link data-testid="aisle-{{ $aisle->description }}-edit" wire:click="edit({{ $aisle->id }})">
                     {{ __('Edit') }}
                 </x-dropdown-link>
-                <x-dropdown-link wire:click="delete({{ $aisle->id }})" wire:confirm="Are you sure to delete this aisle?">
+                <x-dropdown-link data-testid="aisle-{{ $aisle->description }}-delete"
+                    wire:click="delete({{ $aisle->id }})" wire:confirm="Are you sure to delete this aisle?">
                     {{ __('Delete') }}
                 </x-dropdown-link>
             </x-slot>
