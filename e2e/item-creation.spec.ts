@@ -1,5 +1,6 @@
 import { expect, Page, test } from "@playwright/test";
 import { testAisle } from "./item-creation/aisle";
+import { testStore } from "./item-creation/store";
 
 test("Is authenticated", async ({ page }) => {
     await page.goto("localhost:8000");
@@ -10,24 +11,14 @@ test("Is authenticated", async ({ page }) => {
 });
 
 test("Can add items", async ({ page }) => {
+    page.on("dialog", (dialog) => dialog.accept());
     await page.goto("localhost:8000");
     await page.getByText("Dashboard").click();
-    const store = await createStore(page);
-    const [aisleName, aislePosition] = await testAisle(page, store);
+    const { name: store } = await testStore(page);
+    const { name: aisle } = await testAisle(page, store);
     const itemName = await createItem(page);
-    await createAisleItem(page, store, aisleName, itemName);
+    await createAisleItem(page, store, aisle, itemName);
 });
-
-async function createStore(page: Page) {
-    await page.getByText("Stores", {}).first().click();
-    await expect(page.getByLabel("Name")).toBeVisible();
-    const randomName = `Store ${Math.floor(Math.random() * 1000)}`;
-    await page.getByLabel("Name").fill(randomName);
-    await expect(page.getByText("Save")).toBeVisible();
-    await page.getByText("Save").click();
-    await expect(page.getByTestId(`store-${randomName}`)).toBeVisible();
-    return randomName;
-}
 
 async function createItem(page: Page) {
     await page.getByText("Items", {}).first().click();

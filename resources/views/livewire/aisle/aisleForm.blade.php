@@ -58,14 +58,14 @@ new class extends Component {
 ?>
 
 <form wire:submit="submit" data-form="entry">
-    <x-form-input :label="__('Description')" id="description" :model="'description'"
+    <x-form-input :label="__('Description')" id="{{ uniqid() }}" :model="'description'"
         placeholder="{{ __('Like the banana aisle (Where the bananas are)') }}" :error="$errors->get('description')" />
-    <x-form-input :label="__('Position')" id="position" :model="'position'" type="number"
+    <x-form-input :label="__('Position')" id="{{ uniqid() }}" :model="'position'" type="number"
         placeholder="{{ __('Where it lives in the store') }}" :error="$errors->get('position')" />
-    <x-form-select :label="__('Store')" id="store_id" :model="'store_id'" :children="$stores ?? []"
+    <x-form-select :label="__('Store')" id="{{ uniqid() }}" :model="'store_id'" :children="$stores ?? []"
         placeholder="{{ __('Select a store') }}" childLabelField="name" :error="$errors->get('store_id')" />
     <div class="flex justify-end">
-        <x-primary-button>{{ $editing ? __('Update') : __('Save') }}</x-primary-button>
+        <x-primary-button data-testid="save">{{ $editing ? __('Update') : __('Save') }}</x-primary-button>
     </div>
     @livewire('focusfirstinput')
 </form>

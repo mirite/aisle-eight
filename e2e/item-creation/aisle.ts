@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 import {
     fillText,
     openEdit,
@@ -16,16 +16,13 @@ type GeneratedAisle = {
 async function editAisle(
     page: Page,
     generate: GeneratedAisle,
-): Promise<GeneratedAisle> {
-    const { name: randomName, storeName } = generate;
-    await openEdit(page, "aisle", randomName);
-    await page.waitForTimeout(1000);
-    const titleContainer = page
-        .getByTestId(`aisle-${randomName}-title`)
-        .first();
-    await expect(titleContainer).toBeVisible();
-    const randomName2 = await fillText(titleContainer, "Aisle");
-    const position2 = await setPosition(titleContainer);
+    locator: Locator,
+) {
+    const { storeName } = generate;
+
+    await expect(locator).toBeVisible();
+    const randomName2 = await fillText(locator, "Aisle");
+    const position2 = await setPosition(locator);
     return { name: randomName2, position: position2, storeName };
 }
 

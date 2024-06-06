@@ -12,6 +12,9 @@ export async function testDelete(
     generatedTitle: string,
 ) {
     await page.getByTestId(`${prefix}-${generatedTitle}-tools-toggle`).click();
+    await expect(
+        page.getByTestId(`${prefix}-${generatedTitle}-delete`),
+    ).toBeVisible();
     await page.getByTestId(`${prefix}-${generatedTitle}-delete`).click();
     await expect(
         page.getByTestId(`${prefix}-${generatedTitle}-title`),
@@ -19,21 +22,12 @@ export async function testDelete(
 }
 
 /**
- * Saves the entity after editing.
- * @param page The Playwright page to test with.
- */
-export async function saveEdit(page: Page) {
-    await expect(page.getByText("Update")).toBeVisible();
-    await page.getByText("Update").click();
-}
-
-/**
  * Saves the entity after creating.
  * @param page The Playwright page to test with.
  */
-export async function save(page: Page) {
-    await expect(page.getByText("Save")).toBeVisible();
-    await page.getByText("Save").click();
+export async function save(page: Page | Locator) {
+    await expect(page.getByTestId("save")).toBeVisible();
+    await page.getByTestId("save").click();
 }
 
 /**
@@ -115,17 +109,19 @@ export async function testEntity<T extends { name: string }>(
     prefix: string,
     create: (page: Page) => Promise<T>,
     check: (page: Page, entity: T) => Promise<void>,
-    edit: (page: Page, entity: T) => Promise<T>,
+    edit: (page: Page, entity: T, locator: Locator) => Promise<T>,
     first = true,
 ): Promise<T> {
-    await page.getByText(navLabel, {}).first().click();
+    await page.getByText(navLabel).first().click();
 
     const l = await create(page);
     await save(page);
     await check(page, l);
     if (first) {
-        const l2 = await edit(page, l);
-        await saveEdit(page);
+        await openEdit(page, prefix, l.name);
+        const locator = page.locator(`[data-testid=${prefix}-${l.name}-title]`);
+        const l2 = await edit(page, l, locator);
+        await save(locator);
         await expect(
             page.getByTestId(`${prefix}-${l.name}-title`),
         ).not.toBeVisible();
