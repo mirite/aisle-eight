@@ -100,6 +100,7 @@ export async function fillText(
     await expect(page.getByLabel(fieldLabel)).toBeVisible();
     const randomName = `${prefix} ${Math.floor(Math.random() * 1000)}`;
     await page.getByLabel(fieldLabel).fill(randomName);
+    await expect(page.getByLabel(fieldLabel)).toHaveValue(randomName);
     return randomName;
 }
 
@@ -119,7 +120,8 @@ export async function testEntity<T extends { name: string }>(
     await check(page, l);
     if (first) {
         await openEdit(page, prefix, l.name);
-        const locator = page.locator(`[data-testid=${prefix}-${l.name}-title]`);
+        const locator = page.getByTestId(`${prefix}-${l.name}-title`);
+        await expect(locator).toBeVisible();
         const l2 = await edit(page, l, locator);
         await save(locator);
         await expect(
