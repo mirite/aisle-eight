@@ -58,7 +58,7 @@ new class extends Component {
 ?>
 
 <form wire:submit="submit" data-form="entry">
-    <x-form-input :label="__('Description')" id="{{ uniqid() }}" :model="'description'"
+    <x-form-input :label="__('Description')" testId="primary-text" id="{{ uniqid() }}" :model="'description'"
         placeholder="{{ __('Like the banana aisle (Where the bananas are)') }}" :error="$errors->get('description')" />
     <x-form-input :label="__('Position')" id="{{ uniqid() }}" :model="'position'" type="number"
         placeholder="{{ __('Where it lives in the store') }}" :error="$errors->get('position')" />

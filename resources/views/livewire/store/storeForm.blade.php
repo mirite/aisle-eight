@@ -42,6 +42,7 @@ new class extends Component {
         'model' => 'name',
         'placeholder' => __('Sort of like a story'),
         'error' => $errors->get('name'),
+        'testId' => 'primary-text',
     ])
     <div class="flex justify-end">
         <x-primary-button data-testid="save">{{ $editing ? __('Update') : __('Save') }}</x-primary-button>

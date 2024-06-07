@@ -2,7 +2,7 @@ import { expect, Locator, Page } from "@playwright/test";
 import { fillText, testEntity, testTitle } from "./common";
 
 async function createStore(page: Page) {
-    const name = await fillText(page, "Store", "Name");
+    const name = await fillText(page, "Store");
     return { name };
 }
 
@@ -16,7 +16,7 @@ async function editStore(
     generated: { name: string },
     locator: Locator,
 ) {
-    const name = await fillText(locator, "Store", "Name");
+    const name = await fillText(locator, "Store");
 
     return { name };
 }

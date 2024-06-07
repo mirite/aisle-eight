@@ -90,17 +90,17 @@ export async function openEdit(
  * Randomly fills the text field with a generated name.
  * @param page The Playwright page to test with.
  * @param prefix The prefix for the entity type (ex. aisle).
- * @param fieldLabel The label for the field to fill. Defaults to "Description".
+ * @param testId The test ID for the text field.
  */
 export async function fillText(
     page: Page | Locator,
     prefix: string,
-    fieldLabel: string = "Description",
+    testId: string = "primary-text",
 ) {
-    await expect(page.getByLabel(fieldLabel)).toBeVisible();
+    await expect(page.getByTestId(testId)).toBeVisible();
     const randomName = `${prefix} ${Math.floor(Math.random() * 1000)}`;
-    await page.getByLabel(fieldLabel).fill(randomName);
-    await expect(page.getByLabel(fieldLabel)).toHaveValue(randomName);
+    await page.getByTestId(testId).fill(randomName);
+    await expect(page.getByTestId(testId)).toHaveValue(randomName);
     return randomName;
 }
 
@@ -113,8 +113,10 @@ export async function testEntity<T extends { name: string }>(
     edit: (page: Page, entity: T, locator: Locator) => Promise<T>,
     first = true,
 ): Promise<T> {
-    await page.getByText(navLabel).first().click();
-
+    if (first) {
+        await page.getByText(navLabel).first().click();
+        await page.waitForURL("**/" + navLabel.toLowerCase());
+    }
     const l = await create(page);
     await save(page);
     await check(page, l);
@@ -129,6 +131,7 @@ export async function testEntity<T extends { name: string }>(
         ).not.toBeVisible();
         await check(page, l2);
         await testDelete(page, prefix, l2.name);
+        await page.waitForTimeout(1000);
         return await testEntity(
             page,
             navLabel,
