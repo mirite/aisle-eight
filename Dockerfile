@@ -6,10 +6,6 @@ RUN apk update && \
     docker-php-ext-install bcmath sodium gd intl soap xsl zip pdo_pgsql sockets && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     rm -rf /var/cache/apk/*
-#RUN addgroup --system --gid 1001 appenv
-#RUN adduser --system --uid 1001 --home /app aisleeight
-#RUN chown -R aisleeight:appenv /app
-#USER aisleeight
 
 FROM node:20.12-alpine AS nodeenv
 RUN corepack enable
