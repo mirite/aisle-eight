@@ -38,13 +38,14 @@ new class extends Component {
 <form wire:submit="submit" data-form="entry">
     @include('components.form-input', [
         'label' => 'Name',
-        'id' => 'name',
+        'id' => uniqid(),
         'model' => 'name',
         'placeholder' => __('Sort of like a story'),
         'error' => $errors->get('name'),
+        'testId' => 'primary-text',
     ])
     <div class="flex justify-end">
-        <x-primary-button>{{ $editing ? __('Update') : __('Save') }}</x-primary-button>
+        <x-primary-button data-testid="save">{{ $editing ? __('Update') : __('Save') }}</x-primary-button>
     </div>
     @livewire('focusfirstinput')
 </form>

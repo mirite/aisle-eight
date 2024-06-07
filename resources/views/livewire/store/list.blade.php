@@ -55,7 +55,7 @@ new class extends Component {
 
 <x-list-wrapper>
     @foreach ($stores as $store)
-        @component('livewire/listitem')
+        @component('livewire/listitem', ['testPrefix' => 'store-' . $store->name])
             :wire:key="$store->id"
             >
             <x-slot name="title">
@@ -89,10 +89,11 @@ new class extends Component {
                 @endif
             </x-slot>
             <x-slot name="tools">
-                <x-dropdown-link wire:click="edit({{ $store->id }})">
+                <x-dropdown-link data-testid="store-{{ $store->name }}-edit" wire:click="edit({{ $store->id }})">
                     {{ __('Edit') }}
                 </x-dropdown-link>
-                <x-dropdown-link wire:click="delete({{ $store->id }})" wire:confirm="Are you sure to delete this store?">
+                <x-dropdown-link data-testid="store-{{ $store->name }}-delete" wire:click="delete({{ $store->id }})"
+                    wire:confirm="Are you sure to delete this store?">
                     {{ __('Delete') }}
                 </x-dropdown-link>
             </x-slot>

@@ -1,0 +1,23 @@
+import { expect, Page, test } from "@playwright/test";
+import { testAisle } from "./item-creation/aisle";
+import { testStore } from "./item-creation/store";
+import { testItem } from "./item-creation/item";
+import { testAisleItem } from "./item-creation/aisle-item";
+
+test("Is authenticated", async ({ page }) => {
+    await page.goto("localhost:8000");
+
+    // Expect a title "to contain" a substring.
+    await expect(page).toHaveTitle(/Aisle Eight/);
+    await expect(page.getByText("Dashboard")).toBeVisible();
+});
+
+test("Can add items", async ({ page }) => {
+    page.on("dialog", (dialog) => dialog.accept());
+    await page.goto("localhost:8000");
+    await page.getByText("Dashboard").click();
+    const { name: store } = await testStore(page);
+    const { name: aisle } = await testAisle(page, store);
+    const { name: itemName } = await testItem(page);
+    await testAisleItem(page, store, aisle, itemName);
+});

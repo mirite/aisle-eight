@@ -1,11 +1,11 @@
 <div class="p-6 flex flex-col gap-2 w-full">
     <div class="flex gap-2">
-        <div class="grow">
+        <div class="grow" data-testid="{{ ($testPrefix ?? '') . '-title' }}">
             {{ $title ?? '' }}
         </div>
         <x-dropdown>
             <x-slot name="trigger">
-                <button>
+                <button type="button" data-testid="{{ ($testPrefix ?? '') . '-tools-toggle' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 dark:text-white"
                         viewBox="0 0 20 20" fill="currentColor">
                         <path
@@ -18,7 +18,7 @@
             </x-slot>
         </x-dropdown>
     </div>
-    <div>
+    <div data-testid="{{ ($testPrefix ?? '') . '-content' }}">
         {{ $content ?? '' }}
     </div>
 </div>

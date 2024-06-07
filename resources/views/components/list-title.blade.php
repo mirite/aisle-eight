@@ -1,3 +1,3 @@
-<span class="text-lg">
+<span class="text-lg" {{ $attributes }}>
     {{ $slot }}
 </span>

@@ -13,13 +13,13 @@ new class extends Component {
 
     public function mount(): void
     {
-        $this->aisleItems = $this->getAisleItems();
+        $this->getAisleItems();
     }
 
     #[On('aisle-item-created')]
-    public function getAisleItems(): Collection
+    public function getAisleItems(): void
     {
-        return auth()->user()->aisleItems()->get();
+        $this->aisleItems = auth()->user()->aisleItems()->get();
     }
 
     #[On('aisle-item-edit')]
@@ -61,7 +61,8 @@ new class extends Component {
                             </x-secondary-button>
                         </div>
                     @else
-                        <x-list-title>
+                        <x-list-title
+                            data-testid="aisle-item-{{ $aisleItem->aisle->store->name . $aisleItem->aisle->description . $aisleItem->item->name }}">
                             {{ $aisleItem->item->name }}
                         </x-list-title>
                     @endif

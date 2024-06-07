@@ -37,7 +37,16 @@ Route::get('list', [ GroceryListController::class, 'index'])
      ->middleware(['auth', 'verified'])
      ->name('list');
 
+Route::get('list/view', function (Request $request) {
+
+        $id = GroceryListController::getNewestListId();
+    return view('pages.listviewer', ['id' => $id]);
+})
+     ->middleware(['auth', 'verified'])
+     ->name('grocery-list/usenewestlist');
+
 Route::get('list/view/{id}', function (Request $request, string $id) {
+
     return view('pages.listviewer', ['id' => $id]);
 })
      ->middleware(['auth', 'verified'])

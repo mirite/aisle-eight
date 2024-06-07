@@ -43,10 +43,11 @@ new class extends Component {
         'model' => 'name',
         'placeholder' => __('What do you call it?'),
         'error' => $errors->get('name'),
+        'testId' => 'primary-text',
     ])
 
     <div class="flex justify-end">
-        <x-primary-button>{{ $editing ? __('Update') : __('Save') }}</x-primary-button>
+        <x-primary-button data-testid="save">{{ $editing ? __('Update') : __('Save') }}</x-primary-button>
     </div>
     @livewire('focusfirstinput')
 </form>
