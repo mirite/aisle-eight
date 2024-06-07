@@ -47,7 +47,7 @@ new class extends Component {
 
 <x-list-wrapper>
     @foreach ($items->sort(fn($a, $b) => $a->name <=> $b->name) as $item)
-        @component('livewire/listitem')
+        @component('livewire/listitem', ['testPrefix' => "item-$item->name"])
             :wire:key="$item->id"
             >
             <x-slot name="title">
@@ -86,10 +86,11 @@ new class extends Component {
                 </div>
             </x-slot>
             <x-slot name="tools">
-                <x-dropdown-link wire:click="edit({{ $item->id }})">
+                <x-dropdown-link data-testid="item-{{ $item->name }}-edit" wire:click="edit({{ $item->id }})">
                     {{ __('Edit') }}
                 </x-dropdown-link>
-                <x-dropdown-link wire:click="delete({{ $item->id }})" wire:confirm="Are you sure to delete this item?">
+                <x-dropdown-link wire:click="delete({{ $item->id }})" data-testid="item-{{ $item->name }}-delete"
+                    wire:confirm="Are you sure to delete this item?">
                     {{ __('Delete') }}
                 </x-dropdown-link>
             </x-slot>
