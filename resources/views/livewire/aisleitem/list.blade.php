@@ -44,6 +44,14 @@ new class extends Component {
         $aisleItem->delete();
         $this->getAisleItems();
     }
+
+    public function duplicate(AisleItem $aisleItem): void
+    {
+        $this->authorize('create', AisleItem::class);
+        $newAisleItem = $aisleItem->replicate();
+        $newAisleItem->save();
+        $this->getAisleItems();
+    }
 }; ?>
 
 <x-list-wrapper>

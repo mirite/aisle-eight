@@ -13,7 +13,7 @@ class AisleItemPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class AisleItemPolicy
      */
     public function view(User $user, AisleItem $aisleItem): bool
     {
-        //
+        return $aisleItem->user()->is($user);
     }
 
     /**
@@ -29,7 +29,7 @@ class AisleItemPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +53,7 @@ class AisleItemPolicy
      */
     public function restore(User $user, AisleItem $aisleItem): bool
     {
-        //
+        return $aisleItem->user()->is($user);
     }
 
     /**
@@ -61,6 +61,6 @@ class AisleItemPolicy
      */
     public function forceDelete(User $user, AisleItem $aisleItem): bool
     {
-        //
+        return $aisleItem->user()->is($user);
     }
 }

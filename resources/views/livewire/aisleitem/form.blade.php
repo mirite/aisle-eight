@@ -50,12 +50,13 @@ new class extends Component {
             $this->editing = AisleItem::findOrFail($editingID);
             $this->price = $this->editing->price;
             $this->description = $this->editing->description;
-            $this->store_id = $this->editing->store_id;
-            $this->aisle_id = $this->editing->aisle_id;
+            $this->store_id = $this->editing->aisle->store->id;
+            $this->aisle_id = $this->editing->aisle->id;
             $this->item_id = $this->editing->item_id;
             $this->position = $this->editing->position;
             $this->size = $this->editing->size;
-            $this->unit = $this->editing->unit;
+            $this->unit = $this->editing->unit ?? 'g';
+            $this->filterAisles();
         } else {
             $this->price = 0.0;
             $this->description = '';
