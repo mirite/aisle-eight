@@ -5,11 +5,14 @@ use Livewire\Attributes\Validate;
 use App\Models\AisleItem;
 use App\Models\Aisle;
 use App\Models\Item;
+use App\Models\Store;
 use Illuminate\Database\Eloquent\Collection;
 
 new class extends Component {
-    public Collection $aisles;
+    public Collection $allAisles;
+    public Collection $filteredAisles;
     public Collection $items;
+    public Collection $stores;
     public ?AisleItem $editing = null;
     public array $units = ['g', 'kg', 'mL', 'L', 'oz', 'lb', 'qt', 'pt', 'fl oz'];
 
@@ -31,18 +34,23 @@ new class extends Component {
     #[Validate('required|exists:items,id')]
     public string $item_id;
 
+    #[Validate('required|exists:stores,id')]
+    public string $store_id;
+
     #[Validate('in_array:units.*')]
     public string $unit = 'g';
 
     public function mount(?string $editingID = null): void
     {
-        $this->aisles = Aisle::all()->sortBy('description');
+        $this->stores = Store::all()->sortBy('name')->sortBy('name');
+        $this->aisles = Aisle::all()->sortBy('position');
         $this->items = Item::all()->sortBy('name');
 
         if (isset($editingID)) {
             $this->editing = AisleItem::findOrFail($editingID);
             $this->price = $this->editing->price;
             $this->description = $this->editing->description;
+            $this->store_id = $this->editing->store_id;
             $this->aisle_id = $this->editing->aisle_id;
             $this->item_id = $this->editing->item_id;
             $this->position = $this->editing->position;
@@ -76,11 +84,21 @@ new class extends Component {
         $this->position = $this->position + 1;
         $this->dispatch('formSubmitted');
     }
+
+    public function filterAisles(): void
+    {
+        $this->filteredAisles = $this->allAisles->filter(function (Aisle $aisle) {
+            dd($aisle->store->id, $this->store_id);
+            return $aisle->store->id === $this->store_id;
+        });
+    }
 };
 ?>
 <form wire:submit="submit" data-form="entry">
-    <x-form-select label="{{ __('Aisle') }}" id="aisle_id" :model="'aisle_id'" :children="$aisles ?? []"
-        placeholder="{{ __('Select an aisle') }}" :childLabelField="fn($aisles) => $aisles->description . ' (' . $aisles->store->name . ')'" :error="$errors->get('aisle_id')" />
+    <x-form-select label="{{ __('Store') }}" id="store_id" :model="'store_id'" wire:change="filterAisles"
+        :children="$stores ?? []" placeholder="{{ __('Select a store') }}" :childLabelField="fn($store) => $store->name" :error="$errors->get('store_id')" />
+    <x-form-select label="{{ __('Aisle') }}" id="aisle_id" :model="'aisle_id'" :children="$filteredAisles ?? []"
+        placeholder="{{ __('Select an aisle') }}" :childLabelField="fn($aisles) => $aisles->description" :error="$errors->get('aisle_id')" />
     <x-form-select label="{{ __('Item') }}" id="item_id" :model="'item_id'" :children="$items ?? []"
         placeholder="{{ __('Select an item') }}" childLabelField="name" :error="$errors->get('item_id')" />
     <x-form-input label="{{ __('Price') }}" id="price" :model="'price'" type="number" step="0.01"

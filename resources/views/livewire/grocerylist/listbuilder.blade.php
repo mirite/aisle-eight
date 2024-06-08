@@ -62,7 +62,7 @@ new class extends Component {
     public function filterItems(): void
     {
         $this->filteredItems = $this->allItems->filter(function (\App\Models\AisleItem $item) {
-            return str_contains($item->item->name, $this->search);
+            return str_contains(strtolower($item->item->name), strtolower($this->search));
         });
     }
 
