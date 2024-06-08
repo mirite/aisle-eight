@@ -102,7 +102,7 @@ export async function fillText(
     testId: string = "primary-text",
 ) {
     await expect(page.getByTestId(testId)).toBeVisible();
-    const randomName = `${prefix} ${Math.floor(Math.random() * 1000)}`;
+    const randomName = `${prefix} ${Math.floor(Math.random() * 100000)}`;
     await page.getByTestId(testId).fill(randomName);
     await expect(page.getByTestId(testId)).toHaveValue(randomName);
     return randomName;

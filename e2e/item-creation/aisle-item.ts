@@ -2,6 +2,14 @@ import { expect, Locator, Page } from "@playwright/test";
 import { testEntity, testTitle } from "./common";
 import { createHash } from "crypto";
 
+type AisleItem = {
+    name: string;
+    titleOverride: string;
+    price: number;
+    size: number;
+    units: string;
+};
+
 async function createItem(
     page: Page,
     storeName: string,
@@ -20,7 +28,7 @@ async function fillForm(
     aisleName: string,
     storeName: string,
     itemName: string,
-) {
+): Promise<AisleItem> {
     const price = Math.floor(Math.random() * 200);
     await page.getByLabel("Price").fill(price.toString());
     const size = Math.floor(Math.random() * 1000);
@@ -38,19 +46,24 @@ async function fillForm(
             .update(`${storeName}${aisleName}${itemName}${description}`)
             .digest("hex"),
         titleOverride: description,
+        price,
+        size,
+        units,
     };
 }
 
 const prefix = "aisle-item";
 
-async function checkResult(
-    page: Page,
-    result: { name: string; titleOverride: string },
-) {
-    const { name, titleOverride } = result;
+async function checkResult(page: Page, result: AisleItem) {
+    const { name, titleOverride, price, units, size } = result;
     await testTitle(page, prefix, name, {
         contentOverride: titleOverride,
     });
+    const content = page.getByTestId(`${prefix}-${name}-content`);
+    await expect(content).toContainText(`Price:$${price}`);
+    await expect(content).toContainText(`Size:${size}`);
+    await expect(content).toContainText(`Units:${units}`);
+    await expect(content).toBeVisible();
 }
 
 async function editItem(

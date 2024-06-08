@@ -65,15 +65,30 @@ new class extends Component {
                 @endif
             </x-slot>
             <x-slot name="content">
-                <div class="flex-1">
-                    <div>
-                        <small class="text-sm text-gray-600 dark:text-gray-200">Added:
-                            {{ $list->created_at->format('j M Y, g:i a') }}</small>
-                        <div class="flex flex-col gap-2 items-center sm:flex-row">
-                            <a href="{{ route('grocery-list/uselist', $list) }}"
-                                class="text-sm text-blue-500 hover:underline dark:text-blue-300">Shop With This List</a>
-                            <a href="{{ route('grocery-list/listbuilder', $list) }}"
-                                class="text-sm text-blue-500 hover:underline dark:text-blue-300">Build This List</a>
+                <div class="flex gap-2 grow items-center">
+                    @if (
+                        $list->listItems->count() > 0 &&
+                            $list->listItems->filter(fn($listItem) => $listItem->in_cart)->count() === $list->listItems->count())
+                        <span class="font-extrabold text-4xl text-green-500">✓</span>
+                    @endif
+                    <div class="grow">
+                        <div>
+                            <small class="text-sm text-gray-600 dark:text-gray-200">Added:
+                                {{ $list->created_at->format('j M Y, g:i a') }}</small>
+                            <div class="flex flex-col gap-2 items-center sm:flex-row">
+                                <a href="{{ route('grocery-list/uselist', $list) }}"
+                                    class="text-sm text-blue-500 hover:underline dark:text-blue-300">Shop With This List</a>
+                                <a href="{{ route('grocery-list/listbuilder', $list) }}"
+                                    class="text-sm text-blue-500 hover:underline dark:text-blue-300">Build This List</a>
+                            </div>
+                            <div>
+                                <small class="text-sm text-gray-600 dark:text-gray-200">Items:
+                                    {{ $list->listItems()->count() }}</small>
+                                @if ($list->listItems()->count() > 0)
+                                    <small class="text-sm text-gray-600 dark:text-gray-200">Estimated Total:
+                                        ${{ $list->listItems->sum(fn($listItem) => (float) $listItem->aisleItem->price * $listItem->quantity) }}</small>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>

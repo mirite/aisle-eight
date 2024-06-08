@@ -14,7 +14,7 @@
         @endif
     </x-stack-mobile>
     <x-stack-mobile class="justify-between">
-        <x-stack-mobile><span class="font-semibold">Price:</span>{{ $aisleItem->price }}</x-stack-mobile>
+        <x-stack-mobile><span class="font-semibold">Price:</span>${{ $aisleItem->price }}</x-stack-mobile>
         <x-stack-mobile><span class="font-semibold">Size:</span>{{ $aisleItem->size }}</x-stack-mobile>
         <x-stack-mobile><span class="font-semibold">Units:</span>{{ $aisleItem->units }}</x-stack-mobile>
     </x-stack-mobile>

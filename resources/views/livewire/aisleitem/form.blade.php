@@ -14,7 +14,7 @@ new class extends Component {
     public Collection $items;
     public Collection $stores;
     public ?AisleItem $editing = null;
-    public array $units = ['g', 'kg', 'mL', 'L', 'oz', 'lb', 'qt', 'pt', 'fl oz'];
+    public array $unitTypes = ['g', 'kg', 'mL', 'L', 'oz', 'lb', 'qt', 'pt', 'fl oz'];
 
     #[Validate('numeric|max:255')]
     public float $price;
@@ -37,12 +37,12 @@ new class extends Component {
     #[Validate('required|exists:stores,id')]
     public string $store_id;
 
-    #[Validate('in_array:units.*')]
-    public string $unit = 'g';
+    #[Validate('in_array:unitTypes.*')]
+    public string $units = 'g';
 
     /**
     ID for the aisle select element. There's issues with the element re-rendering when the store changes if this is done inline like the others,
-             * @var string
+                         * @var string
      */
     public string $aisle_id_id;
 
@@ -62,7 +62,7 @@ new class extends Component {
             $this->item_id = $this->editing->item_id;
             $this->position = $this->editing->position;
             $this->size = $this->editing->size;
-            $this->unit = $this->editing->unit ?? 'g';
+            $this->units = $this->editing->unit ?? 'g';
             $this->filterAisles();
         } else {
             $this->price = 0.0;
@@ -71,7 +71,7 @@ new class extends Component {
             $this->item_id = '';
             $this->position = 0;
             $this->size = 0;
-            $this->unit = 'g';
+            $this->units = 'g';
         }
     }
 
@@ -117,8 +117,8 @@ new class extends Component {
     <x-stack-mobile>
         <x-form-input label="{{ __('Size') }}" id="{{ uniqid() }}" :model="'size'" type="number"
             step="0.1" placeholder="{{ __('ex. 100') }}" :error="$errors->get('size')" />
-        <x-form-select label="{{ __('Units') }}" id="{{ uniqid() }}" :model="'unit'" :children="$units"
-            :error="$errors->get('unit')" /></x-stack-mobile>
+        <x-form-select label="{{ __('Units') }}" id="{{ uniqid() }}" :model="'units'" :children="$unitTypes"
+            :error="$errors->get('units')" /></x-stack-mobile>
     <x-form-input label="{{ __('Position') }}" id="{{ uniqid() }}" :model="'position'" type="number"
         placeholder="{{ __('Where it lives in the aisle') }}" :error="$errors->get('position')" />
     <div class="flex justify-end">
