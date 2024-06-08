@@ -101,14 +101,17 @@ new class extends Component {
         placeholder="{{ __('Select an aisle') }}" :childLabelField="fn($aisles) => $aisles->description" :error="$errors->get('aisle_id')" />
     <x-form-select label="{{ __('Item') }}" id="item_id" :model="'item_id'" :children="$items ?? []"
         placeholder="{{ __('Select an item') }}" childLabelField="name" :error="$errors->get('item_id')" />
-    <x-form-input label="{{ __('Price') }}" id="price" :model="'price'" type="number" step="0.01"
-        :error="$errors->get('price')" />
-    <x-form-input label="{{ __('Description') }}" id="description" :model="'description'"
-        placeholder="{{ __('Like Salted, Wonder or PC') }}" :error="$errors->get('description')" />
-    <x-form-input label="{{ __('Size') }}" id="size" :model="'size'" type="number" step="0.1"
-        placeholder="{{ __('ex. 100') }}" :error="$errors->get('size')" />
-    <x-form-select label="{{ __('Units') }}" id="unit" :model="'unit'" :children="$units"
-        :error="$errors->get('unit')" />
+    <x-stack-mobile>
+        <x-form-input label="{{ __('Price') }}" id="price" :model="'price'" type="number" step="0.01"
+            :error="$errors->get('price')" />
+        <x-form-input label="{{ __('Description') }}" id="description" :model="'description'"
+            placeholder="{{ __('Like Salted, Wonder or PC') }}" :error="$errors->get('description')" />
+    </x-stack-mobile>
+    <x-stack-mobile>
+        <x-form-input label="{{ __('Size') }}" id="size" :model="'size'" type="number" step="0.1"
+            placeholder="{{ __('ex. 100') }}" :error="$errors->get('size')" />
+        <x-form-select label="{{ __('Units') }}" id="unit" :model="'unit'" :children="$units"
+            :error="$errors->get('unit')" /></x-stack-mobile>
     <x-form-input label="{{ __('Position') }}" id="position" :model="'position'" type="number"
         placeholder="{{ __('Where it lives in the aisle') }}" :error="$errors->get('position')" />
     <div class="flex justify-end">
