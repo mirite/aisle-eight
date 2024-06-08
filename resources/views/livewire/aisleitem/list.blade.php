@@ -44,6 +44,14 @@ new class extends Component {
         $aisleItem->delete();
         $this->getAisleItems();
     }
+
+    public function duplicate(AisleItem $aisleItem): void
+    {
+        $this->authorize('create', AisleItem::class);
+        $newAisleItem = $aisleItem->replicate();
+        $newAisleItem->save();
+        $this->getAisleItems();
+    }
 }; ?>
 
 <x-list-wrapper>
@@ -55,7 +63,7 @@ new class extends Component {
                 <x-slot name="title">
                     @if ($aisleItem->is($editing))
                         <div>
-                            <livewire:aisleitem.aisleItemForm :editingID="$aisleItem->id" :key="$aisleItem->id" />
+                            <livewire:aisleitem.form :editingID="$aisleItem->id" :key="$aisleItem->id" />
                             <x-secondary-button type="button" wire:click="disableEditing">
                                 {{ __('Cancel') }}
                             </x-secondary-button>
@@ -76,6 +84,9 @@ new class extends Component {
                 <x-slot name="tools">
                     <x-dropdown-link wire:click="edit({{ $aisleItem->id }})">
                         {{ __('Edit') }}
+                    </x-dropdown-link>
+                    <x-dropdown-link wire:click="duplicate({{ $aisleItem->id }})">
+                        {{ __('Duplicate') }}
                     </x-dropdown-link>
                     <x-dropdown-link wire:click="delete({{ $aisleItem->id }})"
                         wire:confirm="Are you sure to delete this aisle item?">

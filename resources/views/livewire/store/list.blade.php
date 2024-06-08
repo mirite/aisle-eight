@@ -61,7 +61,7 @@ new class extends Component {
             <x-slot name="title">
                 @if ($store->is($editing))
                     <div>
-                        <livewire:store.storeForm :storeID="$store->id" :key="$store->id" />
+                        <livewire:store.form :storeID="$store->id" :key="$store->id" />
                         <x-secondary-button type="button" wire:click="disableEditing">
                             {{ __('Cancel') }}
                         </x-secondary-button>

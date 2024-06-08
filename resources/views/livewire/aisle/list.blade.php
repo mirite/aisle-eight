@@ -61,9 +61,8 @@ new class extends Component {
             >
             <x-slot name="title">
                 @if ($aisle->is($editing))
-                    https://hub.docker.com
                     <div>
-                        <livewire:aisle.aisleForm :editingID="$aisle->id" :key="$aisle->id" />
+                        <livewire:aisle.form :editingID="$aisle->id" :key="$aisle->id" />
                         <x-secondary-button type="button" wire:click="disableEditing">
                             {{ __('Cancel') }}
                         </x-secondary-button>

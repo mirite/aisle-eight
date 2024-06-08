@@ -11,13 +11,14 @@ new class extends Component {
 
     public function mount(): void
     {
-        $this->lists = $this->getLists();
+        $this->getLists();
     }
 
     #[On('grocery-list-created')]
-    public function getLists(): Collection
+    #[On('grocery-list-updated')]
+    public function getLists(): void
     {
-        return auth()->user()->groceryLists()->get();
+        $this->lists = auth()->user()->groceryLists()->get()->sortByDesc('created_at');
     }
 
     #[On('grocery-list-edit')]
