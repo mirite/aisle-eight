@@ -19,7 +19,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::view('/', 'pages.welcome');
+Route::get('/', function(){
+    if(Auth::check()){
+        return redirect()->route('dashboard');
+    } else {
+        return view('pages.welcome');
+    }
+});
 
 Route::view('dashboard', 'pages.dashboard')
     ->middleware(['auth', 'verified'])
