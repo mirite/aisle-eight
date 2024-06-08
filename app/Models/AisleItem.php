@@ -10,7 +10,7 @@ class AisleItem extends Model
 {
     use Movable;
 
-    protected $fillable = [ 'aisle_id', 'item_id', 'price', 'description', 'position' ];
+    protected $fillable = [ 'aisle_id', 'item_id', 'price', 'description', 'position','units','size' ];
 
     public function aisle(): BelongsTo
     {
