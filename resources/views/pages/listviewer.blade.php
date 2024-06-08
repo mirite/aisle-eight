@@ -1,3 +1,3 @@
 <x-app-layout>
-    <livewire:grocerylist.uselist id="{{ $id }}" />
+    <livewire:grocerylist.single.list id="{{ $id }}" />
 </x-app-layout>
