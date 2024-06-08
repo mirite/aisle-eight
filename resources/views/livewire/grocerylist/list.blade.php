@@ -14,11 +14,11 @@ new class extends Component {
         $this->getLists();
     }
 
-    #[On('aisle-created')]
-    #[On('aisle-updated')]
+    #[On('grocery-list-created')]
+    #[On('grocery-list-updated')]
     public function getLists(): void
     {
-        $this->lists = auth()->user()->groceryLists()->get();
+        $this->lists = auth()->user()->groceryLists()->get()->sortByDesc('created_at');
     }
 
     #[On('grocery-list-edit')]
