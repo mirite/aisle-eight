@@ -1,22 +1,27 @@
 //TODO: Test and fix testids
 import { expect, Locator, Page } from "@playwright/test";
-import { fillText, testEntity, testTitle } from "./common";
+import { testEntity, testTitle } from "./common";
+import { createHash } from "crypto";
 
 async function createItem(
     page: Page,
+    storeName: string,
+    aisleName: string,
+    itemName: string,
+) {
+    await expect(page.getByLabel(`Store`)).toBeVisible();
+    await page.getByLabel(`Store`).selectOption({ label: `${storeName}` });
+    await page.getByLabel(`Aisle`).selectOption({ label: `${aisleName}` });
+    await page.getByLabel(`Item`).selectOption({ label: `${itemName}` });
+    return await fillForm(page, aisleName, storeName, itemName);
+}
+
+async function fillForm(
+    page: Page | Locator,
     aisleName: string,
     storeName: string,
     itemName: string,
 ) {
-    await page
-        .getByLabel(`Aisle`)
-        .selectOption({ label: `${aisleName} (${storeName})` });
-    await page.getByLabel(`Item`).selectOption({ label: `${itemName}` });
-    await fillForm(page);
-    return { name: storeName + aisleName + itemName };
-}
-
-async function fillForm(page: Page | Locator) {
     const price = Math.floor(Math.random() * 200);
     await page.getByLabel("Price").fill(price.toString());
     const size = Math.floor(Math.random() * 1000);
@@ -29,21 +34,33 @@ async function fillForm(page: Page | Locator) {
     await page.getByLabel("Position").fill(position.toString());
     const description = `Description ${Math.floor(Math.random() * 1000)}`;
     await page.getByLabel("Description").fill(description);
+    return {
+        name: createHash("md5")
+            .update(`${storeName}${aisleName}${itemName}${description}`)
+            .digest("hex"),
+        titleOverride: description,
+    };
 }
 
-async function checkResult(page: Page, result: { name: string }) {
-    const { name } = result;
-    await testTitle(page, "item", name);
+const prefix = "aisle-item";
+
+async function checkResult(
+    page: Page,
+    result: { name: string; titleOverride: string },
+) {
+    const { name, titleOverride } = result;
+    await testTitle(page, prefix, name, {
+        contentOverride: titleOverride,
+    });
 }
 
 async function editItem(
-    page: Page,
-    generated: { name: string },
     locator: Locator,
+    aisleName: string,
+    storeName: string,
+    itemName: string,
 ) {
-    const name = await fillText(locator, "Item");
-    await fillForm(locator);
-    return { name };
+    return await fillForm(locator, storeName, aisleName, itemName);
 }
 
 export async function testAisleItem(
@@ -55,9 +72,14 @@ export async function testAisleItem(
     return await testEntity(
         page,
         "Aisle Items",
-        "aisle-item",
-        (page) => createItem(page, aisleName, storeName, itemName),
+        prefix,
+        async (page) => await createItem(page, aisleName, storeName, itemName),
         checkResult,
-        editItem,
+        (page, generated, locator) =>
+            editItem(locator, aisleName, storeName, itemName),
+        true,
+        {
+            urlOverride: "aisle-items",
+        },
     );
 }

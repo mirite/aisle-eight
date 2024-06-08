@@ -40,8 +40,15 @@ new class extends Component {
     #[Validate('in_array:units.*')]
     public string $unit = 'g';
 
+    /**
+    ID for the aisle select element. There's issues with the element re-rendering when the store changes if this is done inline like the others,
+             * @var string
+     */
+    public string $aisle_id_id;
+
     public function mount(?string $editingID = null): void
     {
+        $this->aisle_id_id = uniqid();
         $this->stores = Store::all()->sortBy('name')->sortBy('name');
         $this->allAisles = Aisle::all()->sortBy('position');
         $this->items = Item::all()->sortBy('name');
@@ -95,27 +102,27 @@ new class extends Component {
 };
 ?>
 <form wire:submit="submit" data-form="entry">
-    <x-form-select label="{{ __('Store') }}" id="store_id" :model="'store_id'" :change="'filterAisles'" :children="$stores ?? []"
-        placeholder="{{ __('Select a store') }}" :childLabelField="fn($store) => $store->name" :error="$errors->get('store_id')" />
-    <x-form-select label="{{ __('Aisle') }}" id="aisle_id" :model="'aisle_id'" :children="$filteredAisles ?? []"
+    <x-form-select label="{{ __('Store') }}" id="{{ uniqid() }}" :model="'store_id'" :change="'filterAisles'"
+        :children="$stores ?? []" placeholder="{{ __('Select a store') }}" :childLabelField="fn($store) => $store->name" :error="$errors->get('store_id')" />
+    <x-form-select label="{{ __('Aisle') }}" id="{{ $aisle_id_id }}" :model="'aisle_id'" :children="$filteredAisles ?? []"
         placeholder="{{ __('Select an aisle') }}" :childLabelField="fn($aisles) => $aisles->description" :error="$errors->get('aisle_id')" />
-    <x-form-select label="{{ __('Item') }}" id="item_id" :model="'item_id'" :children="$items ?? []"
+    <x-form-select label="{{ __('Item') }}" id="{{ uniqid() }}" :model="'item_id'" :children="$items ?? []"
         placeholder="{{ __('Select an item') }}" childLabelField="name" :error="$errors->get('item_id')" />
     <x-stack-mobile>
-        <x-form-input label="{{ __('Price') }}" id="price" :model="'price'" type="number" step="0.01"
-            :error="$errors->get('price')" />
-        <x-form-input label="{{ __('Description') }}" id="description" :model="'description'"
+        <x-form-input label="{{ __('Price') }}" id="{{ uniqid() }}" :model="'price'" type="number"
+            step="0.01" :error="$errors->get('price')" />
+        <x-form-input label="{{ __('Description') }}" id="{{ uniqid() }}" :model="'description'"
             placeholder="{{ __('Like Salted, Wonder or PC') }}" :error="$errors->get('description')" />
     </x-stack-mobile>
     <x-stack-mobile>
-        <x-form-input label="{{ __('Size') }}" id="size" :model="'size'" type="number" step="0.1"
-            placeholder="{{ __('ex. 100') }}" :error="$errors->get('size')" />
-        <x-form-select label="{{ __('Units') }}" id="unit" :model="'unit'" :children="$units"
+        <x-form-input label="{{ __('Size') }}" id="{{ uniqid() }}" :model="'size'" type="number"
+            step="0.1" placeholder="{{ __('ex. 100') }}" :error="$errors->get('size')" />
+        <x-form-select label="{{ __('Units') }}" id="{{ uniqid() }}" :model="'unit'" :children="$units"
             :error="$errors->get('unit')" /></x-stack-mobile>
-    <x-form-input label="{{ __('Position') }}" id="position" :model="'position'" type="number"
+    <x-form-input label="{{ __('Position') }}" id="{{ uniqid() }}" :model="'position'" type="number"
         placeholder="{{ __('Where it lives in the aisle') }}" :error="$errors->get('position')" />
     <div class="flex justify-end">
-        <x-primary-button>{{ $editing ? __('Update') : __('Save') }}</x-primary-button>
+        <x-primary-button data-testid="save">{{ $editing ? __('Update') : __('Save') }}</x-primary-button>
     </div>
     @livewire('focusfirstinput')
 </form>
