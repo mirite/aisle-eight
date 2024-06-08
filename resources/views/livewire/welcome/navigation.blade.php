@@ -2,7 +2,7 @@
     @auth
         <li><x-link href="{{ route('dashboard') }}">Dashboard</x-link></li>
     @else
-        <li><x-link href="{{ route('login') }}">Log</x-link></li>
+        <li><x-link href="{{ route('login') }}">Log In</x-link></li>
         @if (Route::has('register'))
             <li><x-link href="{{ route('register') }}">Register</x-link></li>
         @endif

@@ -1,5 +1,5 @@
 <x-app-layout>
 
-    <livewire:grocerylist.groceryListForm />
+    <livewire:grocerylist.form />
     <livewire:grocerylist.list />
 </x-app-layout>

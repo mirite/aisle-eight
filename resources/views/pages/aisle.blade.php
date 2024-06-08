@@ -1,4 +1,4 @@
 <x-app-layout>
-    <livewire:aisle.aisleForm />
+    <livewire:aisle.form />
     <livewire:aisle.list />
 </x-app-layout>
