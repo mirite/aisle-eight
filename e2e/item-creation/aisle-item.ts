@@ -1,4 +1,3 @@
-//TODO: Test and fix testids
 import { expect, Locator, Page } from "@playwright/test";
 import { testEntity, testTitle } from "./common";
 import { createHash } from "crypto";
