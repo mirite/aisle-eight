@@ -43,7 +43,7 @@ new class extends Component {
     public function mount(?string $editingID = null): void
     {
         $this->stores = Store::all()->sortBy('name')->sortBy('name');
-        $this->aisles = Aisle::all()->sortBy('position');
+        $this->allAisles = Aisle::all()->sortBy('position');
         $this->items = Item::all()->sortBy('name');
 
         if (isset($editingID)) {
@@ -88,15 +88,14 @@ new class extends Component {
     public function filterAisles(): void
     {
         $this->filteredAisles = $this->allAisles->filter(function (Aisle $aisle) {
-            dd($aisle->store->id, $this->store_id);
-            return $aisle->store->id === $this->store_id;
+            return (string) $aisle->store->id === $this->store_id;
         });
     }
 };
 ?>
 <form wire:submit="submit" data-form="entry">
-    <x-form-select label="{{ __('Store') }}" id="store_id" :model="'store_id'" wire:change="filterAisles"
-        :children="$stores ?? []" placeholder="{{ __('Select a store') }}" :childLabelField="fn($store) => $store->name" :error="$errors->get('store_id')" />
+    <x-form-select label="{{ __('Store') }}" id="store_id" :model="'store_id'" :change="'filterAisles'" :children="$stores ?? []"
+        placeholder="{{ __('Select a store') }}" :childLabelField="fn($store) => $store->name" :error="$errors->get('store_id')" />
     <x-form-select label="{{ __('Aisle') }}" id="aisle_id" :model="'aisle_id'" :children="$filteredAisles ?? []"
         placeholder="{{ __('Select an aisle') }}" :childLabelField="fn($aisles) => $aisles->description" :error="$errors->get('aisle_id')" />
     <x-form-select label="{{ __('Item') }}" id="item_id" :model="'item_id'" :children="$items ?? []"
