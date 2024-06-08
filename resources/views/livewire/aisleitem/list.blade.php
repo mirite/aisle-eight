@@ -17,6 +17,7 @@ new class extends Component {
     }
 
     #[On('aisle-item-created')]
+    #[On('aisle-item-updated')]
     public function getAisleItems(): void
     {
         $this->aisleItems = auth()->user()->aisleItems()->get();
@@ -56,8 +57,9 @@ new class extends Component {
 
 <x-list-wrapper>
     @foreach ($aisleItems->sort(fn($a, $b) => $a->item->name <=> $b->item->name) as $aisleItem)
+        @php($name = md5($aisleItem->aisle->store->name . $aisleItem->aisle->description . $aisleItem->item->name . $aisleItem->description))
         <div class="p-6 flex space-x-2" wire:key="{{ $aisleItem->id }}">
-            @component('livewire/listitem')
+            @component('livewire/listitem', ['testPrefix' => 'aisle-item-' . $name])
                 :wire:key="$aisleItem->id"
                 >
                 <x-slot name="title">
@@ -69,9 +71,8 @@ new class extends Component {
                             </x-secondary-button>
                         </div>
                     @else
-                        <x-list-title
-                            data-testid="aisle-item-{{ $aisleItem->aisle->store->name . $aisleItem->aisle->description . $aisleItem->item->name }}">
-                            {{ $aisleItem->item->name }}
+                        <x-list-title>
+                            {{ $aisleItem->item->name }} - {{ $aisleItem->description }}
                         </x-list-title>
                     @endif
                 </x-slot>
@@ -82,14 +83,15 @@ new class extends Component {
                     ])
                 </x-slot>
                 <x-slot name="tools">
-                    <x-dropdown-link wire:click="edit({{ $aisleItem->id }})">
+                    <x-dropdown-link data-testid="aisle-item-{{ $name }}-edit"
+                        wire:click="edit({{ $aisleItem->id }})">
                         {{ __('Edit') }}
                     </x-dropdown-link>
                     <x-dropdown-link wire:click="duplicate({{ $aisleItem->id }})">
                         {{ __('Duplicate') }}
                     </x-dropdown-link>
-                    <x-dropdown-link wire:click="delete({{ $aisleItem->id }})"
-                        wire:confirm="Are you sure to delete this aisle item?">
+                    <x-dropdown-link data-testid="aisle-item-{{ $name }}-delete"
+                        wire:click="delete({{ $aisleItem->id }})" wire:confirm="Are you sure to delete this aisle item?">
                         {{ __('Delete') }}
                     </x-dropdown-link>
                 </x-slot>

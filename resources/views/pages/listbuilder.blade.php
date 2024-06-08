@@ -1,3 +1,3 @@
 <x-app-layout>
-    <livewire:grocerylist.listbuilder id="{{ $id }}" />
+    <livewire:grocerylist.single.form id="{{ $id }}" />
 </x-app-layout>

@@ -46,11 +46,15 @@ export async function setPosition(page: Page | Locator) {
  * @param page The Playwright page to test with.
  * @param prefix The prefix for the entity type (ex. aisle).
  * @param generateTitle The generated title for the entity.
+ * @param options Content to check for instead of the generated title.
  */
 export async function testTitle(
     page: Page | Locator,
     prefix: string,
     generateTitle: string,
+    options?: {
+        contentOverride?: string;
+    },
 ) {
     await expect(
         page.getByTestId(`${prefix}-${generateTitle}-title`),
@@ -59,7 +63,7 @@ export async function testTitle(
         await page
             .getByTestId(`${prefix}-${generateTitle}-title`)
             .textContent(),
-    ).toContain(generateTitle);
+    ).toContain(options?.contentOverride || generateTitle);
 }
 
 /**
@@ -104,7 +108,9 @@ export async function fillText(
     return randomName;
 }
 
-export async function testEntity<T extends { name: string }>(
+export async function testEntity<
+    T extends { name: string; titleOverride?: string },
+>(
     page: Page,
     navLabel: string,
     prefix: string,
@@ -112,10 +118,18 @@ export async function testEntity<T extends { name: string }>(
     check: (page: Page, entity: T) => Promise<void>,
     edit: (page: Page, entity: T, locator: Locator) => Promise<T>,
     first = true,
+    options?: {
+        urlOverride?: string;
+    },
 ): Promise<T> {
     if (first) {
         await page.getByText(navLabel).first().click();
-        await page.waitForURL("**/" + navLabel.toLowerCase());
+
+        await page.waitForURL(
+            "**/" + (options?.urlOverride || navLabel.toLowerCase()),
+        );
+    } else {
+        await page.reload();
     }
     const l = await create(page);
     await save(page);
