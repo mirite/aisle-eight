@@ -10,13 +10,18 @@ new class extends Component {
     #[Validate('required|string|max:255')]
     public string $name;
 
+    #[Validate('boolean')]
+    public bool $isTaxable;
+
     public function mount(?string $itemID = null): void
     {
         if (isset($itemID)) {
             $this->editing = Item::findOrFail($itemID);
             $this->name = $this->editing->name;
+            $this->isTaxable = $this->editing->is_taxable;
         } else {
             $this->name = '';
+            $this->isTaxable = false;
         }
     }
 
@@ -32,6 +37,7 @@ new class extends Component {
             $this->dispatch('item-created');
         }
         $this->name = '';
+        $this->isTaxable = false;
         $this->dispatch('formSubmitted');
     }
 };
@@ -39,11 +45,19 @@ new class extends Component {
 <form wire:submit="update" data-form="entry">
     @include('components.form-input', [
         'label' => 'Name',
-        'id' => 'name',
+        'id' => uniqid(),
         'model' => 'name',
         'placeholder' => __('What do you call it?'),
         'error' => $errors->get('name'),
         'testId' => 'primary-text',
+    ])
+    @include('components.form-input', [
+        'label' => 'Is Taxable?',
+        'id' => uniqid(),
+        'type' => 'checkbox',
+        'model' => 'isTaxable',
+        'error' => $errors->get('isTaxable'),
+        'testId' => 'primary-is-taxable',
     ])
 
     <div class="flex justify-end">

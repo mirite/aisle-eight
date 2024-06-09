@@ -71,6 +71,10 @@ new class extends Component {
                             {{ $item->created_at->format('j M Y, g:i a') }}</small>
                     </div>
                     <div>
+                        <span>Is Taxable?:</span>
+                        <span>{{ $item->isTaxable ? 'Yes' : 'No' }}</span>
+                    </div>
+                    <div>
                         <span>Aisles:</span>
                         <ul class="p-4 flex flex-col gap-6">
                             @foreach ($item->aisleItems()->get() as $aisleItem)
