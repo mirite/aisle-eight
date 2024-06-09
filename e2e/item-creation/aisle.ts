@@ -1,11 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
-import {
-    fillText,
-    openEdit,
-    setPosition,
-    testEntity,
-    testTitle,
-} from "./common";
+import { fillText, setPosition, testEntity, testTitle } from "./common";
 
 type GeneratedAisle = {
     name: string;

@@ -1,7 +1,7 @@
 {
     "name": "mirite/aisle-eight",
     "type": "project",
-    "version":"dev-alpha4",
+    "version": "dev-alpha4",
     "description": "Web app for optimizing trips to the grocery store both in terms of time and money.",
     "keywords": [
         "laravel",
