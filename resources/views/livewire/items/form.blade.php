@@ -18,7 +18,7 @@ new class extends Component {
         if (isset($itemID)) {
             $this->editing = Item::findOrFail($itemID);
             $this->name = $this->editing->name;
-            $this->isTaxable = $this->editing->is_taxable;
+            $this->isTaxable = $this->editing->is_taxable ?? false;
         } else {
             $this->name = '';
             $this->isTaxable = false;
