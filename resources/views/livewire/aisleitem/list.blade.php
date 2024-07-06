@@ -73,10 +73,7 @@ new class extends Component {
 }; ?>
 <div>
     <div>
-        <div class="grid grid-cols-subgrid col-span-2">
-            <x-input-label for="search">{{ __('Search') }}</x-input-label>
-            <x-input-text type="text" id="search" wire:model="search" wire:change="filterItems" />
-        </div>
+        <x-search-form />
     </div>
     <x-list-wrapper>
         @foreach ($aisleItems->sort(fn($a, $b) => $a->item->name <=> $b->item->name) as $aisleItem)
