@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 import { fillText, testEntity, testTitle } from "./common";
 
 async function createStore(page: Page) {

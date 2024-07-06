@@ -19,8 +19,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function(){
-    if(Auth::check()){
+Route::get('/', function () {
+    if (Auth::check()) {
         return redirect()->route('dashboard');
     } else {
         return view('pages.welcome');

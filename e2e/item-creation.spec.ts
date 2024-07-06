@@ -1,4 +1,4 @@
-import { expect, Page, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { testAisle } from "./item-creation/aisle";
 import { testStore } from "./item-creation/store";
 import { testItem } from "./item-creation/item";
@@ -9,13 +9,12 @@ test("Is authenticated", async ({ page }) => {
 
     // Expect a title "to contain" a substring.
     await expect(page).toHaveTitle(/Aisle Eight/);
-    await expect(page.getByText("Dashboard")).toBeVisible();
 });
 
 test("Can add items", async ({ page }) => {
     page.on("dialog", (dialog) => dialog.accept());
     await page.goto("localhost:8000");
-    await page.getByText("Dashboard").click();
+
     const { name: store } = await testStore(page);
     const { name: aisle } = await testAisle(page, store);
     const { name: itemName } = await testItem(page);

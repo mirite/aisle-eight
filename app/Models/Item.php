@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Item extends Model
 {
-    protected $fillable = [ 'name', 'user_id' ];
+    protected $fillable = [ 'name', 'user_id', 'isTaxable' ];
 
     public function user(): BelongsTo
     {
