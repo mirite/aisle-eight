@@ -21,7 +21,18 @@ new class extends Component {
     #[On('aisle-item-updated')]
     public function getAisleItems(): void
     {
-        $this->aisleItems = auth()->user()->aisleItems()->get();
+        if ($this->search) {
+            $this->aisleItems = auth()
+                ->user()
+                ->aisleItems()
+                ->whereHas('item', function ($query) {
+                    $query->whereRaw('UPPER(name) like ?', ['%' . strtoupper($this->search) . '%']);
+                })
+                ->orWhereRaw('UPPER(description) like ?', ['%' . strtoupper($this->search) . '%'])
+                ->get();
+        } else {
+            $this->aisleItems = auth()->user()->aisleItems()->get();
+        }
     }
 
     #[On('aisle-item-edit')]
@@ -53,22 +64,12 @@ new class extends Component {
         $newAisleItem = $aisleItem->replicate();
         $newAisleItem->save();
         $this->getAisleItems();
+        $this->editing = $newAisleItem;
     }
 
-    public function filterItems(): void
+    public function triggerSearch(): void
     {
-        if (!$this->search) {
-            $this->getAisleItems();
-            return;
-        }
-        $this->aisleItems = auth()
-            ->user()
-            ->aisleItems()
-            ->whereHas('item', function ($query) {
-                $query->where('name', 'like', "%$this->search%");
-            })
-            ->orWhere('description', 'like', "%$this->search%")
-            ->get();
+        $this->getAisleItems();
     }
 }; ?>
 <div>

@@ -19,7 +19,15 @@ new class extends Component {
     #[On('item-updated')]
     public function getItems(): void
     {
-        $this->items = auth()->user()->items()->get();
+        if ($this->search) {
+            $this->items = auth()
+                ->user()
+                ->items()
+                ->whereRaw('UPPER(name) like ?', ['%' . strtoupper($this->search) . '%'])
+                ->get();
+        } else {
+            $this->items = auth()->user()->items()->get();
+        }
     }
 
     #[On('item-edit')]
@@ -45,17 +53,9 @@ new class extends Component {
         $this->getItems();
     }
 
-    public function filterItems(): void
+    public function triggerSearch(): void
     {
-        if (!$this->search) {
-            $this->getItems();
-            return;
-        }
-        $this->items = auth()
-            ->user()
-            ->items()
-            ->where('name', 'like', "%$this->search%")
-            ->get();
+        $this->getItems();
     }
 }; ?>
 <div>
