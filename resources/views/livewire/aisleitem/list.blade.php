@@ -64,6 +64,7 @@ new class extends Component {
         $newAisleItem = $aisleItem->replicate();
         $newAisleItem->save();
         $this->getAisleItems();
+        $this->editing = $newAisleItem;
     }
 
     public function triggerSearch(): void
