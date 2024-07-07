@@ -23,7 +23,7 @@ new class extends Component {
             $this->items = auth()
                 ->user()
                 ->items()
-                ->where('name', 'like', "%$this->search%")
+                ->whereRaw('UPPER(name) like ?', ['%' . strtoupper($this->search) . '%'])
                 ->get();
         } else {
             $this->items = auth()->user()->items()->get();

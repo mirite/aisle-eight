@@ -26,9 +26,9 @@ new class extends Component {
                 ->user()
                 ->aisleItems()
                 ->whereHas('item', function ($query) {
-                    $query->where('name', 'like', "%$this->search%");
+                    $query->whereRaw('UPPER(name) like ?', ['%' . strtoupper($this->search) . '%']);
                 })
-                ->orWhere('description', 'like', "%$this->search%")
+                ->orWhereRaw('UPPER(description) like ?', ['%' . strtoupper($this->search) . '%'])
                 ->get();
         } else {
             $this->aisleItems = auth()->user()->aisleItems()->get();
