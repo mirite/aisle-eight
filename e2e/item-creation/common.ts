@@ -1,4 +1,5 @@
-import { expect, Locator, Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
+import { expect } from "@playwright/test";
 
 /**
  * Test the delete functionality
@@ -47,6 +48,7 @@ export async function setPosition(page: Page | Locator) {
  * @param prefix The prefix for the entity type (ex. aisle).
  * @param generateTitle The generated title for the entity.
  * @param options Content to check for instead of the generated title.
+ * @param options.contentOverride
  */
 export async function testTitle(
     page: Page | Locator,
@@ -108,6 +110,18 @@ export async function fillText(
     return randomName;
 }
 
+/**
+ *
+ * @param page
+ * @param navLabel
+ * @param prefix
+ * @param create
+ * @param check
+ * @param edit
+ * @param first
+ * @param options
+ * @param options.urlOverride
+ */
 export async function testEntity<
     T extends { name: string; titleOverride?: string },
 >(

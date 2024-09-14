@@ -1,4 +1,6 @@
-import { expect, Locator, Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
+import { expect } from "@playwright/test";
+
 import { fillText, setPosition, testEntity, testTitle } from "./common";
 
 type GeneratedAisle = {
@@ -7,8 +9,15 @@ type GeneratedAisle = {
     position: number;
 };
 
+/**
+ * Edit an aisle.
+ * @param _page The Playwright page.
+ * @param generate The generated aisle.
+ * @param locator The locator.
+ * @returns The updated aisle.
+ */
 async function editAisle(
-    page: Page,
+    _page: Page,
     generate: GeneratedAisle,
     locator: Locator,
 ) {
@@ -20,6 +29,11 @@ async function editAisle(
     return { name: randomName2, position: position2, storeName };
 }
 
+/**
+ *
+ * @param page
+ * @param storeName
+ */
 async function createAisle(
     page: Page,
     storeName: string,
@@ -30,6 +44,11 @@ async function createAisle(
     return { name, position, storeName };
 }
 
+/**
+ *
+ * @param page
+ * @param result
+ */
 async function checkResult(page: Page, result: GeneratedAisle) {
     const { name, storeName } = result;
     await testTitle(page, "aisle", name);
@@ -39,12 +58,17 @@ async function checkResult(page: Page, result: GeneratedAisle) {
     ).toContain(storeName);
 }
 
+/**
+ *
+ * @param page
+ * @param storeName
+ */
 export async function testAisle(page: Page, storeName: string) {
     return await testEntity(
         page,
         "Aisles",
         "aisle",
-        (page) => createAisle(page, storeName),
+        (_page) => createAisle(page, storeName),
         checkResult,
         editAisle,
     );
