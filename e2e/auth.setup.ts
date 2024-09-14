@@ -1,5 +1,6 @@
 import { test as setup, expect } from "@playwright/test";
 import { config } from "dotenv";
+
 config();
 const authFile = "playwright/.auth/user.json";
 

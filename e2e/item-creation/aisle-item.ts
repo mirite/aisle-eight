@@ -1,6 +1,9 @@
-import { expect, Locator, Page } from "@playwright/test";
-import { testEntity, testTitle } from "./common";
 import { createHash } from "crypto";
+
+import type { Locator, Page } from "@playwright/test";
+import { expect } from "@playwright/test";
+
+import { testEntity, testTitle } from "./common";
 
 type AisleItem = {
     name: string;
@@ -10,6 +13,13 @@ type AisleItem = {
     units: string;
 };
 
+/**
+ *
+ * @param page
+ * @param storeName
+ * @param aisleName
+ * @param itemName
+ */
 async function createItem(
     page: Page,
     storeName: string,
@@ -23,6 +33,13 @@ async function createItem(
     return await fillForm(page, aisleName, storeName, itemName);
 }
 
+/**
+ *
+ * @param page
+ * @param aisleName
+ * @param storeName
+ * @param itemName
+ */
 async function fillForm(
     page: Page | Locator,
     aisleName: string,
@@ -54,6 +71,11 @@ async function fillForm(
 
 const prefix = "aisle-item";
 
+/**
+ *
+ * @param page
+ * @param result
+ */
 async function checkResult(page: Page, result: AisleItem) {
     const { name, titleOverride, price, units, size } = result;
     await testTitle(page, prefix, name, {
@@ -66,6 +88,13 @@ async function checkResult(page: Page, result: AisleItem) {
     await expect(content).toBeVisible();
 }
 
+/**
+ *
+ * @param locator
+ * @param aisleName
+ * @param storeName
+ * @param itemName
+ */
 async function editItem(
     locator: Locator,
     aisleName: string,
@@ -75,6 +104,13 @@ async function editItem(
     return await fillForm(locator, storeName, aisleName, itemName);
 }
 
+/**
+ *
+ * @param page
+ * @param aisleName
+ * @param storeName
+ * @param itemName
+ */
 export async function testAisleItem(
     page: Page,
     aisleName: string,
@@ -85,9 +121,9 @@ export async function testAisleItem(
         page,
         "Aisle Items",
         prefix,
-        async (page) => await createItem(page, aisleName, storeName, itemName),
+        async (_page) => await createItem(page, aisleName, storeName, itemName),
         checkResult,
-        (page, generated, locator) =>
+        (_page, _generated, locator) =>
             editItem(locator, aisleName, storeName, itemName),
         true,
         {

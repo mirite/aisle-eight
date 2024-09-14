@@ -1,11 +1,7 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
+import { general } from "@mirite/eslint-config-mirite";
 
 export default [
-    { languageOptions: { globals: globals.browser } },
-    pluginJs.configs.recommended,
-    ...tseslint.configs.recommended,
+    ...general,
     {
         ignores: ["vendor", "**/build", "playwright-report"],
     },

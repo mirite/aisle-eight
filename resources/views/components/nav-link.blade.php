@@ -1,7 +1,7 @@
 @props(['active'])
 
 @php
-    $classes = $active ?? false ? 'border-b-2 border-indigo-400' : '';
+    $classes = $active ?? false ? 'underline decoration-indigo-400' : 'no-underline';
 @endphp
 
 <x-link {{ $attributes->merge(['class' => $classes]) }}>

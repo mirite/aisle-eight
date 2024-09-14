@@ -1,8 +1,9 @@
 import { expect, test } from "@playwright/test";
+
 import { testAisle } from "./item-creation/aisle";
-import { testStore } from "./item-creation/store";
-import { testItem } from "./item-creation/item";
 import { testAisleItem } from "./item-creation/aisle-item";
+import { testItem } from "./item-creation/item";
+import { testStore } from "./item-creation/store";
 
 test("Is authenticated", async ({ page }) => {
     await page.goto("localhost:8000");
