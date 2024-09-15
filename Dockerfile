@@ -1,5 +1,5 @@
 # Use the official PHP image as the base image
-FROM php:8.3-alpine as base
+FROM php:8.3-alpine AS base
 
 RUN apk update && \
     apk add --no-cache libsodium-dev zlib-dev libpng-dev icu-dev libxml2-dev libxslt-dev libzip-dev curl libpq-dev nodejs npm linux-headers && \
@@ -18,7 +18,7 @@ RUN yarn install
 COPY . .
 RUN yarn build
 
-FROM base as filesystem
+FROM base AS filesystem
 WORKDIR /app
 COPY --from=nodeenv /app .
 ARG DB_CONNECTION
@@ -37,10 +37,10 @@ ENV DB_PASSWORD=$DB_PASSWORD
 RUN composer install --no-dev --prefer-source
 RUN composer dump-autoload
 
-FROM filesystem as laravel
+FROM filesystem AS laravel
 COPY entrypoint.sh /usr/local/bin/entrypoint
 RUN chmod +x /usr/local/bin/entrypoint
 
 # Set the entrypoint
 ENTRYPOINT ["entrypoint"]
-CMD ./entrypoint.sh
+CMD ["./entrypoint.sh"]
