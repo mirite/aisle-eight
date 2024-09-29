@@ -7,7 +7,7 @@ RUN apk update && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     rm -rf /var/cache/apk/*
 
-FROM node:20.12-alpine AS nodeenv
+FROM node:22.8-alpine AS nodeenv
 RUN corepack enable
 WORKDIR /app
 COPY ./.yarn/releases ./.yarn/releases
