@@ -13,7 +13,7 @@ WORKDIR /app
 #COPY ./.yarnrc.yml .
 COPY yarn.lock .
 COPY package.json .
-RUN yarn install
+RUN yarn workspaces focus --production
 COPY . .
 RUN yarn build
 
