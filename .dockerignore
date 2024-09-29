@@ -13,4 +13,3 @@ error_log
 .env.example
 .idea/*
 .prettierrc
-.yarnrc.yml
