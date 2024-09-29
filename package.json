@@ -18,23 +18,25 @@
         "test:e2e": "playwright test --ui",
         "test:e2e:generate": "playwright codegen"
     },
+    "dependencies": {
+        "autoprefixer": "^10.4.20",
+        "axios": "^1.7.7",
+        "laravel-vite-plugin": "^1.0.5",
+        "postcss": "^8.4.47",
+        "tailwindcss": "^3.4.13",
+        "typescript": "^5.6.2",
+        "vite": "^5.4.8"
+    },
     "devDependencies": {
         "@mirite/eslint-config-mirite": "^0.0.5",
         "@playwright/test": "^1.47.2",
         "@shufo/prettier-plugin-blade": "^1.14.1",
         "@tailwindcss/forms": "^0.5.9",
         "@types/node": "^22.7.4",
-        "autoprefixer": "^10.4.20",
-        "axios": "^1.7.7",
         "dotenv": "^16.4.5",
         "eslint": "^9.11.1",
-        "laravel-vite-plugin": "^1.0.5",
-        "postcss": "^8.4.47",
         "prettier": "^3.3.3",
-        "prettier-plugin-tailwindcss": "^0.6.8",
-        "tailwindcss": "^3.4.13",
-        "typescript": "^5.6.2",
-        "vite": "^5.4.8"
+        "prettier-plugin-tailwindcss": "^0.6.8"
     },
     "packageManager": "yarn@4.5.0",
     "version": "alpha-7"
