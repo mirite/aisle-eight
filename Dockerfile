@@ -11,8 +11,8 @@ FROM node:22.8-alpine AS nodeenv
 RUN corepack enable
 WORKDIR /app
 COPY ./.yarnrc.yml .
-COPY yarn.lock .
 COPY package.json .
+ENV NODE_ENV="production"
 RUN yarn workspaces focus --production
 COPY . .
 RUN yarn build
