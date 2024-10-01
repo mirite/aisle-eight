@@ -31,3 +31,4 @@ playwright/.auth
 !.yarn/versions
 .pnp.*
 error_log
+deploy.tar

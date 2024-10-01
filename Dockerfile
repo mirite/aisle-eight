@@ -7,19 +7,9 @@ RUN apk update && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     rm -rf /var/cache/apk/*
 
-FROM node:22.8-alpine AS nodeenv
-RUN corepack enable
-WORKDIR /app
-COPY ./.yarnrc.yml .
-COPY yarn.lock .
-COPY package.json .
-RUN yarn install
-COPY . .
-RUN yarn build
-
 FROM base AS filesystem
 WORKDIR /app
-COPY --from=nodeenv /app .
+COPY public/build ./public/build
 ARG DB_CONNECTION
 ARG DB_HOST
 ARG DB_PORT

@@ -1,0 +1,3 @@
+yarn install
+yarn build
+tar -cvf ./deploy.tar --exclude='*.map' ./captain-definition ./*
