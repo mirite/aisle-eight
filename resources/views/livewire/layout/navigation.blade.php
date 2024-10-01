@@ -19,21 +19,16 @@ new class extends Component {
     <nav x-data="{ open: false }" class="bg-white dark:bg-slate-950 border-b border-gray-100">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center gap-2">
-                    <!-- Logo -->
-                    <div class="shrink-0 flex items-center">
-                        <a href="{{ route('dashboard') }}" wire:navigate>
-                            Logo Goes Here
-                        </a>
-                    </div>
-                    <div>
-                        <a class="bg-green-700 text-white px-4 py-2 rounded-2xl min-w-fit no-underline hover:bg-green-800 transition duration-150 ease-in-out"
-                            href="{{ route('grocery-list/usenewestlist') }}" wire:navigate>
-                            Shop Now</a>
-                    </div>
-                    <x-inner-nav class="hidden sm:flex" />
+            <div class="flex justify-between h-16  items-center gap-2">
+
+                <!-- Logo -->
+                <div class="shrink-0 flex items-center">
+                    <a href="{{ route('dashboard') }}" wire:navigate
+                        class="text-slate-950 dark:text-white no-underline font-black text-2xl">
+                        Aisle 8
+                    </a>
                 </div>
+                <x-inner-nav class="hidden sm:flex" />
 
                 <!-- Settings Dropdown -->
                 <div class="hidden sm:flex sm:items-center sm:ms-6">

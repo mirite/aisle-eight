@@ -16,19 +16,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans text-gray-900 antialiased">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-800">
-        <div>
-            <a href="/" wire:navigate>
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </div>
-
-        <div
-            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-            {{ $slot }}
-        </div>
-    </div>
+<body class="antialiased bg-white-100 text-bg-900 dark:text-white dark:bg-slate-900 m-0">
+    <main class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8 w-full grow flex flex-col items-center [&>*]:w-full">
+        {{ $slot }}
+    </main>
+    <footer class="mx-auto text-center max-w-screen-2xl w-full p-4">
+        <a href="https://jesseconner.ca" target="_blank">&copy;Jesse Conner {{ date('Y') }}</a>
+    </footer>
 </body>
 
 </html>
