@@ -9,7 +9,7 @@ RUN apk update && \
 
 FROM base AS filesystem
 WORKDIR /app
-COPY public/build ./public/build
+COPY . .
 ARG DB_CONNECTION
 ARG DB_HOST
 ARG DB_PORT
