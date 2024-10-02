@@ -11,6 +11,6 @@ setup("authenticate", async ({ page }) => {
     await page.getByLabel("Password").fill(process.env.TEST_USER_PASSWORD!);
     await page.getByRole("button", { name: "Log In" }).click({ force: true });
     // Wait until the page receives the cookies.
-    await expect(page.getByText("Shop Now")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Shop Now" })).toBeVisible();
     await page.context().storageState({ path: authFile });
 });
