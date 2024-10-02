@@ -30,9 +30,10 @@ async function editAisle(
 }
 
 /**
- *
- * @param page
- * @param storeName
+ * Create an aisle.
+ * @param page The Playwright page.
+ * @param storeName The store name to create the aisle for.
+ * @returns The generated aisle.
  */
 async function createAisle(
     page: Page,
@@ -45,9 +46,9 @@ async function createAisle(
 }
 
 /**
- *
- * @param page
- * @param result
+ * Check the aisle was created.
+ * @param page The Playwright page.
+ * @param result The generated aisle.
  */
 async function checkResult(page: Page, result: GeneratedAisle) {
     const { name, storeName } = result;
@@ -59,11 +60,15 @@ async function checkResult(page: Page, result: GeneratedAisle) {
 }
 
 /**
- *
- * @param page
- * @param storeName
+ * Test the aisle creation, editing, and deletion.
+ * @param page The Playwright page.
+ * @param storeName The store name to create the aisle for.
+ * @returns The generated aisle.
  */
-export async function testAisle(page: Page, storeName: string) {
+export async function testAisle(
+    page: Page,
+    storeName: string,
+): Promise<GeneratedAisle> {
     return await testEntity(
         page,
         "Aisles",

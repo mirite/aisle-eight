@@ -14,11 +14,12 @@ type AisleItem = {
 };
 
 /**
- *
- * @param page
- * @param storeName
- * @param aisleName
- * @param itemName
+ * Creates an aisle-item.
+ * @param page The Playwright page.
+ * @param storeName The store name to create the aile-item for.
+ * @param aisleName The aisle name to create the aisle-item for.
+ * @param itemName The item name to create the aisle-item for.
+ * @returns The generated aisle-item.
  */
 async function createItem(
     page: Page,
@@ -34,11 +35,12 @@ async function createItem(
 }
 
 /**
- *
- * @param page
- * @param aisleName
- * @param storeName
- * @param itemName
+ * Fill out the aisle-item form.
+ * @param page The Playwright page.
+ * @param aisleName The aisle name to create the aisle-item for.
+ * @param storeName The store name to create the aisle-item for.
+ * @param itemName The item name to create the aisle-item for.
+ * @returns The generated aisle-item.
  */
 async function fillForm(
     page: Page | Locator,
@@ -72,9 +74,9 @@ async function fillForm(
 const prefix = "aisle-item";
 
 /**
- *
- * @param page
- * @param result
+ * Check the aisle-item was created.
+ * @param page The Playwright page.
+ * @param result The generated aisle-item.
  */
 async function checkResult(page: Page, result: AisleItem) {
     const { name, titleOverride, price, units, size } = result;
@@ -89,11 +91,12 @@ async function checkResult(page: Page, result: AisleItem) {
 }
 
 /**
- *
- * @param locator
- * @param aisleName
- * @param storeName
- * @param itemName
+ * Test the editing of an aisle-item.
+ * @param locator The locator.
+ * @param aisleName The aisle name to create the aisle-item for.
+ * @param storeName The store name to create the aisle-item for.
+ * @param itemName The item name to create the aisle-item for.
+ * @returns The updated aisle-item.
  */
 async function editItem(
     locator: Locator,
@@ -105,18 +108,19 @@ async function editItem(
 }
 
 /**
- *
- * @param page
- * @param aisleName
- * @param storeName
- * @param itemName
+ * Tests the aisle-item creation, editing, and deletion.
+ * @param page The Playwright page.
+ * @param aisleName The aisle name to create the aisle-item for.
+ * @param storeName The store name to create the aisle-item for.
+ * @param itemName  The item name to create the aisle-item for.
+ * @returns The generated aisle-item.
  */
 export async function testAisleItem(
     page: Page,
     aisleName: string,
     storeName: string,
     itemName: string,
-) {
+): Promise<AisleItem> {
     return await testEntity(
         page,
         "Aisle Items",

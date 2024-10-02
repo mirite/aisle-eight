@@ -11,7 +11,7 @@ export async function testDelete(
     page: Page,
     prefix: string,
     generatedTitle: string,
-) {
+): Promise<void> {
     await page.getByTestId(`${prefix}-${generatedTitle}-tools-toggle`).click();
     await expect(
         page.getByTestId(`${prefix}-${generatedTitle}-delete`),
@@ -26,7 +26,7 @@ export async function testDelete(
  * Saves the entity after creating.
  * @param page The Playwright page to test with.
  */
-export async function save(page: Page | Locator) {
+export async function save(page: Page | Locator): Promise<void> {
     await expect(page.getByTestId("save")).toBeVisible();
     await page.getByTestId("save").click();
 }
@@ -36,7 +36,7 @@ export async function save(page: Page | Locator) {
  * @param page The Playwright page to test with.
  * @returns The position of the entity.
  */
-export async function setPosition(page: Page | Locator) {
+export async function setPosition(page: Page | Locator): Promise<number> {
     const position = Math.floor(Math.random() * 99);
     await page.getByLabel("Position").fill(position.toString());
     return position;
@@ -48,7 +48,7 @@ export async function setPosition(page: Page | Locator) {
  * @param prefix The prefix for the entity type (ex. aisle).
  * @param generateTitle The generated title for the entity.
  * @param options Content to check for instead of the generated title.
- * @param options.contentOverride
+ * @param options.contentOverride The content to check for instead of the generated title.
  */
 export async function testTitle(
     page: Page | Locator,
@@ -57,7 +57,7 @@ export async function testTitle(
     options?: {
         contentOverride?: string;
     },
-) {
+): Promise<void> {
     await expect(
         page.getByTestId(`${prefix}-${generateTitle}-title`),
     ).toBeVisible();
@@ -78,7 +78,7 @@ export async function openEdit(
     page: Page,
     prefix: string,
     generatedName: string,
-) {
+): Promise<void> {
     await expect(
         page.getByTestId(`${prefix}-${generatedName}-tools-toggle`),
     ).toBeVisible();
@@ -97,12 +97,13 @@ export async function openEdit(
  * @param page The Playwright page to test with.
  * @param prefix The prefix for the entity type (ex. aisle).
  * @param testId The test ID for the text field.
+ * @returns The generated name.
  */
 export async function fillText(
     page: Page | Locator,
     prefix: string,
     testId: string = "primary-text",
-) {
+): Promise<string> {
     await expect(page.getByTestId(testId)).toBeVisible();
     const randomName = `${prefix} ${Math.floor(Math.random() * 100000)}`;
     await page.getByTestId(testId).fill(randomName);
@@ -111,16 +112,18 @@ export async function fillText(
 }
 
 /**
- *
- * @param page
- * @param navLabel
- * @param prefix
- * @param create
- * @param check
- * @param edit
- * @param first
- * @param options
- * @param options.urlOverride
+ * Tests the entity creation, editing, and deletion.
+ * @param page The Playwright page to test with.
+ * @param navLabel The label for the navigation item. (Used to navigate to the page).
+ * @param prefix The prefix for the entity type (ex. aisle).
+ * @param create The function to create the entity.
+ * @param check The function to verify the entity.
+ * @param edit The function to edit the entity.
+ * @param first Whether this is the first pass of the test.
+ * @param options Additional options.
+ * @param options.urlOverride The URL to navigate to instead of the default.
+ * @returns The generated entity.
+ * @template T The entity type.
  */
 export async function testEntity<
     T extends { name: string; titleOverride?: string },
