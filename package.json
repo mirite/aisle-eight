@@ -11,7 +11,7 @@
         "url": "git+https://github.com/mirite/aisle-eight.git"
     },
     "scripts": {
-        "dev": "php artisan serve & vite",
+        "dev": "php artisan octane:frankenphp --host=localhost & vite",
         "build": "vite build",
         "format": "prettier --write . && composer format",
         "lint": "composer lint && eslint --fix",

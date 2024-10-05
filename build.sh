@@ -11,4 +11,4 @@ else
     exit 1
 fi
 
-caprover deploy -t ./deploy.tar
+caprover deploy -t ./deploy.tar -d
