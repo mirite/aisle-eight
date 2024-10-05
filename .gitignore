@@ -32,3 +32,7 @@ playwright/.auth
 .pnp.*
 error_log
 deploy.tar
+
+/caddy
+frankenphp
+frankenphp-worker.php

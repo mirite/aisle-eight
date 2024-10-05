@@ -1,11 +1,11 @@
 # Use the official PHP image as the base image
-FROM php:8.3-alpine AS base
+FROM dunglas/frankenphp AS base
 
-RUN apk update && \
-    apk add --no-cache libsodium-dev zlib-dev libpng-dev icu-dev libxml2-dev libxslt-dev libzip-dev curl libpq-dev nodejs npm linux-headers && \
+RUN apt update && \
+    apt install -y libsodium-dev libpng-dev libxml2-dev libxslt-dev libzip-dev libpq-dev && \
     docker-php-ext-install bcmath sodium gd intl soap xsl zip pdo_pgsql sockets && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    rm -rf /var/cache/apk/*
+    rm -rf /var/cache/apt/*
 
 FROM base AS filesystem
 WORKDIR /app
