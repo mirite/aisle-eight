@@ -28,6 +28,7 @@ new class extends Component {
                         Aisle 8
                     </a>
                 </div>
+                <x-shop-now-button class="sm:hidden" />
                 <x-inner-nav class="hidden sm:flex" />
 
                 <!-- Settings Dropdown -->
@@ -81,7 +82,8 @@ new class extends Component {
                 </div>
             </div>
         </div>
-
+        <div>
+        </div>
         <!-- Responsive Navigation Menu -->
         <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
             <div class="pt-2 pb-3 space-y-1">
