@@ -42,6 +42,12 @@ new class extends Component {
      */
     public int $quantity = 1;
 
+    /**
+     * Whether or not to show the quick create form.
+     * @var bool
+     */
+    public bool $showQuickCreate = false;
+
     public function mount(string $id): void
     {
         $lists = $this->getLists();
@@ -83,6 +89,10 @@ new class extends Component {
         $this->quantity = 1;
         $this->currentItemID = null;
     }
+
+    public function toggleQuickCreate():void {
+        $this->showQuickCreate = !$this->showQuickCreate;
+    }
 };
 ?>
 <div>
@@ -94,15 +104,23 @@ new class extends Component {
                 <x-input-label for="search">Search</x-input-label>
                 <x-input-text type="text" id="search" wire:model="search" wire:change="filterItems" />
             </div>
-            <div class="grid grid-cols-subgrid col-span-2">
-                <x-input-label for="pick-item">Pick an Item</x-input-label>
-                <x-input-select id="pick-item" wire:model="currentItemID">
-                    <option value="">Select an Item</option>
-                    @foreach ($this->filteredItems as $item)
-                        <option value="{{ $item->id }}">@include('components.aisleItem.singleSlim', [$item])</option>
-                    @endforeach
-                </x-input-select>
+            <div class="flex col-span-2 justify-between gap-2 items-center">
+                <div class="grow">
+                    <x-input-label for="pick-item">Pick an Item</x-input-label>
+                    <x-input-select id="pick-item" wire:model="currentItemID">
+                        <option value="">Select an Item</option>
+                        @foreach ($this->filteredItems as $item)
+                            <option value="{{ $item->id }}">@include('components.aisleItem.singleSlim', [$item])</option>
+                        @endforeach
+                    </x-input-select>
+                </div>
+                <div>
+                    <x-secondary-button wire:click="toggleQuickCreate">{{ __('Quick Create') }}</x-secondary-button>
+                </div>
             </div>
+            @if($showQuickCreate)
+                <livewire:aisleitem.form />
+            @endif
             <div class="grid grid-cols-subgrid col-span-2">
                 <x-input-label for="quantity">Count</x-input-label>
                 <x-input-text type="number" id="quantity" wire:model="quantity" wire:change="filterItems" />
