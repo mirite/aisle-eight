@@ -42,7 +42,7 @@ new class extends Component {
 
     /**
     ID for the aisle select element. There's issues with the element re-rendering when the store changes if this is done inline like the others,
-                                                                     * @var string
+                                                                         * @var string
      */
     public string $aisle_id_id;
 

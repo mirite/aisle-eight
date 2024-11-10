@@ -11,7 +11,7 @@
     $classes = 'gap-4 justify-center items-center flex';
 @endphp
 <menu {{ $attributes->merge(['class' => $classes]) }}>
-<x-shop-now-button/>
+    <x-shop-now-button />
     @foreach ($navItems as $slug => $name)
         <x-nav-link wire:key="{{ $slug }}" :href="route($slug)" :active="request()->routeIs($slug)" wire:navigate>
             {{ $name }}
