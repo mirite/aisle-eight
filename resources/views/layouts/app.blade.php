@@ -13,10 +13,10 @@
 <body
     class="font-sans antialiased m-0 min-h-dvh bg-white-100 text-bg-900 dark:text-white dark:bg-slate-900 flex flex-col gap-2">
     <livewire:layout.navigation />
-    <main class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8 w-full grow flex flex-col items-center [&>*]:w-full">
+    <main class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8 w-full grow flex flex-col items-center *:w-full">
         {{ $slot }}
     </main>
-    <footer class="mx-auto text-center max-w-screen-2xl w-full p-4">
+    <footer class="mx-auto text-center max-w-(--breakpoint-2xl) w-full p-4">
         <a href="https://jesseconner.ca" target="_blank">&copy;Jesse Conner {{ date('Y') }}</a>
     </footer>
 </body>
