@@ -1,8 +1,6 @@
 import { createHash } from "crypto";
-
 import type { Locator, Page } from "@playwright/test";
 import { expect } from "@playwright/test";
-
 import { testEntity, testTitle } from "./common";
 
 type AisleItem = {

@@ -1,5 +1,4 @@
 import type { Locator, Page } from "@playwright/test";
-
 import { fillText, testEntity, testTitle } from "./common";
 
 /**
