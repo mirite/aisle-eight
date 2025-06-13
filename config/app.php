@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
-return [
+return array(
 
     /*
     |--------------------------------------------------------------------------
@@ -139,10 +139,10 @@ return [
     |
     */
 
-    'maintenance' => [
+    'maintenance' => array(
         'driver' => 'file',
         // 'store' => 'redis',
-    ],
+    ),
 
     /*
     |--------------------------------------------------------------------------
@@ -155,7 +155,7 @@ return [
     |
     */
 
-    'providers' => ServiceProvider::defaultProviders()->merge([
+    'providers' => ServiceProvider::defaultProviders()->merge(array(
         /*
          * Package Service Providers...
          */
@@ -169,7 +169,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\VoltServiceProvider::class,
-    ])->toArray(),
+    ))->toArray(),
 
     /*
     |--------------------------------------------------------------------------
@@ -182,8 +182,8 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([
+    'aliases' => Facade::defaultAliases()->merge(array(
         // 'Example' => App\Facades\Example::class,
-    ])->toArray(),
+    ))->toArray(),
 
-];
+);

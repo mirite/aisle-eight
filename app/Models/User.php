@@ -16,43 +16,39 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = array(
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    );
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
+    protected $fillable = array(
         'name',
         'email',
         'password',
-    ];
+    );
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
-    protected $hidden = [
+    protected $hidden = array(
         'password',
         'remember_token',
-    ];
+    );
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
-
-    public function items(): HasMany
+    public function aisleItems(): HasMany
     {
-        return $this->hasMany(Item::class);
-    }
-    public function stores(): HasMany
-    {
-        return $this->hasMany(Store::class);
+        return $this->hasMany(AisleItem::class);
     }
 
     public function aisles(): HasMany
@@ -65,8 +61,12 @@ class User extends Authenticatable
         return $this->hasMany(GroceryList::class);
     }
 
-    public function aisleItems(): HasMany
+    public function items(): HasMany
     {
-        return $this->hasMany(AisleItem::class);
+        return $this->hasMany(Item::class);
+    }
+    public function stores(): HasMany
+    {
+        return $this->hasMany(Store::class);
     }
 }

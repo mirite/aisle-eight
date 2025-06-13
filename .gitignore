@@ -24,11 +24,7 @@ yarn-error.log
 
 playwright/.auth
 .yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
 .pnp.*
 error_log
 deploy.tar
+*.cache

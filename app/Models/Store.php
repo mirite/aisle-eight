@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
 
 class Store extends Model
 {
+    protected $fillable = array( 'name', 'user_id' );
     public function aisles(): HasMany
     {
         return $this->hasMany(Aisle::class);
@@ -17,6 +17,4 @@ class Store extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    protected $fillable = [ 'name', 'user_id' ];
 }

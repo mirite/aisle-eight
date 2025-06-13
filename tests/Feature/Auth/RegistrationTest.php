@@ -7,31 +7,28 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Volt\Volt;
 use Tests\TestCase;
 
-class RegistrationTest extends TestCase
-{
-    use RefreshDatabase;
+class RegistrationTest extends TestCase {
+	use RefreshDatabase;
 
-    public function test_registration_screen_can_be_rendered(): void
-    {
-        $response = $this->get('/register');
+	public function test_new_users_can_register(): void {
+		$component = Volt::test( 'pages.auth.register' )
+			->set( 'name', 'Test User' )
+			->set( 'email', 'test@example.com' )
+			->set( 'password', 'password' )
+			->set( 'password_confirmation', 'password' );
 
-        $response
-            ->assertOk()
-            ->assertSeeVolt('pages.auth.register');
-    }
+		$component->call( 'register' );
 
-    public function test_new_users_can_register(): void
-    {
-        $component = Volt::test('pages.auth.register')
-            ->set('name', 'Test User')
-            ->set('email', 'test@example.com')
-            ->set('password', 'password')
-            ->set('password_confirmation', 'password');
+		$component->assertRedirect( RouteServiceProvider::HOME );
 
-        $component->call('register');
+		$this->assertAuthenticated();
+	}
 
-        $component->assertRedirect(RouteServiceProvider::HOME);
+	public function test_registration_screen_can_be_rendered(): void {
+		$response = $this->get( '/register' );
 
-        $this->assertAuthenticated();
-    }
+		$response
+			->assertOk()
+			->assertSeeVolt( 'pages.auth.register' );
+	}
 }

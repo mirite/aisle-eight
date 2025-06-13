@@ -4,33 +4,31 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
-        Schema::disableForeignKeyConstraints();
+return new class extends Migration {
 
-        Schema::table('grocery_lists', function (Blueprint $table) {
-            $table->string('title')->nullable(false)->change();
-        });
+	/**
+	 * Reverse the migrations.
+	 */
+	public function down(): void {
+		Schema::disableForeignKeyConstraints();
 
-        Schema::enableForeignKeyConstraints();
-    }
+		Schema::table( 'grocery_lists', function ( Blueprint $table ) {
+			$table->string( 'title' )->nullable()->change();
+		} );
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::disableForeignKeyConstraints();
+		Schema::enableForeignKeyConstraints();
+	}
 
-        Schema::table('grocery_lists', function (Blueprint $table) {
-            $table->string('title')->nullable()->change();
-        });
+	/**
+	 * Run the migrations.
+	 */
+	public function up(): void {
+		Schema::disableForeignKeyConstraints();
 
-        Schema::enableForeignKeyConstraints();
-    }
+		Schema::table( 'grocery_lists', function ( Blueprint $table ) {
+			$table->string( 'title' )->nullable( false )->change();
+		} );
+
+		Schema::enableForeignKeyConstraints();
+	}
 };

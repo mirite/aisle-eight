@@ -10,6 +10,8 @@ trait Movable
     /**
      * Move the model up or down.
      * @throws Exception if the model does not have a position property.
+     * @param Collection $collection
+     * @param string $direction
      */
     public function move(Collection $collection, string $direction): void
     {
@@ -18,14 +20,15 @@ trait Movable
             return $item->id === $this->id;
         });
 
-        if ($targetItemIndex === 0 && $direction === 'up') {
-            return;
-        }
-        if ($targetItemIndex === $orderedItems->count() - 1 && $direction === 'down') {
+        if (0 === $targetItemIndex && 'up' === $direction) {
             return;
         }
 
-        $swapIndex = $direction === 'up' ? $targetItemIndex - 1 : $targetItemIndex + 1;
+        if ($targetItemIndex === $orderedItems->count() - 1 && 'down' === $direction) {
+            return;
+        }
+
+        $swapIndex = 'up' === $direction ? $targetItemIndex - 1 : $targetItemIndex + 1;
         $swapItem  = $orderedItems->get($swapIndex);
 
         if ($swapItem) {

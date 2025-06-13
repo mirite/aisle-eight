@@ -1,4 +1,4 @@
 <x-app-layout>
-    <livewire:aisleitem.form />
-    <livewire:aisleitem.list />
+				<livewire:aisleitem.form />
+				<livewire:aisleitem.list />
 </x-app-layout>

@@ -1,46 +1,46 @@
 {
-    "name": "@mirite/aisle-eight",
-    "version": "alpha-7",
-    "private": true,
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/mirite/aisle-eight.git"
-    },
-    "author": {
-        "name": "Jesse Conner",
-        "email": "me@jesseconner.ca"
-    },
-    "type": "module",
-    "scripts": {
-        "build": "vite build",
-        "dev": "php artisan serve & vite",
-        "format": "prettier --write . && composer format",
-        "lint": "composer lint && eslint --fix",
-        "test:e2e": "playwright test --ui",
-        "test:e2e:generate": "playwright codegen"
-    },
-    "dependencies": {
-        "@tailwindcss/postcss": "4.1.5",
-        "axios": "^1.9.0",
-        "laravel-vite-plugin": "^1.2.0",
-        "postcss": "^8.5.3",
-        "tailwindcss": "4.1.5",
-        "typescript": "^5.8.3",
-        "vite": "^6.3.5"
-    },
-    "devDependencies": {
-        "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
-        "@mirite/eslint-config-mirite": "^1.0.1",
-        "@playwright/test": "^1.52.0",
-        "@shufo/prettier-plugin-blade": "^1.15.3",
-        "@tailwindcss/forms": "^0.5.10",
-        "@types/node": "^22.15.17",
-        "dotenv": "^16.5.0",
-        "eslint": "^9.26.0",
-        "prettier": "^3.5.3",
-        "prettier-plugin-jsdoc": "^1.3.2",
-        "prettier-plugin-packagejson": "^2.5.11",
-        "prettier-plugin-tailwindcss": "^0.6.11"
-    },
-    "packageManager": "yarn@4.9.1"
+	"name": "@mirite/aisle-eight",
+	"version": "alpha-7",
+	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mirite/aisle-eight.git"
+	},
+	"author": {
+		"name": "Jesse Conner",
+		"email": "me@jesseconner.ca"
+	},
+	"type": "module",
+	"scripts": {
+		"build": "vite build",
+		"dev": "php artisan serve & vite",
+		"format": "prettier --write . && composer format",
+		"lint": "composer lint && eslint --fix",
+		"test:e2e": "playwright test --ui",
+		"test:e2e:generate": "playwright codegen"
+	},
+	"dependencies": {
+		"@tailwindcss/postcss": "4.1.10",
+		"axios": "^1.9.0",
+		"laravel-vite-plugin": "^1.3.0",
+		"postcss": "^8.5.5",
+		"tailwindcss": "4.1.10",
+		"typescript": "^5.8.3",
+		"vite": "^6.3.5"
+	},
+	"devDependencies": {
+		"@ianvs/prettier-plugin-sort-imports": "^4.4.2",
+		"@mirite/eslint-config-mirite": "^1.1.3",
+		"@playwright/test": "^1.53.0",
+		"@shufo/prettier-plugin-blade": "^1.15.3",
+		"@tailwindcss/forms": "^0.5.10",
+		"@types/node": "^24.0.1",
+		"dotenv": "^16.5.0",
+		"eslint": "^9.29.0",
+		"prettier": "^3.5.3",
+		"prettier-plugin-jsdoc": "^1.3.2",
+		"prettier-plugin-packagejson": "^2.5.15",
+		"prettier-plugin-tailwindcss": "^0.6.12"
+	},
+	"packageManager": "yarn@4.9.1"
 }

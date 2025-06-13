@@ -2,7 +2,7 @@
 
 use Laravel\Sanctum\Sanctum;
 
-return [
+return array(
 
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'guard' => ['web'],
+    'guard' => array( 'web' ),
 
     /*
     |--------------------------------------------------------------------------
@@ -74,10 +74,10 @@ return [
     |
     */
 
-    'middleware' => [
+    'middleware' => array(
         'authenticate_session' => Laravel\Sanctum\Http\Middleware\AuthenticateSession::class,
         'encrypt_cookies' => App\Http\Middleware\EncryptCookies::class,
         'verify_csrf_token' => App\Http\Middleware\VerifyCsrfToken::class,
-    ],
+    ),
 
-];
+);

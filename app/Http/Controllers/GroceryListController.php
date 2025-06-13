@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class GroceryListController extends Controller
 {
     public static function getNewestListId()

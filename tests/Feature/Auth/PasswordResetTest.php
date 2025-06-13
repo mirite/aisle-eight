@@ -9,76 +9,71 @@ use Illuminate\Support\Facades\Notification;
 use Livewire\Volt\Volt;
 use Tests\TestCase;
 
-class PasswordResetTest extends TestCase
-{
-    use RefreshDatabase;
+class PasswordResetTest extends TestCase {
+	use RefreshDatabase;
 
-    public function test_reset_password_link_screen_can_be_rendered(): void
-    {
-        $response = $this->get('/forgot-password');
+	public function test_password_can_be_reset_with_valid_token(): void {
+		Notification::fake();
 
-        $response
-            ->assertSeeVolt('pages.auth.forgot-password')
-            ->assertStatus(200);
-    }
+		$user = User::factory()->create();
 
-    public function test_reset_password_link_can_be_requested(): void
-    {
-        Notification::fake();
+		Volt::test( 'pages.auth.forgot-password' )
+			->set( 'email', $user->email )
+			->call( 'sendPasswordResetLink' );
 
-        $user = User::factory()->create();
+		Notification::assertSentTo( $user, ResetPassword::class, function ( $notification ) use ( $user ) {
+			$component = Volt::test( 'pages.auth.reset-password', array( 'token' => $notification->token ) )
+				->set( 'email', $user->email )
+				->set( 'password', 'password' )
+				->set( 'password_confirmation', 'password' );
 
-        Volt::test('pages.auth.forgot-password')
-            ->set('email', $user->email)
-            ->call('sendPasswordResetLink');
+			$component->call( 'resetPassword' );
 
-        Notification::assertSentTo($user, ResetPassword::class);
-    }
+			$component
+				->assertRedirect( '/login' )
+				->assertHasNoErrors();
 
-    public function test_reset_password_screen_can_be_rendered(): void
-    {
-        Notification::fake();
+			return true;
+		} );
+	}
 
-        $user = User::factory()->create();
+	public function test_reset_password_link_can_be_requested(): void {
+		Notification::fake();
 
-        Volt::test('pages.auth.forgot-password')
-            ->set('email', $user->email)
-            ->call('sendPasswordResetLink');
+		$user = User::factory()->create();
 
-        Notification::assertSentTo($user, ResetPassword::class, function ($notification) {
-            $response = $this->get('/reset-password/'.$notification->token);
+		Volt::test( 'pages.auth.forgot-password' )
+			->set( 'email', $user->email )
+			->call( 'sendPasswordResetLink' );
 
-            $response
-                ->assertSeeVolt('pages.auth.reset-password')
-                ->assertStatus(200);
+		Notification::assertSentTo( $user, ResetPassword::class );
+	}
 
-            return true;
-        });
-    }
+	public function test_reset_password_link_screen_can_be_rendered(): void {
+		$response = $this->get( '/forgot-password' );
 
-    public function test_password_can_be_reset_with_valid_token(): void
-    {
-        Notification::fake();
+		$response
+			->assertSeeVolt( 'pages.auth.forgot-password' )
+			->assertStatus( 200 );
+	}
 
-        $user = User::factory()->create();
+	public function test_reset_password_screen_can_be_rendered(): void {
+		Notification::fake();
 
-        Volt::test('pages.auth.forgot-password')
-            ->set('email', $user->email)
-            ->call('sendPasswordResetLink');
+		$user = User::factory()->create();
 
-        Notification::assertSentTo($user, ResetPassword::class, function ($notification) use ($user) {
-            $component = Volt::test('pages.auth.reset-password', ['token' => $notification->token])
-                ->set('email', $user->email)
-                ->set('password', 'password')
-                ->set('password_confirmation', 'password');
+		Volt::test( 'pages.auth.forgot-password' )
+			->set( 'email', $user->email )
+			->call( 'sendPasswordResetLink' );
 
-            $component->call('resetPassword');
+		Notification::assertSentTo( $user, ResetPassword::class, function ( $notification ) {
+			$response = $this->get( '/reset-password/'.$notification->token );
 
-            $component
-                ->assertRedirect('/login')
-                ->assertHasNoErrors();
+			$response
+				->assertSeeVolt( 'pages.auth.reset-password' )
+				->assertStatus( 200 );
 
-            return true;
-        });
-    }
+			return true;
+		} );
+	}
 }

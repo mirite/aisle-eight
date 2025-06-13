@@ -12,11 +12,11 @@ class Handler extends ExceptionHandler
      *
      * @var array<int, string>
      */
-    protected $dontFlash = [
+    protected $dontFlash = array(
         'current_password',
         'password',
         'password_confirmation',
-    ];
+    );
 
     /**
      * Register the exception handling callbacks for the application.

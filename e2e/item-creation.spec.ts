@@ -5,18 +5,18 @@ import { testItem } from "./item-creation/item";
 import { testStore } from "./item-creation/store";
 
 test("Is authenticated", async ({ page }) => {
-    await page.goto("localhost:8000");
+	await page.goto("localhost:8000");
 
-    // Expect a title "to contain" a substring.
-    await expect(page).toHaveTitle(/Aisle Eight/);
+	// Expect a title "to contain" a substring.
+	await expect(page).toHaveTitle(/Aisle Eight/);
 });
 
 test("Can add items", async ({ page }) => {
-    page.on("dialog", (dialog) => dialog.accept());
-    await page.goto("localhost:8000");
+	page.on("dialog", (dialog) => dialog.accept());
+	await page.goto("localhost:8000");
 
-    const { name: store } = await testStore(page);
-    const { name: aisle } = await testAisle(page, store);
-    const { name: itemName } = await testItem(page);
-    await testAisleItem(page, store, aisle, itemName);
+	const { name: store } = await testStore(page);
+	const { name: aisle } = await testAisle(page, store);
+	const { name: itemName } = await testItem(page);
+	await testAisleItem(page, store, aisle, itemName);
 });

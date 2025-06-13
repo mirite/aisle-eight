@@ -1,18 +1,16 @@
+import { prettierWithTW } from "@mirite/eslint-config-mirite";
+
+const base = prettierWithTW("./resources/css/app.css");
 export default {
-    plugins: [
-        "prettier-plugin-packagejson",
-        "@ianvs/prettier-plugin-sort-imports",
-        "@shufo/prettier-plugin-blade",
-        "prettier-plugin-tailwindcss",
-    ],
-    tailwindStylesheet: "./resources/css/app.css",
-    overrides: [
-        {
-            files: ["*.blade.php"],
-            options: {
-                parser: "blade",
-                tabWidth: 4,
-            },
-        },
-    ],
+	...base,
+	overrides: [
+		{
+			files: ["*.blade.php"],
+			options: {
+				parser: "blade",
+				tabWidth: 4,
+			},
+		},
+	],
+	plugins: ["@shufo/prettier-plugin-blade", ...base.plugins],
 };

@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array(
 
     /*
     |--------------------------------------------------------------------------
@@ -28,44 +28,44 @@ return [
     |
     */
 
-    'connections' => [
+    'connections' => array(
 
-        'pusher' => [
+        'pusher' => array(
             'driver' => 'pusher',
             'key' => env('PUSHER_APP_KEY'),
             'secret' => env('PUSHER_APP_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),
-            'options' => [
+            'options' => array(
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'host' => env('PUSHER_HOST') ?: 'api-' . env('PUSHER_APP_CLUSTER', 'mt1') . '.pusher.com',
                 'port' => env('PUSHER_PORT', 443),
                 'scheme' => env('PUSHER_SCHEME', 'https'),
                 'encrypted' => true,
-                'useTLS' => env('PUSHER_SCHEME', 'https') === 'https',
-            ],
-            'client_options' => [
+                'useTLS' => 'https' === env('PUSHER_SCHEME', 'https'),
+            ),
+            'client_options' => array(
                 // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
-            ],
-        ],
+            ),
+        ),
 
-        'ably' => [
+        'ably' => array(
             'driver' => 'ably',
             'key' => env('ABLY_KEY'),
-        ],
+        ),
 
-        'redis' => [
+        'redis' => array(
             'driver' => 'redis',
             'connection' => 'default',
-        ],
+        ),
 
-        'log' => [
+        'log' => array(
             'driver' => 'log',
-        ],
+        ),
 
-        'null' => [
+        'null' => array(
             'driver' => 'null',
-        ],
+        ),
 
-    ],
+    ),
 
-];
+);

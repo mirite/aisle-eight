@@ -1,12 +1,8 @@
 <?php
 
-use App\Http\Controllers\AisleController;
-use App\Http\Controllers\AisleItemController;
-use App\Http\Controllers\GroceryListController;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\StoreController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\{AisleController, AisleItemController, GroceryListController, ItemController, StoreController};
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,52 +24,53 @@ Route::get('/', function () {
 });
 
 Route::view('dashboard', 'pages.dashboard')
-    ->middleware(['auth', 'verified'])
+    ->middleware(array( 'auth', 'verified' ))
     ->name('dashboard');
 
 Route::view('profile', 'pages.profile')
-    ->middleware(['auth'])
+    ->middleware(array( 'auth' ))
     ->name('profile');
 
-Route::get('items', [ ItemController::class, 'index'])
-     ->middleware(['auth', 'verified'])
+Route::get('items', array( ItemController::class, 'index' ))
+     ->middleware(array( 'auth', 'verified' ))
      ->name('items');
 
-Route::get('list', [ GroceryListController::class, 'index'])
-     ->middleware(['auth', 'verified'])
+Route::get('list', array( GroceryListController::class, 'index' ))
+     ->middleware(array( 'auth', 'verified' ))
      ->name('list');
 
 Route::get('list/view', function (Request $request) {
 
         $id = GroceryListController::getNewestListId();
-    return view('pages.listviewer', ['id' => $id]);
+
+    return view('pages.listviewer', array( 'id' => $id ));
 })
-     ->middleware(['auth', 'verified'])
+     ->middleware(array( 'auth', 'verified' ))
      ->name('grocery-list/usenewestlist');
 
 Route::get('list/view/{id}', function (Request $request, string $id) {
 
-    return view('pages.listviewer', ['id' => $id]);
+    return view('pages.listviewer', array( 'id' => $id ));
 })
-     ->middleware(['auth', 'verified'])
+     ->middleware(array( 'auth', 'verified' ))
      ->name('grocery-list/uselist');
 
 Route::get('list/edit/{id}', function (Request $request, string $id) {
-    return view('pages.listbuilder', ['id' => $id]);
+    return view('pages.listbuilder', array( 'id' => $id ));
 })
-     ->middleware(['auth', 'verified'])
+     ->middleware(array( 'auth', 'verified' ))
      ->name('grocery-list/listbuilder');
 
-Route::get('aisles', [ AisleController::class, 'index'])
-     ->middleware(['auth', 'verified'])
+Route::get('aisles', array( AisleController::class, 'index' ))
+     ->middleware(array( 'auth', 'verified' ))
      ->name('aisles');
 
-Route::get('stores', [ StoreController::class, 'index'])
-     ->middleware(['auth', 'verified'])
+Route::get('stores', array( StoreController::class, 'index' ))
+     ->middleware(array( 'auth', 'verified' ))
      ->name('stores');
 
-Route::get('aisle-items', [ AisleItemController::class, 'index'])
-     ->middleware(['auth', 'verified'])
+Route::get('aisle-items', array( AisleItemController::class, 'index' ))
+     ->middleware(array( 'auth', 'verified' ))
      ->name('aisle-items');
 
 require __DIR__ . '/auth.php';

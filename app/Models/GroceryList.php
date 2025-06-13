@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
 
 class GroceryList extends Model
 {
+    protected $fillable = array( 'date','user_id','title' );
     public function listItems(): HasMany
     {
         return $this->hasMany(ListItem::class);
@@ -17,6 +17,4 @@ class GroceryList extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    protected $fillable = ['date','user_id','title'];
 }
