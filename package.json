@@ -14,8 +14,8 @@
 	"scripts": {
 		"build": "vite build",
 		"dev": "php artisan serve & vite",
-		"format": "prettier --write . && composer format",
-		"lint": "composer lint && eslint --fix",
+		"format": "prettier --write --cache .",
+		"lint": "eslint --fix --cache",
 		"test:e2e": "playwright test --ui",
 		"test:e2e:generate": "playwright codegen"
 	},
@@ -29,7 +29,6 @@
 		"vite": "^6.3.5"
 	},
 	"devDependencies": {
-		"@ianvs/prettier-plugin-sort-imports": "^4.4.2",
 		"@mirite/eslint-config-mirite": "^1.1.3",
 		"@playwright/test": "^1.53.0",
 		"@shufo/prettier-plugin-blade": "^1.15.3",
@@ -37,10 +36,7 @@
 		"@types/node": "^24.0.1",
 		"dotenv": "^16.5.0",
 		"eslint": "^9.29.0",
-		"prettier": "^3.5.3",
-		"prettier-plugin-jsdoc": "^1.3.2",
-		"prettier-plugin-packagejson": "^2.5.15",
-		"prettier-plugin-tailwindcss": "^0.6.12"
+		"prettier": "^3.5.3"
 	},
 	"packageManager": "yarn@4.9.1"
 }
